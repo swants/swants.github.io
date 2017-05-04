@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CALayer 入门指引]]></title>
+    <url>%2F2017%2F05%2F04%2FCALayer-%E5%85%A5%E9%97%A8%E6%8C%87%E5%BC%95%2F</url>
+    <content type="text"><![CDATA[本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 layer ,你的app中到处都是 layer 的身影.你app中每个 view 的背后都有个 layer 在支撑.是它让你的 app 轻松地将每个 view 的位图信息提供给手机 GPUs 绘制.下面的这张图片清楚的展示了 Core Animation 在iOS绘制层级中的位置. 为什么要使用 Layers?在智能手机上,用户希望能够飞速的进行各种操作.所以保持界面稳定的刷新帧率给用户丝滑般的感觉就显得尤为重要.在 iOS 系统中屏幕平均每秒钟刷新 60 次,为了保证系统在这个帧率下稳定运行,最基本同时也最强大的能够在 GPU 上精准运行的 OpenGL 就诞生了.OpenGL 提供了手机图形硬件最低层但也是最快的权限.但这也是需要权衡的,OpenGL过于低层,甚至完成最简单的任务都需要大量的代码. 为了缓解这个问题, Core Graphocs 就诞生了. Core Graphocs 可以用更少的代码提供更轻量的高层次的功能.为了让 Core Graphocs 使用起来更简单, Core Animation 也出现了. Core Animation 提供了 CALayer 类,并且能够使用一些基本的的图形能力. 后来苹果公司发现 Core Animation 强大的功能大部分在常规app内并没有使用到.于是苹果公司便推出了具有更高层次图形权限的 UIKit. 这么设计的好处就是你的 app 可以根据需求自由选择不同的图形层次功能.允许灵活选择需要实现的功能有效的防止了不必要的代码产生. UIKit 缺点就是高层次的图形 API 所能提供的功能比较少.我们可以这件事中知道: CALayer 可以让 iOS 系统快速便捷地获得 app 页面上 views 的位图信息, 这些信息将会交付给 Core Graphics 甚至 OpenGL处理 然后通过 GPU 绘制在你的手机屏幕上. 虽然在大部分的情况下我们不需要直接使用 CALayer, 但是低层次的 APIs 提供给开发者很多灵活可定制的功能,我们在文章后面将会提到. 获得 CALayer通过讨论 layers 为什么存在之后, 让我们来学着去使用! 就像我刚才提到的, 每一个 view 的背后都有个 layer 支撑. 我们可以通过 UIView 的属性来获得这个 layer. 假使我们有一个 myView 对象, 我们可以得到它的 layer 就像这样: 1myView.layer 好了, 当我们拿到 view 的 layer 之后都能做些什么操作呢? 你将会对之后我们能做的事之多感到惊奇. 在接下来的文章中我们将会看到 layer 的一些使用方法和所能达到的效果. Demo Project首先, 打开 示例工程 ,学习的最好方法就是实践,接下来我们将要在 app 内的 layer 上添加一些自定义的效果. 打开工程 你将会看到界面很简洁,一个空白的 view 中间有一个方块的 subview. 让我们来帮它美化下. 打开 ViewController.swift 开始操作吧. 切圆角你可以使用 CALayer 的 cornerRadius 属性来制作圆角. 让我们试一下吧. 在 viewDidLoad() 内 添加如下代码: 1box.layer.cornerRadius = 5 正如期望的那样,这行代码在 box 的 layer 上添加了一个 5像素的圆角. 就是下面这个样子:]]></content>
+      <tags>
+        <tag>CALayer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Test comments]]></title>
     <url>%2F2017%2F05%2F03%2FTest-comments%2F</url>
     <content type="text"><![CDATA[Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy]]></content>
