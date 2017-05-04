@@ -118,7 +118,9 @@
 <meta property="og:image" content="http://yoursite.com/images/blog01/CALayerLevel.png">
 <meta property="og:image" content="http://yoursite.com/images/blog01/CALayerDemo.png">
 <meta property="og:image" content="http://yoursite.com/images/blog01/calayer-corner-radius.png">
-<meta property="og:updated_time" content="2017-05-04T08:37:04.000Z">
+<meta property="og:image" content="http://yoursite.com/images/blog01/calayer-cornner-more.png">
+<meta property="og:image" content="http://yoursite.com/images/blog01/calayer-shadow.png">
+<meta property="og:updated_time" content="2017-05-04T10:10:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CALayer 入门指引">
 <meta name="twitter:description" content="本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 laye">
@@ -407,6 +409,7 @@
       
         <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
 <p>你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 layer ,你的app中到处都是 layer 的身影.你app中每个 view 的背后都有个 layer 在支撑.是它让你的 app 轻松地将每个 view 的位图信息提供给手机 GPUs 绘制.下面的这张图片清楚的展示了 <strong>Core Animation</strong> 在iOS绘制层级中的位置.</p>
+<a id="more"></a> 
 <p><img src="/images/blog01/CALayerLevel.png" alt="&quot;CALayer&quot;"></p>
 <h2 id="为什么要使用-Layers"><a href="#为什么要使用-Layers" class="headerlink" title="为什么要使用 Layers?"></a>为什么要使用 Layers?</h2><p>在智能手机上,用户希望能够飞速的进行各种操作.所以保持界面稳定的刷新帧率给用户丝滑般的感觉就显得尤为重要.在 iOS 系统中屏幕平均每秒钟刷新 60 次,为了保证系统在这个帧率下稳定运行,最基本同时也最强大的能够在 GPU 上精准运行的 <strong>OpenGL</strong> 就诞生了.<br>OpenGL 提供了手机图形硬件最低层但也是最快的权限.但这也是需要权衡的,OpenGL过于低层,甚至完成最简单的任务都需要大量的代码. </p>
 <p>为了缓解这个问题, <strong>Core Graphocs</strong> 就诞生了. Core Graphocs 可以用更少的代码提供更轻量的高层次的功能.为了让 Core Graphocs 使用起来更简单, <strong>Core  Animation</strong> 也出现了. Core Animation 提供了 <strong>CALayer</strong> 类,并且能够使用一些基本的的图形能力. </p>
@@ -419,8 +422,26 @@
 <p><img src="/images/blog01/CALayerDemo.png" alt="CALayer Demo"></p>
 <h2 id="切圆角"><a href="#切圆角" class="headerlink" title="切圆角"></a>切圆角</h2><p>你可以使用 CALayer 的 cornerRadius 属性来制作圆角. 让我们试一下吧. 在 <code>viewDidLoad()</code> 内 添加如下代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">box.layer.cornerRadius = 5</div></pre></td></tr></table></figure>
-<p>正如期望的那样,这行代码在 <code>box</code> 的 layer 上添加了一个 5像素的圆角. 就是下面这个样子:</p>
+<p>正如期望的那样,这行代码在 <code>box</code> 的 layer 上添加了一个 5个点单位的圆角. 就是下面这个样子:</p>
 <p><img src="/images/blog01/calayer-corner-radius.png" alt="圆角"></p>
+<p>还不错吧! 增加圆角弧度会让 layer 更加的圆滑,相反减少圆角弧度 会让layer 更加的棱角分明. 所有的 layer 默认的圆角弧度是 0 .</p>
+<p><img src="/images/blog01/calayer-cornner-more.png" alt="圆角对比"></p>
+<h2 id="增加阴影效果"><a href="#增加阴影效果" class="headerlink" title="增加阴影效果"></a>增加阴影效果</h2><p>阴影可以让我们的 app 更有立体感,并且阴影在设计界面的时候是非常有帮助的.在阴影效果下 我们可以让 views 看起来像漂浮在屏幕上. 让我们研究下用 CALayer 如何制作出隐形效果. 把下面代码插入到 <code>ViewController</code> 的 <code>viewDidLoad</code> 方法中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">box.layer.shadowOffset = CGSizeMake(5, 5)</div><div class="line">box.layer.shadowOpacity = 0.7</div><div class="line">box.layer.shadowRadius = 5</div><div class="line">box.layer.shadowColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).CGColor</div></pre></td></tr></table></figure>
+<blockquote>
+<p> 第一行 设置 layer 的阴影偏移量是 (5,5). 将阴影的 <code>layer.shadowOffset</code> 设置(5,5), 意味着这个 layer 的阴影是到 <code>box.layer</code> 右边 5 个点单位距离, 下边 5 个单位的距离.</p>
+<p>第二行 设置 layer 的阴影透明度是 0.7 . 意味着这个阴影应该是70%的不透明度.</p>
+<p>第三行 设置的是 layer 的阴影半径是5个点. 阴影的范围是 <code>box.layer</code> 的模糊弧度决定的.更高的弧度会让阴影的范围更广,但是更加模糊不可见.更低的弧度会让阴影更加清晰可见度更高.</p>
+<p> 第四行 设置的是阴影的颜色是深蓝. 注意这里的颜色属性是 <code>CGColor</code> 类型. 而不是 <code>UIColor</code>. 这两个颜色类的转换是非常简单的,你只需要写成 <code>myUIColor.CGColor</code>.</p>
+</blockquote>
+<p>让我们看一下效果:</p>
+<p><img src="/images/blog01/calayer-shadow.png" alt="阴影效果"></p>
+<h2 id="添加边框"><a href="#添加边框" class="headerlink" title="添加边框"></a>添加边框</h2><p> 我们能够轻易地使用 CALayer 添加边框.让我们给 box 添加一个边框.</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box.layer.borderColor = UIColor.blueColor().CGColor</div><div class="line">box.layer.borderWidth = 3</div></pre></td></tr></table></figure>
+<blockquote>
+<p>第一行 设置 <code>box</code> 的边框颜色是蓝色.这将会让 box 的所有边框都是蓝色的.</p>
+<p>第二行 设置边框线条的宽度是 3 点. 也就是 box 的边框厚度是 3 个点的单位.</p>
+</blockquote>
 
       
     </div>
@@ -623,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用-Layers"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用 Layers?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得-CALayer"><span class="nav-number">2.</span> <span class="nav-text">获得 CALayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-Project"><span class="nav-number">3.</span> <span class="nav-text">Demo Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切圆角"><span class="nav-number">4.</span> <span class="nav-text">切圆角</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用-Layers"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用 Layers?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得-CALayer"><span class="nav-number">2.</span> <span class="nav-text">获得 CALayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-Project"><span class="nav-number">3.</span> <span class="nav-text">Demo Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切圆角"><span class="nav-number">4.</span> <span class="nav-text">切圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加阴影效果"><span class="nav-number">5.</span> <span class="nav-text">增加阴影效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加边框"><span class="nav-number">6.</span> <span class="nav-text">添加边框</span></a></li></ol></div>
             
 
           </div>

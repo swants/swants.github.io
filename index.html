@@ -404,25 +404,15 @@
 
       
         
-          
-            <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
+          <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
 <p>你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 layer ,你的app中到处都是 layer 的身影.你app中每个 view 的背后都有个 layer 在支撑.是它让你的 app 轻松地将每个 view 的位图信息提供给手机 GPUs 绘制.下面的这张图片清楚的展示了 <strong>Core Animation</strong> 在iOS绘制层级中的位置.</p>
-<p><img src="/images/blog01/CALayerLevel.png" alt="&quot;CALayer&quot;"></p>
-<h2 id="为什么要使用-Layers"><a href="#为什么要使用-Layers" class="headerlink" title="为什么要使用 Layers?"></a>为什么要使用 Layers?</h2><p>在智能手机上,用户希望能够飞速的进行各种操作.所以保持界面稳定的刷新帧率给用户丝滑般的感觉就显得尤为重要.在 iOS 系统中屏幕平均每秒钟刷新 60 次,为了保证系统在这个帧率下稳定运行,最基本同时也最强大的能够在 GPU 上精准运行的 <strong>OpenGL</strong> 就诞生了.<br>OpenGL 提供了手机图形硬件最低层但也是最快的权限.但这也是需要权衡的,OpenGL过于低层,甚至完成最简单的任务都需要大量的代码. </p>
-<p>为了缓解这个问题, <strong>Core Graphocs</strong> 就诞生了. Core Graphocs 可以用更少的代码提供更轻量的高层次的功能.为了让 Core Graphocs 使用起来更简单, <strong>Core  Animation</strong> 也出现了. Core Animation 提供了 <strong>CALayer</strong> 类,并且能够使用一些基本的的图形能力. </p>
-<p>后来苹果公司发现 Core Animation 强大的功能大部分在常规app内并没有使用到.于是苹果公司便推出了具有更高层次图形权限的 <strong>UIKit</strong>. 这么设计的好处就是你的 app 可以根据需求自由选择不同的图形层次功能.允许灵活选择需要实现的功能有效的防止了不必要的代码产生.</p>
-<p>UIKit 缺点就是高层次的图形 API 所能提供的功能比较少.我们可以这件事中知道: CALayer 可以让 iOS 系统快速便捷地获得 app 页面上 views 的位图信息, 这些信息将会交付给 Core Graphics 甚至 OpenGL处理 然后通过 GPU 绘制在你的手机屏幕上. 虽然在大部分的情况下我们不需要直接使用 CALayer, 但是低层次的 APIs 提供给开发者很多灵活可定制的功能,我们在文章后面将会提到.</p>
-<h2 id="获得-CALayer"><a href="#获得-CALayer" class="headerlink" title="获得 CALayer"></a>获得 CALayer</h2><p>通过讨论 layers 为什么存在之后, 让我们来学着去使用! 就像我刚才提到的, 每一个 view 的背后都有个 layer 支撑. 我们可以通过 UIView 的属性来获得这个 layer. 假使我们有一个 myView 对象, 我们可以得到它的 layer 就像这样:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myView.layer</div></pre></td></tr></table></figure>
-<p>好了, 当我们拿到 view 的 layer 之后都能做些什么操作呢? 你将会对之后我们能做的事之多感到惊奇. 在接下来的文章中我们将会看到 layer 的一些使用方法和所能达到的效果.</p>
-<h2 id="Demo-Project"><a href="#Demo-Project" class="headerlink" title="Demo Project"></a>Demo Project</h2><p>首先, 打开<a href="https://github.com/appcoda/CALayerDemo/raw/master/layers-starter.zip" target="_blank" rel="external"> 示例工程 </a> ,学习的最好方法就是实践,接下来我们将要在 app 内的 layer 上添加一些自定义的效果. 打开工程 你将会看到界面很简洁,一个空白的 view 中间有一个方块的 subview. 让我们来帮它美化下. 打开 ViewController.swift 开始操作吧.</p>
-<p><img src="/images/blog01/CALayerDemo.png" alt="CALayer Demo"></p>
-<h2 id="切圆角"><a href="#切圆角" class="headerlink" title="切圆角"></a>切圆角</h2><p>你可以使用 CALayer 的 cornerRadius 属性来制作圆角. 让我们试一下吧. 在 <code>viewDidLoad()</code> 内 添加如下代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">box.layer.cornerRadius = 5</div></pre></td></tr></table></figure>
-<p>正如期望的那样,这行代码在 <code>box</code> 的 layer 上添加了一个 5像素的圆角. 就是下面这个样子:</p>
-<p><img src="/images/blog01/calayer-corner-radius.png" alt="圆角"></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/04/CALayer-入门指引/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
