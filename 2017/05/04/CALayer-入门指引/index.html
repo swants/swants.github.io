@@ -120,7 +120,9 @@
 <meta property="og:image" content="http://yoursite.com/images/blog01/calayer-corner-radius.png">
 <meta property="og:image" content="http://yoursite.com/images/blog01/calayer-cornner-more.png">
 <meta property="og:image" content="http://yoursite.com/images/blog01/calayer-shadow.png">
-<meta property="og:updated_time" content="2017-05-04T10:10:32.000Z">
+<meta property="og:image" content="http://yoursite.com/images/blog01/calayer-border.png">
+<meta property="og:image" content="http://yoursite.com/images/blog01/calayermasktobounds.png">
+<meta property="og:updated_time" content="2017-05-05T10:07:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CALayer 入门指引">
 <meta name="twitter:description" content="本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 laye">
@@ -429,19 +431,48 @@
 <h2 id="增加阴影效果"><a href="#增加阴影效果" class="headerlink" title="增加阴影效果"></a>增加阴影效果</h2><p>阴影可以让我们的 app 更有立体感,并且阴影在设计界面的时候是非常有帮助的.在阴影效果下 我们可以让 views 看起来像漂浮在屏幕上. 让我们研究下用 CALayer 如何制作出隐形效果. 把下面代码插入到 <code>ViewController</code> 的 <code>viewDidLoad</code> 方法中:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">box.layer.shadowOffset = CGSizeMake(5, 5)</div><div class="line">box.layer.shadowOpacity = 0.7</div><div class="line">box.layer.shadowRadius = 5</div><div class="line">box.layer.shadowColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).CGColor</div></pre></td></tr></table></figure>
 <blockquote>
-<p> 第一行 设置 layer 的阴影偏移量是 (5,5). 将阴影的 <code>layer.shadowOffset</code> 设置(5,5), 意味着这个 layer 的阴影是到 <code>box.layer</code> 右边 5 个点单位距离, 下边 5 个单位的距离.</p>
-<p>第二行 设置 layer 的阴影透明度是 0.7 . 意味着这个阴影应该是70%的不透明度.</p>
-<p>第三行 设置的是 layer 的阴影半径是5个点. 阴影的范围是 <code>box.layer</code> 的模糊弧度决定的.更高的弧度会让阴影的范围更广,但是更加模糊不可见.更低的弧度会让阴影更加清晰可见度更高.</p>
-<p> 第四行 设置的是阴影的颜色是深蓝. 注意这里的颜色属性是 <code>CGColor</code> 类型. 而不是 <code>UIColor</code>. 这两个颜色类的转换是非常简单的,你只需要写成 <code>myUIColor.CGColor</code>.</p>
+<p> 第一行 设置 layer 的阴影偏移量是 (5,5). 将阴影的 <code>layer.shadowOffset</code> 设置(5,5), 意味着这个 layer 的阴影是到 <code>box.layer</code> 右边 5 个点单位距离, 下边 5 个单位的距离.<br>第二行 设置 layer 的阴影透明度是 0.7 . 意味着这个阴影应该是70%的不透明度.<br>第三行 设置的是 layer 的阴影半径是5个点. 阴影的范围是 <code>box.layer</code> 的模糊弧度决定的.更高的弧度会让阴影的范围更广,但是更加模糊不可见.更低的弧度会让阴影更加清晰可见度更高.<br> 第四行 设置的是阴影的颜色是深蓝. 注意这里的颜色属性是 <code>CGColor</code> 类型. 而不是 <code>UIColor</code>. 这两个颜色类的转换是非常简单的,你只需要写成 <code>myUIColor.CGColor</code>.</p>
 </blockquote>
 <p>让我们看一下效果:</p>
 <p><img src="/images/blog01/calayer-shadow.png" alt="阴影效果"></p>
 <h2 id="添加边框"><a href="#添加边框" class="headerlink" title="添加边框"></a>添加边框</h2><p> 我们能够轻易地使用 CALayer 添加边框.让我们给 box 添加一个边框.</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box.layer.borderColor = UIColor.blueColor().CGColor</div><div class="line">box.layer.borderWidth = 3</div></pre></td></tr></table></figure>
 <blockquote>
-<p>第一行 设置 <code>box</code> 的边框颜色是蓝色.这将会让 box 的所有边框都是蓝色的.</p>
-<p>第二行 设置边框线条的宽度是 3 点. 也就是 box 的边框厚度是 3 个点的单位.</p>
+<p>第一行 设置 <code>box</code> 的边框颜色是蓝色.这将会让 box 的所有边框都是蓝色的.<br>第二行 设置边框线条的宽度是 3 点. 也就是 box 的边框厚度是 3 个点的单位.</p>
 </blockquote>
+<p>让我们看一下 <code>box</code>添加边框之后的效果:</p>
+<p><img src="/images/blog01/calayer-border.png" alt="添加边框"></p>
+<h2 id="渲染图片"><a href="#渲染图片" class="headerlink" title="渲染图片"></a>渲染图片</h2><p>你也可以吧一张图片赋值给 layer 这样 layer 就会将这张图片渲染出来. 在这里有一张树的图片, 让我们试着用 layer 来显示这张图片.把下面的代码插入到 <code>viewDidLoad</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">box.layer.contents = UIImage(named: &quot;tree.jpg&quot;)?.CGImage</div><div class="line">box.layer.contentsGravity = kCAGravityResize</div><div class="line">box.layer.masksToBounds = true</div></pre></td></tr></table></figure>
+<blockquote>
+<p>第一行 将图片赋值给 layer 的 contents 属性.<br>第二行 将 layer 的内容这是成自适应大小, 图片会自适应 layer 大小.<br>第三行 将 layer 的任何 扩展到 layer 外的子 layer 部分都剪切掉.如果你不明白是什么意思.你可以将 <code>masksToBounds</code> 设置成 false 来看看他们的区别 (阴影被裁剪掉了):</p>
+</blockquote>
+<p><img src="/images/blog01/calayermasktobounds.png" alt="裁剪图片"></p>
+<h2 id="背景颜色和不透明度"><a href="#背景颜色和不透明度" class="headerlink" title="背景颜色和不透明度"></a>背景颜色和不透明度</h2><p>研究了在 layer 添加一些 <code>UIKit</code> 无法实现的特殊效果. 我们也应该讨论下通过 CALayer 来修改 UIKit 类的属性的可能性. 比如 你可以修改 view 的背景颜色和不透明度:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box.layer.backgroundColor = UIColor.blueColor().CGColor</div><div class="line">box.layer.opacity = 0.5</div></pre></td></tr></table></figure>
+<h2 id="CALayer-的性能"><a href="#CALayer-的性能" class="headerlink" title="CALayer 的性能"></a>CALayer 的性能</h2><p>在 layers 上添加太多的特殊效果会影响到性能, 现在我们来聊一聊可以帮助我们提高 app 性能的 2 个 CALayer 属性.</p>
+<p>首先是 <code>drawsAsynchronously</code> 属性.这个属性决定 CPU 是否应该在子线程里渲染 layer. 如果设置成 true, 这个 layer 看起来像我们平时看到的样子, 但是 CPU 需要在子线程中来计算和渲染它.如果你的 app 里面有一个 view 需要频繁重绘(比如一个地图view 或者 tableView),你需要将这个属性设置为 true;</p>
+<p>第二个属性是 <code>shouldRasterize</code>,这个属性决定这 layer 是否会栅格化.当这个属性设置为 true 后,这个 layer 只会被绘制一次,当它具有动画时 layer不会被渲染 并且第一次绘制的位图信息将会被回收.当你的app有一个不需要频繁绘制的 view 时 你可以把这个属性设置为 true. 注意 当你设置了<code>shouldRasterize</code>属性后,layer 的外观可能在 Retina 屏上有锯齿. 这是因为 layer 有一个控制 layer 的栅格化因子 rasterizationScale.为了防止这种情况. 将 layer 的 rasterizationScale 设置成 <code>UIScreen.mainScreen().scale</code> 这样就不会出现锯齿了.</p>
+<blockquote>
+<p>栅格化 是PS中的一个专业术语，栅格即像素，栅格化即将矢量图形转化为位图。<br>开启 shouldRasterize 后, CALayer 会被栅格化为 bitmap , layer 的阴影等效果也会被保存到 bitmap 中。</p>
+</blockquote>
+<h3 id="避免-shouldRasterize-和-drawsAsynchronously-的过度使用"><a href="#避免-shouldRasterize-和-drawsAsynchronously-的过度使用" class="headerlink" title="避免 shouldRasterize 和 drawsAsynchronously 的过度使用"></a>避免 shouldRasterize 和 drawsAsynchronously 的过度使用</h3><p>当我们开启光栅化后,需要注意三点问题。</p>
+<p>如果我们更新已光栅化的layer,会造成大量的 offscreen 渲染。</p>
+<blockquote>
+<p>offscreen rendring指的是在图像在绘制到当前屏幕前,需要先进行一次渲染,之后才绘制到当前屏幕。offscreen渲染会耗费大量资源.</p>
+</blockquote>
+<p><strong>因此 CALayer 的光栅化选项的开启与否需要我们仔细衡量使用场景。</strong>只能用在图像内容不变的前提下的：</p>
+<p>用于避免静态内容的复杂特效的重绘,例如前面讲到的UIBlurEffect<br>用于避免多个View嵌套的复杂View的重绘。<br>而对于经常变动的内容,这个时候不要开启,否则会造成性能的浪费。</p>
+<p>例如我们日程经常打交道的 TableViewCell ,因为 TableViewCell 的重绘是很频繁的（因为Cell 的复用）,如果Cell的内容不断变化,则 Cell 需要不断重绘,如果此时设置了cell.layer 可光栅化。则会造成大量的 offscreen 渲染,降低图形性能。</p>
+<p>当然,合理利用的话,是能够得到不少性能的提高的,因为使用 shouldRasterize 后 layer 会缓存为Bitmap位图,对一些添加了 shawdow 等效果的耗费资源较多的静态内容进行缓存,能够得到性能的提升。</p>
+<p>不要过度使用,系统限制了缓存的大小为2.5X Screen Size.<br>如果过度使用,超出缓存之后,同样会造成大量的 offscreen 渲染。<br>被光栅化的图片如果超过 100ms 没有被使用,则会被移除</p>
+<p>因此我们应该只对连续不断使用的图片进行缓存。对于不常使用的图片缓存是没有意义,且耗费资源的。</p>
+<p><strong>基于99%的情况下 你都不需要手动设置这两个属性.不当的设置它们可能会反而导致你 app 的性能变得更糟.</strong></p>
+<h2 id="题外"><a href="#题外" class="headerlink" title="题外"></a>题外</h2><blockquote>
+<p>关于offscreen rendering 注意到上面提到的 offscreen rendering 。我们需要注意shouldRasterize的地方就是会造成offscreen rendering的地方,那么为什么需要避免呢？<br>WWDC 2011 Understanding UIKit Rendering指出一般导致图形性能的问题大部分都出在了offscreen rendering,因此如果我们发现列表滚动不流畅,动画卡顿等问题,就可以想想和找出我们哪部分代码导致了大量的offscreen 渲染。<br>那么为什么offscreen渲染会耗费大量资源呢？<br>原因是显卡需要另外alloc一块内存来进行渲染,渲染完毕后在绘制到当前屏幕,而且对于显卡来说,onscreen到offscreen的上下文环境切换是非常昂贵的(涉及到OpenGL的pipelines和barrier等),<br>我们在开发应用,提高性能通常要注意的是避免offscreen rendering。不需要纠结和拘泥于它的定义.<br>有兴趣可以继续阅读Andy Matuschak, 前UIKit team成员关于offscreen rendering的 <a href="https://lobste.rs/s/ckm4uw/a_performance-minded_take_on_ios_design/comments/itdkfh" target="_blank" rel="external">评论</a>.</p>
+</blockquote>
+<p>总之,我们通常需要避免大量的offscreen rendering.<br>会造成 offscreen rendering的原因有：<br>Any layer with a mask (layer.mask)<br>Any layer with layer.masksToBounds being true<br>Any layer with layer.allowsGroupOpacity set to YES and layer.opacity is less than 1.0<br>Any layer with a drop shadow (layer.shadow*).<br>Any layer with layer.shouldRasterize being true<br>Any layer with layer.cornerRadius, layer.edgeAntialiasingMask,<br>layer.allowsEdgeAntialiasing </p>
+<p>因此,对于一些需要优化图像性能的场景,我们可以检查我们是否触发了offscreen rendering。并用更高效的实现手段来替换。<br>阴影绘制:<br>裁剪图片为圆:<br>Blending 的过多使用<br>检查有无过多offscreen渲染<br>检查有无过多Blending<br>检查有无不正确图片格式,图片是否被放缩,像素是否对齐。<br>检查有无使用复杂的图形效果。</p>
 
       
     </div>
@@ -619,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用-Layers"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用 Layers?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得-CALayer"><span class="nav-number">2.</span> <span class="nav-text">获得 CALayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-Project"><span class="nav-number">3.</span> <span class="nav-text">Demo Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切圆角"><span class="nav-number">4.</span> <span class="nav-text">切圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加阴影效果"><span class="nav-number">5.</span> <span class="nav-text">增加阴影效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加边框"><span class="nav-number">6.</span> <span class="nav-text">添加边框</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用-Layers"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用 Layers?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得-CALayer"><span class="nav-number">2.</span> <span class="nav-text">获得 CALayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-Project"><span class="nav-number">3.</span> <span class="nav-text">Demo Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切圆角"><span class="nav-number">4.</span> <span class="nav-text">切圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加阴影效果"><span class="nav-number">5.</span> <span class="nav-text">增加阴影效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加边框"><span class="nav-number">6.</span> <span class="nav-text">添加边框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染图片"><span class="nav-number">7.</span> <span class="nav-text">渲染图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景颜色和不透明度"><span class="nav-number">8.</span> <span class="nav-text">背景颜色和不透明度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CALayer-的性能"><span class="nav-number">9.</span> <span class="nav-text">CALayer 的性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#避免-shouldRasterize-和-drawsAsynchronously-的过度使用"><span class="nav-number">9.1.</span> <span class="nav-text">避免 shouldRasterize 和 drawsAsynchronously 的过度使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外"><span class="nav-number">10.</span> <span class="nav-text">题外</span></a></li></ol></div>
             
 
           </div>
