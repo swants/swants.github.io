@@ -108,16 +108,18 @@
 
 
 
-<meta name="description" content="崩溃日志符号化使用xcode符号化 条件: (需要崩溃手机) 如果发生崩溃的手机在手边.可以连上电脑 在xcode中的organizer&amp;gt;device中直接查看符号化好的日志.优点: 操作简单缺点: 如果崩溃日志较多 还需要崩溃时间才能确定是哪个crash文件. crash不好统计   使用symbolicatecrash符号化条件: crash文件 dsYM文件 symbolicatecr">
+<meta name="description" content="在日常开发中,我们难免遇到崩溃.如果是在开发过程中,我们可以直接通过xcode来找到问题所在.如果是在测试的时候崩溃,我们也可以轻易的通过测试机导出crash进行问题定位.  可是一旦当产品上线之后.这一切就变得不那么容易了.庆幸的是市场上已经出现了一些比较好的第三方crash统计服务比如bugly. 可以让我轻松了解到crash时的堆栈信息. 但是bugly也有符号化不到位的情况. 比如:那么在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS APP 崩溃日志分析">
 <meta property="og:url" content="http://yoursite.com/2017/05/11/iOS-APP-崩溃日志分析/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="崩溃日志符号化使用xcode符号化 条件: (需要崩溃手机) 如果发生崩溃的手机在手边.可以连上电脑 在xcode中的organizer&amp;gt;device中直接查看符号化好的日志.优点: 操作简单缺点: 如果崩溃日志较多 还需要崩溃时间才能确定是哪个crash文件. crash不好统计   使用symbolicatecrash符号化条件: crash文件 dsYM文件 symbolicatecr">
-<meta property="og:updated_time" content="2017-05-11T09:56:57.000Z">
+<meta property="og:description" content="在日常开发中,我们难免遇到崩溃.如果是在开发过程中,我们可以直接通过xcode来找到问题所在.如果是在测试的时候崩溃,我们也可以轻易的通过测试机导出crash进行问题定位.  可是一旦当产品上线之后.这一切就变得不那么容易了.庆幸的是市场上已经出现了一些比较好的第三方crash统计服务比如bugly. 可以让我轻松了解到crash时的堆栈信息. 但是bugly也有符号化不到位的情况. 比如:那么在">
+<meta property="og:image" content="http://yoursite.com/2017/05/11/iOS-APP-崩溃日志分析/images/blog02/crash.png">
+<meta property="og:updated_time" content="2017-05-11T10:12:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS APP 崩溃日志分析">
-<meta name="twitter:description" content="崩溃日志符号化使用xcode符号化 条件: (需要崩溃手机) 如果发生崩溃的手机在手边.可以连上电脑 在xcode中的organizer&amp;gt;device中直接查看符号化好的日志.优点: 操作简单缺点: 如果崩溃日志较多 还需要崩溃时间才能确定是哪个crash文件. crash不好统计   使用symbolicatecrash符号化条件: crash文件 dsYM文件 symbolicatecr">
+<meta name="twitter:description" content="在日常开发中,我们难免遇到崩溃.如果是在开发过程中,我们可以直接通过xcode来找到问题所在.如果是在测试的时候崩溃,我们也可以轻易的通过测试机导出crash进行问题定位.  可是一旦当产品上线之后.这一切就变得不那么容易了.庆幸的是市场上已经出现了一些比较好的第三方crash统计服务比如bugly. 可以让我轻松了解到crash时的堆栈信息. 但是bugly也有符号化不到位的情况. 比如:那么在">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/11/iOS-APP-崩溃日志分析/images/blog02/crash.png">
 
 
 
@@ -400,7 +402,8 @@
       
 
       
-        <h3 id="崩溃日志符号化"><a href="#崩溃日志符号化" class="headerlink" title="崩溃日志符号化"></a>崩溃日志符号化</h3><h4 id="使用xcode符号化"><a href="#使用xcode符号化" class="headerlink" title="使用xcode符号化"></a>使用xcode符号化</h4><p> 条件: (需要崩溃手机)</p>
+        <p>在日常开发中,我们难免遇到崩溃.如果是在开发过程中,我们可以直接通过xcode来找到问题所在.如果是在测试的时候崩溃,我们也可以轻易的通过测试机导出crash进行问题定位.  可是一旦当产品上线之后.这一切就变得不那么容易了.庆幸的是市场上已经出现了一些比较好的第三方crash统计服务比如bugly. 可以让我轻松了解到crash时的堆栈信息. 但是bugly也有符号化不到位的情况. 比如:<br><img src="images/blog02/crash.png" alt="imag"><br>那么在这种情况下我们应该怎么办呢?<br><a id="more"></a> </p>
+<h3 id="崩溃日志符号化"><a href="#崩溃日志符号化" class="headerlink" title="崩溃日志符号化"></a>崩溃日志符号化</h3><h4 id="使用xcode符号化"><a href="#使用xcode符号化" class="headerlink" title="使用xcode符号化"></a>使用xcode符号化</h4><p> 条件: (需要崩溃手机)</p>
 <p>如果发生崩溃的手机在手边.可以连上电脑 在xcode中的organizer&gt;device中直接查看符号化好的日志.<br>优点: 操作简单<br>缺点: 如果崩溃日志较多 还需要崩溃时间才能确定是哪个crash文件. crash不好统计  </p>
 <h4 id="使用symbolicatecrash符号化"><a href="#使用symbolicatecrash符号化" class="headerlink" title="使用symbolicatecrash符号化"></a>使用symbolicatecrash符号化</h4><p>条件: crash文件 dsYM文件 symbolicatecrash<br>symbolicatecrash 位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash)</div></pre></td></tr></table></figure></p>
 <p>方法: 将三个文件放在同级下 然后打开终端 进入文件夹目录下<br> 1 .  设置环境变量</p>
