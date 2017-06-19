@@ -108,16 +108,17 @@
 
 
 
-<meta name="description" content="the share for code and life.">
+<meta name="description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
 <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="塞万提斯">
-<meta property="og:url" content="https://swants.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]避免使用第三方UI库">
+<meta property="og:url" content="https://swants.github.io/2017/06/15/译-避免使用第三方UI库/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="the share for code and life.">
+<meta property="og:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
+<meta property="og:updated_time" content="2017-06-19T09:53:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="塞万提斯">
-<meta name="twitter:description" content="the share for code and life.">
+<meta name="twitter:title" content="[译]避免使用第三方UI库">
+<meta name="twitter:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
 
 
 
@@ -145,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="https://swants.github.io/"/>
+  <link rel="canonical" href="https://swants.github.io/2017/06/15/译-避免使用第三方UI库/"/>
 
 
 
 
 
-  <title>塞万提斯</title>
+  <title>[译]避免使用第三方UI库 | 塞万提斯</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -176,9 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 <a href="https://github.com/swants/swants.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
@@ -316,9 +315,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -344,9 +343,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/15/译-避免使用第三方UI库/" itemprop="url">[译]避免使用第三方UI库</a></h2>
+          <h2 class="post-title" itemprop="name headline">[译]避免使用第三方UI库</h2>
         
 
         <div class="post-meta">
@@ -404,9 +401,7 @@
       
 
       
-        
-          
-            <p>原文地址: <a href="http://holko.pl/2017/05/31/avoiding-ui-libraries/" target="_blank" rel="external">http://holko.pl/2017/05/31/avoiding-ui-libraries/</a><br>翻译: swants  </p>
+        <p>原文地址: <a href="http://holko.pl/2017/05/31/avoiding-ui-libraries/" target="_blank" rel="external">http://holko.pl/2017/05/31/avoiding-ui-libraries/</a><br>翻译: swants  </p>
 <p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <em>我们应该避免使用 第三方UI依赖库吗?</em></p>
 <h2 id="考虑使用第三方库的缘由"><a href="#考虑使用第三方库的缘由" class="headerlink" title="考虑使用第三方库的缘由"></a>考虑使用第三方库的缘由</h2><p>开发者们考虑使用一个第三方库通常有两个主要原因:  </p>
 <ul>
@@ -434,276 +429,48 @@
 <p>##结论<br>在编程中经常会出现这种情况,很难提供一般规则,我们必须在代码库添加每一行代码的时候都要考虑一条又一条的规则.根据我的个人经验,使用大多数第三方UI库都是通过牺牲灵活性来节省一些时间.</p>
 <p>我们利用现成的代码来更快地实现需求,但是迟早,我们将会被第三方库所限制 并作出艰难的决定:考虑接下来怎么办?</p>
 
-          
-        
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2017/05/11/iOS-APP-崩溃日志分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="swants">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="塞万提斯">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/11/iOS-APP-崩溃日志分析/" itemprop="url">iOS APP 崩溃日志分析</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T16:18:55+08:00">
-                2017-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/05/11/iOS-APP-崩溃日志分析/" class="leancloud_visitors" data-flag-title="iOS APP 崩溃日志分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>写的不错,打赏一下吧！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="swants WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
       
       
-
-      
-        
-          <p>在日常开发中,我们难免遇到崩溃.如果是在开发过程中,我们可以直接通过xcode来找到问题所在.如果是在测试的时候崩溃,我们也可以轻易的通过测试机导出crash进行问题定位.  可是一旦当产品上线之后.这一切就变得不那么容易了.庆幸的是市场上已经出现了一些比较好的第三方crash统计服务比如bugly. 可以让我轻松了解到crash时的堆栈信息. 但是bugly也有符号化不到位的情况. 比如:  </p>
-<p><img src="/images/blog02/crash.png" alt="image"><br>那么在这种情况下我们应该怎么办呢?<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/11/iOS-APP-崩溃日志分析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2016/10/04/[译]CALayer-入门指引/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="swants">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="塞万提斯">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/10/04/[译]CALayer-入门指引/" itemprop="url">CALayer 入门指引</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-04T13:58:52+08:00">
-                2016-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/10/04/[译]CALayer-入门指引/" class="leancloud_visitors" data-flag-title="CALayer 入门指引">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="swants Alipay"/>
+          <p>支付宝打赏</p>
         </div>
-      </header>
-    
+      
+    </div>
+  </div>
 
-    <div class="post-body" itemprop="articleBody">
 
       
-      
+    </div>
 
+    <div>
       
         
-          <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
-<p>你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 layer ,你的app中到处都是 layer 的身影.你app中每个 view 的背后都有个 layer 在支撑.是它让你的 app 轻松地将每个 view 的位图信息提供给手机 GPUs 绘制.下面的这张图片清楚的展示了 <strong>Core Animation</strong> 在iOS绘制层级中的位置.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/10/04/[译]CALayer-入门指引/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
@@ -711,21 +478,38 @@
       
 
       
-
+        
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/11/iOS-APP-崩溃日志分析/" rel="next" title="iOS APP 崩溃日志分析">
+                <i class="fa fa-chevron-left"></i> iOS APP 崩溃日志分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -733,6 +517,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODQ2MC81MDMx"></div>
+    
+  </div>
+
 
         </div>
         
@@ -752,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -806,6 +605,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑使用第三方库的缘由"><span class="nav-number">1.</span> <span class="nav-text">考虑使用第三方库的缘由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么应该”外包”"><span class="nav-number">2.</span> <span class="nav-text">什么应该”外包”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI库自身的问题"><span class="nav-number">3.</span> <span class="nav-text">UI库自身的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用-vs-特定"><span class="nav-number">3.1.</span> <span class="nav-text">通用 vs 特定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用继承进行个性化"><span class="nav-number">3.2.</span> <span class="nav-text">使用继承进行个性化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看起来过于定制化"><span class="nav-number">3.3.</span> <span class="nav-text">看起来过于定制化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未知的早期预设"><span class="nav-number">3.4.</span> <span class="nav-text">未知的早期预设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#想法-gt-代码"><span class="nav-number">3.5.</span> <span class="nav-text">想法 > 代码 ?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不能忽略它"><span class="nav-number">3.6.</span> <span class="nav-text">不能忽略它</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未来时间花费"><span class="nav-number">3.7.</span> <span class="nav-text">未来时间花费</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -926,6 +741,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
@@ -960,6 +779,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
