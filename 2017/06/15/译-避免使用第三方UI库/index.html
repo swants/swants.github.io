@@ -108,17 +108,17 @@
 
 
 
-<meta name="description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
+<meta name="description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: Swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
 <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[译]避免使用第三方UI库">
 <meta property="og:url" content="https://swants.github.io/2017/06/15/译-避免使用第三方UI库/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
-<meta property="og:updated_time" content="2017-06-19T09:53:42.000Z">
+<meta property="og:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: Swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
+<meta property="og:updated_time" content="2017-07-07T07:31:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[译]避免使用第三方UI库">
-<meta name="twitter:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
+<meta name="twitter:description" content="原文地址: http://holko.pl/2017/05/31/avoiding-ui-libraries/翻译: Swants   最近 iOS 社区一些人在讨论关于应该 赞成还是反对使用第三方依赖库 (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的">
 
 
 
@@ -401,12 +401,13 @@
       
 
       
-        <p>原文地址: <a href="http://holko.pl/2017/05/31/avoiding-ui-libraries/" target="_blank" rel="external">http://holko.pl/2017/05/31/avoiding-ui-libraries/</a><br>翻译: swants  </p>
-<p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <em>我们应该避免使用 第三方UI依赖库吗?</em></p>
+        <p>原文地址: <a href="http://holko.pl/2017/05/31/avoiding-ui-libraries/" target="_blank" rel="external">http://holko.pl/2017/05/31/avoiding-ui-libraries/</a><br>翻译: Swants  </p>
+<p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <strong>我们应该避免使用 第三方UI依赖库吗?</strong></p>
+<a id="more"></a>
 <h2 id="考虑使用第三方库的缘由"><a href="#考虑使用第三方库的缘由" class="headerlink" title="考虑使用第三方库的缘由"></a>考虑使用第三方库的缘由</h2><p>开发者们考虑使用一个第三方库通常有两个主要原因:  </p>
 <ul>
-<li><em>缺乏技能或者知识。</em> 比方说,你正在做一款照片分享功能的 app. 你没有从 <a href="https://motherboard.vice.com/en_us/article/why-you-dont-roll-your-own-crypto" target="_blank" rel="external">推出自己的密码</a> 开始。  </li>
-<li><em>缺乏从事某件事的时间或者兴趣。</em> 除非你又无限的时间不需要去分清主次。</li>
+<li><strong>缺乏技能或者知识。</strong> 比方说,你正在做一款照片分享功能的 app. 你没有从 <a href="https://motherboard.vice.com/en_us/article/why-you-dont-roll-your-own-crypto" target="_blank" rel="external">推出自己的密码</a> 开始。  </li>
+<li><strong>缺乏从事某件事的时间或者兴趣。</strong> 除非你又无限的时间不需要去分清主次。</li>
 </ul>
 <p>大部分的 UI 库(不是所有的!)都趋向于第二个原因.这个事儿不是高深的事,但是把它做好却需要花费时间.</p>
 <h2 id="什么应该”外包”"><a href="#什么应该”外包”" class="headerlink" title="什么应该”外包”"></a>什么应该”外包”</h2><p>那么,我们通常应该怎么决定什么代码应该我们自己写,什么应该交给第三方组件呢? 著名的乔尔建议提供了非常好的依据:  </p>
@@ -414,18 +415,18 @@
 <p>如果是核心商业功能的话 就自己做 不管它是什么。 </p>
 </blockquote>
 <p>一个事实(并且比较残酷的)是几乎所有的 iOS app 正在向前端而不是后端发展。,因此我们应该考虑在内部尽可能多地进行 UI 开发 看起来就尤为重要。 有人可能会说这只是个人观点,所以让我们重新思考你是对第三方 UI 库使用的更详细原因。</p>
-<h2 id="UI库自身的问题"><a href="#UI库自身的问题" class="headerlink" title="UI库自身的问题"></a>UI库自身的问题</h2><h3 id="通用-vs-特定"><a href="#通用-vs-特定" class="headerlink" title="通用 vs 特定"></a>通用 vs 特定</h3><p>有两种类型的控件/视图:</p>
+<h2 id="UI库自身的问题"><a href="#UI库自身的问题" class="headerlink" title="UI库自身的问题"></a>UI库自身的问题</h2><h3 id="通用-vs-特定"><a href="#通用-vs-特定" class="headerlink" title="通用 vs 特定"></a>通用 vs 特定</h3><p>有两种类型的控件/视图:  </p>
 <ol>
-<li><em>通用</em> 允许你在很多场景 甚至是我们想不到的场景下使用 比如 UIKit 中的 <code>UICollectionView</code>.</li>
-<li><em>特定</em> 专门为一些特定的场景设计 比如 <code>UIPickerView</code></li>
+<li><strong>通用</strong> 允许你在很多场景 甚至是我们想不到的场景下使用 比如 UIKit 中的 <code>UICollectionView</code> .</li>
+<li><strong>特定</strong> 专门为一些特定的场景设计 比如 <code>UIPickerView</code></li>
 </ol>
 <p>大部分第三方库倾向于第二个分类.而且它们通常是在一个已存在并且在不断优化的代码库中取出.<br>比如,还记得上个月看到的那个看起来非常酷的下拉刷新库吗?如果不修改控制器交互或下拉偏移量的话,它可能不太适合你 app 的设计或使用场景.  </p>
 <h3 id="使用继承进行个性化"><a href="#使用继承进行个性化" class="headerlink" title="使用继承进行个性化"></a>使用继承进行个性化</h3><p>就面向对象而言,由子类化转向组件化是行业趋势.当你选择第三方库的时候请确保没有违背这个趋势.在大多数情况下 你可以选择其他人做的一个组件,你只需要继承或者直接修改代码就好了.<br>(代理模式也是接近组件化的方法之一.)</p>
-<h3 id="看起来过于定制化"><a href="#看起来过于定制化" class="headerlink" title="看起来过于定制化"></a>看起来过于定制化</h3><p> 一个第三方库内可见的 UI 元素越少越好,这听起来可能觉得有悖常理.高度定制化的控件或界面带来的问题就是它不可能满足所有的的需求来迎合所有的使用情景.<br> 如果有大量的自定义 UI,你可能无法回馈上游,因为你对于外观或感觉的想法可能和库的维护者不一样.这个时候你会自己维护一个库的fork代码.或者在 app 内添加一个丑陋的遮盖 仅仅是为了移除一条阴影.<br>而在另一方面,一些库在UI层进行操作 但是没有或者几乎没有提供任何样式.想一想 <code>SDWebImage</code> 或者我的 <code>SloppySwiper</code> . 它们都可以不需要任何修改直接放进你的工程内.  </p>
-<h3 id="未知的早期预设"><a href="#未知的早期预设" class="headerlink" title="未知的早期预设"></a>未知的早期预设</h3><p>很多团队都会对内部代码进行代码审查, 但可能将第三方源代码的质量视为理所当然。花费点时间去浏览第三方库的源代码是值得的.你可能会看到一堆警告 比如在不需要的地方使用方法实现交换.<br> 尝试着去了解下库的结构,你能否根据未来的需求尝试着去调整库,或者当MVP 的时候后重写库吗?<br> 你也应该考虑下库的维护情况,最近有多少次提交,多少个问题 是否做过任何的单元测试或者 UI测试? 忽略 GitHub 的星数,尽管它有时是很有意义的.</p>
-<h3 id="想法-gt-代码"><a href="#想法-gt-代码" class="headerlink" title="想法 &gt; 代码 ?"></a>想法 &gt; 代码 ?</h3><p>我喜欢开源因为开源允许我去了解别人是怎么思考的,是怎么设计他们的方案的. 通常学习这个想法比获得这个代码本身更有意义. 如果一个库接触到了UI 并且很小,通常从代码中获取灵感并且开发一个组件来完美适应你的工程是更明智的做法.</p>
-<h3 id="不能忽略它"><a href="#不能忽略它" class="headerlink" title="不能忽略它"></a>不能忽略它</h3><p>由于 UIKit的设计方式,你可能几乎不能够忽略掉第三方UI库,比如 在一个适配器后面,一个库将会和你的UI代码交叉在一起,事实上已经变成了你工程里一等公民.</p>
-<h3 id="未来时间花费"><a href="#未来时间花费" class="headerlink" title="未来时间花费"></a>未来时间花费</h3><p>UIKit会随着每个iOS版本进行变化,这时候就糟了,你的第三方依赖并不会像你想象的那样免于维护.</p>
+<h3 id="看起来过于定制化"><a href="#看起来过于定制化" class="headerlink" title="看起来过于定制化"></a>看起来过于定制化</h3><p> 一个第三方库内可见的 UI 元素越少越好,这听起来可能觉得有悖常理.高度定制化的控件或界面带来的问题就是它不可能满足所有的的需求来迎合所有的使用情景.<br> 如果有大量的自定义 UI ,你可能无法回馈上游,因为你对于外观或感觉的想法可能和库的维护者不一样.这个时候你会自己维护一个库的fork代码.或者在 app 内添加一个丑陋的遮盖 仅仅是为了移除一条阴影.<br>而在另一方面,一些库在UI层进行操作 但是没有或者几乎没有提供任何样式.想一想 <code>SDWebImage</code> 或者我的 <code>SloppySwiper</code> . 它们都可以不需要任何修改直接放进你的工程内.  </p>
+<h3 id="未知的早期预设"><a href="#未知的早期预设" class="headerlink" title="未知的早期预设"></a>未知的早期预设</h3><p>很多团队都会对内部代码进行代码审查, 但可能将第三方源代码的质量视为理所当然。花费点时间去浏览第三方库的源代码是值得的.你可能会看到一堆警告 比如在不需要的地方使用方法实现交换.<br> 尝试着去了解下库的结构,你能否根据未来的需求尝试着去调整库,或者当 MVP 的时候后重写库吗?<br> 你也应该考虑下库的维护情况,最近有多少次提交,多少个问题 是否做过任何的单元测试或者 UI测试? 忽略 GitHub 的星数,尽管它有时是很有意义的.</p>
+<h3 id="想法-gt-代码"><a href="#想法-gt-代码" class="headerlink" title="想法 &gt; 代码 ?"></a>想法 &gt; 代码 ?</h3><p>我喜欢开源因为开源允许我去了解别人是怎么思考的,是怎么设计他们的方案的. 通常学习这个想法比获得这个代码本身更有意义. 如果一个库接触到了 UI 并且很小,通常从代码中获取灵感并且开发一个组件来完美适应你的工程是更明智的做法.</p>
+<h3 id="不能忽略它"><a href="#不能忽略它" class="headerlink" title="不能忽略它"></a>不能忽略它</h3><p>由于 UIKit 的设计方式,你可能几乎不能够忽略掉第三方 UI 库,比如 在一个适配器后面,一个库将会和你的 UI 代码交叉在一起,事实上已经变成了你工程里一等公民.</p>
+<h3 id="未来时间花费"><a href="#未来时间花费" class="headerlink" title="未来时间花费"></a>未来时间花费</h3><p>UIKit 会随着每个 iOS 版本进行变化,这时候就糟了,你的第三方依赖并不会像你想象的那样免于维护.</p>
 <p>##结论<br>在编程中经常会出现这种情况,很难提供一般规则,我们必须在代码库添加每一行代码的时候都要考虑一条又一条的规则.根据我的个人经验,使用大多数第三方UI库都是通过牺牲灵活性来节省一些时间.</p>
 <p>我们利用现成的代码来更快地实现需求,但是迟早,我们将会被第三方库所限制 并作出艰难的决定:考虑接下来怎么办?</p>
 
