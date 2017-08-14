@@ -108,18 +108,18 @@
 
 
 
-<meta name="description" content="原文地址：Generic Data Sources in Swift 原文作者：Andrea Prearo 译文出自：掘金翻译计划 本文永久链接：https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md 译者：Swants 校对者：iOSleep   Swift 中的通用数据源">
+<meta name="description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
 <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift 中的通用数据源">
 <meta property="og:url" content="https://swants.github.io/2017/08/14/Swift-中的通用数据源/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="原文地址：Generic Data Sources in Swift 原文作者：Andrea Prearo 译文出自：掘金翻译计划 本文永久链接：https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md 译者：Swants 校对者：iOSleep   Swift 中的通用数据源">
+<meta property="og:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
 <meta property="og:image" content="https://swants.github.io/images/blog03/blog03.gif">
-<meta property="og:updated_time" content="2017-08-14T03:26:44.000Z">
+<meta property="og:updated_time" content="2017-08-14T03:29:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift 中的通用数据源">
-<meta name="twitter:description" content="原文地址：Generic Data Sources in Swift 原文作者：Andrea Prearo 译文出自：掘金翻译计划 本文永久链接：https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md 译者：Swants 校对者：iOSleep   Swift 中的通用数据源">
+<meta name="twitter:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
 <meta name="twitter:image" content="https://swants.github.io/images/blog03/blog03.gif">
 
 
@@ -405,15 +405,12 @@
       
         <blockquote>
 <ul>
-<li>原文地址：<a href="https://medium.com/capital-one-developers/generic-data-sources-in-swift-c6fbb531520e" target="_blank" rel="external">Generic Data Sources in Swift</a></li>
-<li>原文作者：<a href="https://medium.com/@andrea.prearo" target="_blank" rel="external">Andrea Prearo</a></li>
 <li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
-<li>本文永久链接：<a href="https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md" target="_blank" rel="external">https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md</a></li>
-<li>译者：<a href="https://swants.github.io">Swants</a></li>
-<li>校对者：<a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
+<li>译者：    <a href="https://swants.github.io">Swants</a></li>
+<li>校对者：  <a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
 </ul>
 </blockquote>
-<h1 id="Swift-中的通用数据源"><a href="#Swift-中的通用数据源" class="headerlink" title="Swift 中的通用数据源"></a>Swift 中的通用数据源</h1><p><img src="/images/blog03/blog03.gif" alt="image">  </p>
+<p><img src="/images/blog03/blog03.gif" alt="image">  </p>
 <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
 <p>本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。</p>
 <a id="more"></a>
@@ -742,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-中的通用数据源"><span class="nav-number">1.</span> <span class="nav-text">Swift 中的通用数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TableView-vs-CollectionView"><span class="nav-number">1.0.1.</span> <span class="nav-text">TableView vs CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-泛型与有效抽取的探索"><span class="nav-number">1.0.2.</span> <span class="nav-text">Swift 泛型与有效抽取的探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection-View-Cell-抽取"><span class="nav-number">1.0.3.</span> <span class="nav-text">Collection View Cell 抽取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReusableCell"><span class="nav-number">1.0.4.</span> <span class="nav-text">ReusableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigurableCell"><span class="nav-number">1.0.5.</span> <span class="nav-text">ConfigurableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据源的抽取-CollectionDataProvider"><span class="nav-number">1.0.6.</span> <span class="nav-text">数据源的抽取: CollectionDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装样板-CollectionDataSource"><span class="nav-number">1.0.7.</span> <span class="nav-text">封装样板: CollectionDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider"><span class="nav-number">1.0.8.</span> <span class="nav-text">实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装到一块-CollectionArrayDataSource"><span class="nav-number">1.0.9.</span> <span class="nav-text">封装到一块: CollectionArrayDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个基本的-CollectionView"><span class="nav-number">1.0.10.</span> <span class="nav-text">创建一个基本的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置带有组标题和组的-CollectionView"><span class="nav-number">1.0.11.</span> <span class="nav-text">设置带有组标题和组的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">1.0.12.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#额外链接"><span class="nav-number">1.0.12.1.</span> <span class="nav-text">额外链接</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TableView-vs-CollectionView"><span class="nav-number">1.</span> <span class="nav-text">TableView vs CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-泛型与有效抽取的探索"><span class="nav-number">2.</span> <span class="nav-text">Swift 泛型与有效抽取的探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection-View-Cell-抽取"><span class="nav-number">3.</span> <span class="nav-text">Collection View Cell 抽取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReusableCell"><span class="nav-number">4.</span> <span class="nav-text">ReusableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigurableCell"><span class="nav-number">5.</span> <span class="nav-text">ConfigurableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据源的抽取-CollectionDataProvider"><span class="nav-number">6.</span> <span class="nav-text">数据源的抽取: CollectionDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装样板-CollectionDataSource"><span class="nav-number">7.</span> <span class="nav-text">封装样板: CollectionDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider"><span class="nav-number">8.</span> <span class="nav-text">实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装到一块-CollectionArrayDataSource"><span class="nav-number">9.</span> <span class="nav-text">封装到一块: CollectionArrayDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个基本的-CollectionView"><span class="nav-number">10.</span> <span class="nav-text">创建一个基本的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置带有组标题和组的-CollectionView"><span class="nav-number">11.</span> <span class="nav-text">设置带有组标题和组的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">12.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#额外链接"><span class="nav-number">12.1.</span> <span class="nav-text">额外链接</span></a></li></ol></li></ol></div>
             
 
           </div>

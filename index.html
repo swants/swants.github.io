@@ -407,15 +407,12 @@
         
           <blockquote>
 <ul>
-<li>原文地址：<a href="https://medium.com/capital-one-developers/generic-data-sources-in-swift-c6fbb531520e" target="_blank" rel="external">Generic Data Sources in Swift</a></li>
-<li>原文作者：<a href="https://medium.com/@andrea.prearo" target="_blank" rel="external">Andrea Prearo</a></li>
 <li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
-<li>本文永久链接：<a href="https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md" target="_blank" rel="external">https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md</a></li>
-<li>译者：<a href="https://swants.github.io">Swants</a></li>
-<li>校对者：<a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
+<li>译者：    <a href="https://swants.github.io">Swants</a></li>
+<li>校对者：  <a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
 </ul>
 </blockquote>
-<h1 id="Swift-中的通用数据源"><a href="#Swift-中的通用数据源" class="headerlink" title="Swift 中的通用数据源"></a>Swift 中的通用数据源</h1><p><img src="/images/blog03/blog03.gif" alt="image">  </p>
+<p><img src="/images/blog03/blog03.gif" alt="image">  </p>
 <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
 <p>本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。</p>
           <!--noindex-->
