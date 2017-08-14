@@ -405,8 +405,7 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <ul>
 <li>原文地址：<a href="https://medium.com/capital-one-developers/generic-data-sources-in-swift-c6fbb531520e" target="_blank" rel="external">Generic Data Sources in Swift</a></li>
 <li>原文作者：<a href="https://medium.com/@andrea.prearo" target="_blank" rel="external">Andrea Prearo</a></li>
@@ -416,149 +415,16 @@
 <li>校对者：<a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
 </ul>
 </blockquote>
-<h1 id="Swift-中的通用数据源"><a href="#Swift-中的通用数据源" class="headerlink" title="Swift 中的通用数据源"></a>Swift 中的通用数据源</h1><p><img src="https://cdn-images-1.medium.com/max/1600/1*Lv_C7Y7otRuJyQb5_v35Pw.gif" alt=""></p>
+<h1 id="Swift-中的通用数据源"><a href="#Swift-中的通用数据源" class="headerlink" title="Swift 中的通用数据源"></a>Swift 中的通用数据源</h1><p><img src="/images/blog03/blog03.gif" alt="image">  </p>
 <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
 <p>本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。</p>
-<h3 id="TableView-vs-CollectionView"><a href="#TableView-vs-CollectionView" class="headerlink" title="TableView vs CollectionView"></a>TableView vs CollectionView</h3><p>有些人可能会问 <strong>为什么单讨论 collectionView 而不提 tableView 呢?</strong></p>
-<p>在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 <strong>几乎完全</strong> 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：</p>
-<ul>
-<li>任何 tableView 都可以用单列的 collectionView 进行实现/重构。</li>
-<li>tableView 在大屏幕上（如：iPad ）表现的不是特别好。</li>
-</ul>
-<p>需要说明的是，我没有建议你把代码库里所有的 tableView 都用 collectionView 重新实现。我建议的是，当你需要添加一个展示列表的新功能时，你应该考虑下使用 collectionView 来代替 tableView 。尤其是在你开发一个 Universal APP 时，因为 collectionView 将让你的 APP 在所有尺寸屏幕上动态调整布局变得更简单。</p>
-<h3 id="Swift-泛型与有效抽取的探索"><a href="#Swift-泛型与有效抽取的探索" class="headerlink" title="Swift 泛型与有效抽取的探索"></a>Swift 泛型与有效抽取的探索</h3><p>我一直是泛型编程的拥趸，所以你能想象的到当苹果宣布在 Swift 中引进泛型时，我是多么的兴奋。但是泛型和协议结合有时并不合作的那么和谐。这时 Swift 2.x 中关于 <a href="https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/" target="_blank" rel="external">关联类型</a> 的介绍让使用泛型协议变得更加简单，越来越多的开发者开始去尝试使用它们。</p>
-<p>我打算展示的代码抽取是基于对泛型使用的尝试，尤其是泛型协议。这样的代码抽取能够让我对设置 collectionView 所需的样板代码进行封装，从而减少设置数据源所需的代码，甚至在一些简单的使用场景两行代码就足够了。</p>
-<p>我想说明下我所创建的不是通解。我做的代码封装针对于解决一些特定使用场景。对于这些场景来说，使用抽取封装后的代码效果非常好。对于一些复杂的使用场景，可能就需要添加额外的代码了。我把抽取工作主要放在了 collectionView 最常用的功能。如果需要的话，你可以封装更多的功能，但是对于我的特定场景来说，这并不是必需的。</p>
-<p>作为本篇文章的目的，我将会展示一部分抽取代码来概括使用 collectionView 时常用的功能。这将是你了解使用泛型，尤其是泛型协议能够来做什么的一个好的机会。</p>
-<h3 id="Collection-View-Cell-抽取"><a href="#Collection-View-Cell-抽取" class="headerlink" title="Collection View Cell 抽取"></a>Collection View Cell 抽取</h3><p>首先，我实现 collectionView 通常都是先创建展示数据的 cell 。处理 collectionView 的 cell 时通常需要：</p>
-<ul>
-<li>重用 cell</li>
-<li>配置 cell</li>
-</ul>
-<p>为了简化上面的工作，我写了两个协议：</p>
-<ul>
-<li><strong><em>ReusableCell</em></strong></li>
-<li><strong><em>ConfigurableCell</em></strong></li>
-</ul>
-<p>让我们详细地看一下这两个抽取后代码吧。</p>
-<h3 id="ReusableCell"><a href="#ReusableCell" class="headerlink" title="ReusableCell"></a>ReusableCell</h3><p>这个 <strong>ReusableCell</strong> 协议需要你定义一个 <strong>重用标识符</strong> ，这个标志符将在重用 cell 的时候被用到。在我的 APP 里，我总是图方便把 cell 的重用标识符设置为和 cell 的类名一样。因此，很容易通过创建一个协议扩展来抽取出，让 <strong>reuseIdentifier</strong> 返回一个带有类名称的字符串：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public protocol ReusableCell &#123;</div><div class="line">    static var reuseIdentifier: String &#123; get &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public extension ReusableCell &#123;</div><div class="line">    static var reuseIdentifier: String &#123;</div><div class="line">        return String(describing: self)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="ConfigurableCell"><a href="#ConfigurableCell" class="headerlink" title="ConfigurableCell"></a>ConfigurableCell</h3><p>这个 <strong>ConfigurableCell</strong> 协议需要你实现一个方法，这个方法将使用特定类型的实例配置 cell ,而这个实例被定义成了一个泛型类型 <strong>T</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public protocol ConfigurableCell: ReusableCell &#123;</div><div class="line">    associatedtype T</div><div class="line"></div><div class="line">    func configure(_ item: T, at indexPath: IndexPath)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个 <strong>ConfigurableCell</strong> 协议将会在加载 cell 内容的时候被调用。接下来我会详细介绍一些细节，现在我就强调下一些地方：</p>
-<ol>
-<li><p><strong>ConfigurableCell</strong> 继承 <strong>ReusableCell</strong></p>
-</li>
-<li><p>绑定类型的使用（ <strong>绑定类型 T</strong> ）将 <strong>ConfigurableCell</strong> 定义为泛型协议。</p>
-</li>
-</ol>
-<h3 id="数据源的抽取-CollectionDataProvider"><a href="#数据源的抽取-CollectionDataProvider" class="headerlink" title="数据源的抽取: CollectionDataProvider"></a>数据源的抽取: CollectionDataProvider</h3><p>现在，让我们把目光收回，再回想下设置 collection view 都需要做些什么。为了让 collection view 展示内容，我们需要遵循 <strong>UICollectionViewDataSource</strong> 协议。那么最先要做的常常是确定下来这些:</p>
-<ul>
-<li>需要几组：<strong>numberOfSections(in:)</strong></li>
-<li>每组需要几行：<strong>collectionView(_:numberOfItemsInSection:)</strong></li>
-<li>cell 的内容怎么加载 ：<strong>collectionView(_:cellForItemAt:)</strong></li>
-</ul>
-<p>将上述代理方法实现，会确保我们能够对指定 collectionView 的 cell 进行展示 。而对于我来说，这里是非常适合进行代码抽取的地方。</p>
-<p>为了抽取和封装上述步骤，我创建了以下泛型协议：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public protocol CollectionDataProvider &#123;</div><div class="line">    associatedtype T</div><div class="line"></div><div class="line">    func numberOfSections() -&gt; Int</div><div class="line">    func numberOfItems(in section: Int) -&gt; Int</div><div class="line">    func item(at indexPath: IndexPath) -&gt; T?</div><div class="line"></div><div class="line">    func updateItem(at indexPath: IndexPath, value: T)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个协议前三个方法是：</p>
-<ul>
-<li><strong><em>numberOfSections()</em></strong></li>
-<li><strong><em>numberOfItems(in:)</em></strong></li>
-<li><strong><em>item(at:)</em></strong></li>
-</ul>
-<p>他们指明了遵循 <strong>UICollectionViewDataSource</strong> 协议需要实现的代理方法列表。基于我有过一些当用户交互后需要更新数据源的使用场景，我在最后又加了一个 <strong>(updateItem(at:, value:))</strong> 方法。这个方法允许你在需要的时候更新底层数据。到这里，在 <strong>CollectionDataProvider</strong> 定义的方法满足了遵循 <strong>UICollectionViewDataSource</strong> 协议时需要实现的常用功能。</p>
-<h3 id="封装样板-CollectionDataSource"><a href="#封装样板-CollectionDataSource" class="headerlink" title="封装样板: CollectionDataSource"></a>封装样板: CollectionDataSource</h3><p>通过上面的抽取，现在可以开始实现一个基类，这个基类将被封装为 collectionView 创建数据源所需的常用样板。这就是最神奇地方！这个类的主要作用就是利用特定的 <strong>CollectionDataProvider</strong> 和 <strong>UICollectionViewCell</strong> 来满足遵循 <strong>UICollectionViewDataSource</strong> 协议所需要实现的方法。</p>
-<p>这是这个类的定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open class CollectionDataSource&lt;Provider: CollectionDataProvider, Cell: UICollectionViewCell&gt;:</div><div class="line">    NSObject,</div><div class="line">    UICollectionViewDataSource,</div><div class="line">    UICollectionViewDelegate,</div><div class="line">    where Cell: ConfigurableCell, Provider.T == Cell.T</div><div class="line">&#123; [...] &#125;</div></pre></td></tr></table></figure>
-<p>它为我们做了很多事：</p>
-<ol>
-<li>这个类有一个公有属性，让我们能够将它扩展为指定 CollectionDataProvider 提供正确的实现。</li>
-<li>这是一个泛型的类，所以它需要特定的 <strong>Provider (CollectionDataProvider)</strong> 和 Cell <strong>(UICollectionViewCell)</strong> 对象进一步的定义来使用。</li>
-<li>这个类继承于 <strong>NSObject</strong> 基类，所以能够遵循 <strong>UICollectionViewDataSource</strong> 和 <strong>UICollectionViewDelegate</strong> 来进行抽取封装样板代码。</li>
-<li>这个类在以下场景使用的时候有一些特定限制：</li>
-</ol>
-<ul>
-<li><strong>UICollectionViewCell</strong> 必须遵循 <strong>ConfigurableCell</strong> 协议。（ <strong>Cell:</strong> <strong>ConfigurableCell</strong> ）</li>
-<li>特定类型 <strong>T</strong> 必须和 cell 跟 Provider 的 <strong>T</strong> 相同 (<strong>Provider.T == Cell.T</strong>)。</li>
-</ul>
-<p>代码需要像下面一样对 <strong>CollectionDataSource</strong> 进行初始化和设置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// MARK: - Private Properties</div><div class="line">let provider: Provider</div><div class="line">let collectionView: UICollectionView</div><div class="line"></div><div class="line">// MARK: - Lifecycle</div><div class="line">init(collectionView: UICollectionView, provider: Provider) &#123;</div><div class="line">    self.collectionView = collectionView</div><div class="line">    self.provider = provider</div><div class="line">    super.init()</div><div class="line">    setUp()</div><div class="line">&#125;</div><div class="line"></div><div class="line">func setUp() &#123;</div><div class="line">    collectionView.dataSource = self</div><div class="line">    collectionView.delegate = self</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码是非常简单的：<strong>CollectionDataSource</strong> 需要知道它将针对哪个 collectionView 对象，将根据哪个作为数据提供者。这些问题都是通过 <strong>init</strong> 方法的参数进行传递确定的。在初始化的过程中，<strong>CollectionDataSource</strong> 将自己设置为 <strong>UICollectionViewDataSource</strong> 和 <strong>UICollectionViewDelegate</strong> 的代理对象(在 <strong>setUp</strong> 方法中)。</p>
-<p>现在让我们看一下 <strong>UICollectionViewDataSource</strong> 代理的样板代码。</p>
-<p>这是代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// MARK: - UICollectionViewDataSource</div><div class="line">public func numberOfSections(in collectionView: UICollectionView) -&gt; Int &#123;</div><div class="line">    return provider.numberOfSections()</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int &#123;</div><div class="line">    return provider.numberOfItems(in: section)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open func collectionView(_ collectionView: UICollectionView,</div><div class="line">     cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell</div><div class="line">&#123;</div><div class="line">    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier,</div><div class="line">        for: indexPath) as? Cell else &#123;</div><div class="line">        return UICollectionViewCell()</div><div class="line">    &#125;</div><div class="line">    let item = provider.item(at: indexPath)</div><div class="line">    if let item = item &#123;</div><div class="line">        cell.configure(item, at: indexPath)</div><div class="line">    &#125;</div><div class="line">    return cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的代码片段通过 <strong>CollectionDataProvider</strong> 的一个对象展示了 <strong>UICollectionViewDataSource</strong> 代理的主要实现，就像之前所说的那样，它封装了数据源实现的所有细节。每个代理都使用指定的 <strong>CollectionDataProvider</strong> 方法来抽取跟数据源之间进行交互。</p>
-<p>注意 <strong>collectionView(_:cellForItemAt:)</strong> 方法有一个公开的属性，这就能够让它的任何子类在需要对 cell 内容进行更多定制化的时候进行扩展。</p>
-<p>现在对 collectionView cell 展示的功能已经做好了，让我们再为它添加更多的功能吧。</p>
-<p>而作为第一个要添加的功能，用户应该能够在点击 cell 的时候触发某些操作。为了实现这个功能，一个简单的方案就是定义一个简单的 closure,并对这个 closure 初始化，当用户点击 cell 的时候执行这个 closure 。</p>
-<p>处理 cell 点击的自定义 closure 如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public typealias CollectionItemSelectionHandlerType = (IndexPath) -&gt; Void</div></pre></td></tr></table></figure>
-<p>现在，我们能定义个属性来存储这个 closure ，当用户点击这个 cell 的时候就会在 <strong>UICollectionViewDelegate</strong> 的 <strong>collectionView(_:didSelectItemAt:)</strong> 代理方法实现中执行这个初始化好的 closure 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// MARK: - Delegates</div><div class="line">public var collectionItemSelectionHandler: CollectionItemSelectionHandlerType?</div><div class="line"></div><div class="line">// MARK: - UICollectionViewDelegate</div><div class="line">public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) &#123;</div><div class="line">    collectionItemSelectionHandler?(indexPath)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>作为第二个要添加的功能，我打算在 <strong>CollectionDataSource</strong> 中对多组组头和组的一些代码样板进行封装。这就需要实现 <strong>UICollectionViewDataSource</strong> 的代理方法 <strong>viewForSupplementaryElementOfKind</strong> 。为了能够让子类自定义的实现 <strong>viewForSupplementaryElementOfKind</strong> ，这个代理方法需要定义为公开方法，以便让任何子类能够对这个方法进行重写。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open func collectionView(_ collectionView: UICollectionView,</div><div class="line">    viewForSupplementaryElementOfKind kind: String,</div><div class="line">    at indexPath: IndexPath) -&gt; UICollectionReusableView</div><div class="line">&#123;</div><div class="line">    return UICollectionReusableView(frame: CGRect.zero)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>通常来说，这种方式适用于所有的代理方法，当他们需要被子类重写覆盖时，这些方法需要定义为公有方法，并在 <strong>CollectionDataSource</strong> 中实现。</p>
-<p>另一种不同的解决方案就是使用一个自定义的 closure ，就像在 <strong>(CollectionItemSelectionHandlerType)</strong> 方法中处理 cell 点击事件一样。</p>
-<p>我实现的这个特定方面是软件工程中的一个典型的权衡，一方面 —— 为 collectionView 设置数据源的主要细节都被隐藏（被抽取封装）。另一方面 —— 封装的样板代码中没有提供的功能，就会变得不能开箱即用，添加新的功能并不复杂，但是需要像我上面两个例子那样，需要实现更多的自定义代码。</p>
-<h3 id="实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider"><a href="#实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider" class="headerlink" title="实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider"></a>实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider</h3><p>现在样板代码已经设置好了，collectionView 的数据源由 <strong>CollectionDataSource</strong> 负责。让我们通过一个普通的使用案例来看看样板代码用起来有多方便。为了做这个，<strong>CollectionDataSource</strong> 对象需要提供 <strong>CollectionDataProvider</strong> 具体的实现。一个覆盖大多数常见使用案例的基本实现，可以简单地使用二维数组来包含展示 collectionView  cell 内容的数据 。作为我对数据源抽象的试验的一部分，我使这个实现变得更加通用，并且能够表示:</p>
-<ul>
-<li>二维数组，每一个数组元素代表 collectionView 一组 cell 的内容。</li>
-<li>数组，表示 collectionView 只有一组 cell 的内容（没有组头）。</li>
-</ul>
-<p>上面的代码实现都包含在泛型类 <strong>ArrayDataProvider</strong> 中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class ArrayDataProvider&lt;T&gt;: CollectionDataProvider &#123;</div><div class="line">    // MARK: - Internal Properties</div><div class="line">    var items: [[T]] = []</div><div class="line"></div><div class="line">    // MARK: - Lifecycle</div><div class="line">    init(array: [[T]]) &#123;</div><div class="line">        items = array</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // MARK: - CollectionDataProvider</div><div class="line">    public func numberOfSections() -&gt; Int &#123;</div><div class="line">        return items.count</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func numberOfItems(in section: Int) -&gt; Int &#123;</div><div class="line">        guard section &gt;= 0 &amp;&amp; section &lt; items.count else &#123;</div><div class="line">            return 0</div><div class="line">        &#125;</div><div class="line">        return items[section].count</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func item(at indexPath: IndexPath) -&gt; T? &#123;</div><div class="line">        guard indexPath.section &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.section &lt; items.count &amp;&amp;</div><div class="line">            indexPath.row &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].count else</div><div class="line">        &#123;</div><div class="line">            return items[indexPath.section][indexPath.row]</div><div class="line">        &#125;</div><div class="line">        return nil</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func updateItem(at indexPath: IndexPath, value: T) &#123;</div><div class="line">        guard indexPath.section &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.section &lt; items.count &amp;&amp;</div><div class="line">            indexPath.row &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].count else</div><div class="line">        &#123;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line">        items[indexPath.section][indexPath.row] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样做可以提取访问数据源的细节，线性数据结构可以表示 cell 的内容是最常见的使用情况。</p>
-<h3 id="封装到一块-CollectionArrayDataSource"><a href="#封装到一块-CollectionArrayDataSource" class="headerlink" title="封装到一块: CollectionArrayDataSource"></a>封装到一块: CollectionArrayDataSource</h3><p>这样 <strong>CollectionDataProvider</strong> 协议就具体实现了，创建一个 <strong>CollectionDataSource</strong> 子类来实现最常见的简单的列表数据展示是非常容易的。</p>
-<p>让我们从这个类的定义开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open class CollectionArrayDataSource&lt;T, Cell: UICollectionViewCell&gt;: CollectionDataSource&lt;ArrayDataProvider&lt;T&gt;, Cell&gt;</div><div class="line">     where Cell: ConfigurableCell, Cell.T == T</div><div class="line"> &#123; [...] &#125;</div></pre></td></tr></table></figure>
-<p>这个声明定义了很多事情：</p>
-<ol>
-<li>这个类有一个公有的属性，因为它最终将被扩展为 <strong>UICollectionView</strong> 对象的数据源对象。</li>
-<li><p>这是一个继承 <strong>UICollectionViewCell</strong> 的泛型类，需要被特定的类型 <strong>T</strong> 进一步定义才能正确展示 cell 和 cell 的内容。</p>
-</li>
-<li><p>这个类扩展了 <strong>CollectionDataSource</strong> 来提供进一步的特定行为。</p>
-</li>
-<li><p>特定类型 <strong>T</strong> 将被表示，它将通过一个 <strong>ArrayDataProvider &lt; T &gt;</strong> 对象来访问 cell 内容。</p>
-</li>
-<li><p>这个类在 closure 中的定义表明有些特定的约束:</p>
-</li>
-</ol>
-<ul>
-<li><strong>UICollectionViewCell</strong> 必须遵循 <strong>ConfigurableCell</strong> 协议。（ <strong>Cell:</strong> <strong>ConfigurableCell</strong> ）</li>
-<li>cell 中的特定类型 <strong>T</strong> 必须跟 Provider 的 <strong>T</strong> 相同  (<strong>Provider.T == Cell.T</strong>) 。</li>
-</ul>
-<p>类的实现非常简单：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// MARK: - Lifecycle</div><div class="line">public convenience init(collectionView: UICollectionView, array: [T]) &#123;</div><div class="line">   self.init(collectionView: collectionView, array: [array])</div><div class="line">&#125;</div><div class="line"></div><div class="line">public init(collectionView: UICollectionView, array: [[T]]) &#123;</div><div class="line">   let provider = ArrayDataProvider(array: array)</div><div class="line">   super.init(collectionView: collectionView, provider: provider)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// MARK: - Public Methods</div><div class="line">public func item(at indexPath: IndexPath) -&gt; T? &#123;</div><div class="line">   return provider.item(at: indexPath)</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func updateItem(at indexPath: IndexPath, value: T) &#123;</div><div class="line">   provider.updateItem(at: indexPath, value: value)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>它只是提供了一些初始化方法和与交互方法，这些方法使我们能够让数据提供者与数据源透明地进行读取和写入操作。</p>
-<h3 id="创建一个基本的-CollectionView"><a href="#创建一个基本的-CollectionView" class="headerlink" title="创建一个基本的 CollectionView"></a>创建一个基本的 CollectionView</h3><p>可以将 <strong>CollectionArrayDataSource</strong> 基类扩展，为任何可以用二维数组展示的 collection view 创建一个特定的数据源。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class PhotosDataSource: CollectionArrayDataSource&lt;PhotoViewModel, PhotoCell&gt; &#123;&#125;</div></pre></td></tr></table></figure>
-<p>声明比较简单:</p>
-<ol>
-<li>继承于 <strong>CollectionArrayDataSource</strong> 。</li>
-<li>这个类表示 <strong>PhotoViewModel</strong> 作为特定类型 <strong>T</strong> 将会展示 cell 内容，可通过 <strong>ArrayDataProvider &lt; PhotoViewModel ></strong> 对象访问，<strong>PhotoCell</strong> 将作为 <strong>UICollectionViewCell</strong> 展示。</li>
-</ol>
-<p>请注意，<strong>PhotoCell</strong> 必须遵守 <strong>ConfigurableCell</strong> 协议，并且能够通过 <strong>PhotoViewModel</strong> 实例初始化它的属性。</p>
-<p>创建一个 <strong>PhotosDataSource</strong> 对象是非常简单的。只需要传递过去将要展示的 collectionView 和由展示每个 cell 内容的 <strong>PhotoViewModel</strong> 元素组成的数组：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let dataSource = PhotosDataSource(collectionView: collectionView, array: viewModels)</div></pre></td></tr></table></figure>
-<p><strong>collectionView</strong> 参数通常是 storyboard 上的 collectionView 通过 outlet 指向获取到的。</p>
-<p>所有的就完成了！两行代码就可以设置一个基本的 collectionView 数据源。</p>
-<h3 id="设置带有组标题和组的-CollectionView"><a href="#设置带有组标题和组的-CollectionView" class="headerlink" title="设置带有组标题和组的 CollectionView"></a>设置带有组标题和组的 CollectionView</h3><p>对于更高级和复杂的用例，你可以简单在 <a href="https://github.com/andrea-prearo/GenericDataSource" target="_blank" rel="external">GitHub repo</a> 上查看 <strong>TaskList</strong> 。内容已经很长了，本文就不再不介绍示例的更多细节。我将在下一篇 <em>“Collection View with Headers and Sections”</em> 文章里进行深入地探讨。在这个说明中，如果存在一个话题对你来说很有意思，请不要犹豫让我知道，这样我就可以优先考虑下一步写什么。为了和我联系，请在这篇文章下方留言或发邮件给我: <a href="mailto:andrea.prearo@gmail.com" target="_blank" rel="external">andrea.prearo@gmail.com</a> 。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>在这篇文章中，我介绍了一些我做的抽取封装，以简化使用泛型数据源的 collectionView 。所提出的实现都是基于我在构建 iOS app 时遇到的重复代码的场景。一些更高级的的功能可能需要进一步的自定义。我相信，继续优化所得到的代码抽取，或者构建新的代码抽取，来简化处理不同的 collectionView 模式都是可能的。但这已经超出了这篇文章的范围。</p>
-<p>所有的通用数据源代码和示例工程都在 <a href="https://github.com/andrea-prearo/GenericDataSource" target="_blank" rel="external">GitHub</a> 并且是遵守 MIT 协议的。你可以直接使用和修改它们。欢迎所有的反馈意见和建议的贡献，并非常感谢你这么做。如果你有足够的兴趣，我将很乐意添加所需的配置，使代码与Cocoapods和Carthage一起使用，并允许使用这种依赖关系管理工具导入通用数据源。或者，这可能是一个很好的起点去为这个项目做出贡献。</p>
-<hr>
-<h4 id="额外链接"><a href="#额外链接" class="headerlink" title="额外链接"></a>额外链接</h4><ul>
-<li><a href="https://medium.com/capital-one-developers/smooth-scrolling-in-uitableview-and-uicollectionview-a012045d77f" target="_blank" rel="external">Smooth Scrolling in UITableView and UICollectionView</a></li>
-<li><a href="https://medium.com/capital-one-developers/boost-smooth-scrolling-with-ios-10-pre-fetching-api-818c25cd9c5d" target="_blank" rel="external">Boost Smooth Scrolling with iOS 10 Pre-Fetching API</a></li>
-</ul>
-<p><strong>披露声明：这些意见是作者的意见。 除非在文章中额外声明，否则 Capital One 版权不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文版权为 ©2017 Capital One</strong></p>
-<p>更多关于 API、开源、社区活动或开发文化的信息，请访问我们的一站式开发网站  <a href="https://developer.capitalone.com/" target="_blank" rel="external"><strong>developer.capitalone.com</strong></a> 。</p>
-<hr>
-<blockquote>
-<p><a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a> 是一个翻译优质互联网技术文章的社区，文章来源为 <a href="https://juejin.im" target="_blank" rel="external">掘金</a> 上的英文分享文章。内容覆盖 <a href="https://github.com/xitu/gold-miner#android" target="_blank" rel="external">Android</a>、<a href="https://github.com/xitu/gold-miner#ios" target="_blank" rel="external">iOS</a>、<a href="https://github.com/xitu/gold-miner#react" target="_blank" rel="external">React</a>、<a href="https://github.com/xitu/gold-miner#前端" target="_blank" rel="external">前端</a>、<a href="https://github.com/xitu/gold-miner#后端" target="_blank" rel="external">后端</a>、<a href="https://github.com/xitu/gold-miner#产品" target="_blank" rel="external">产品</a>、<a href="https://github.com/xitu/gold-miner#设计" target="_blank" rel="external">设计</a> 等领域，想要查看更多优质译文请持续关注 <a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a>。</p>
-</blockquote>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/14/Swift-中的通用数据源/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -744,7 +610,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2017/06/15/译-避免使用第三方UI库/">
+    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2017/06/15/避免使用第三方UI库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="swants">
@@ -763,7 +629,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/15/译-避免使用第三方UI库/" itemprop="url">[译]避免使用第三方UI库</a></h2>
+                <a class="post-title-link" href="/2017/06/15/避免使用第三方UI库/" itemprop="url">[译]避免使用第三方UI库</a></h2>
         
 
         <div class="post-meta">
@@ -793,7 +659,7 @@
 
           
           
-             <span id="/2017/06/15/译-避免使用第三方UI库/" class="leancloud_visitors" data-flag-title="[译]避免使用第三方UI库">
+             <span id="/2017/06/15/避免使用第三方UI库/" class="leancloud_visitors" data-flag-title="[译]避免使用第三方UI库">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -826,7 +692,7 @@
 <p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <strong>我们应该避免使用 第三方UI依赖库吗?</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/15/译-避免使用第三方UI库/#more" rel="contents">
+            <a class="btn" href="/2017/06/15/避免使用第三方UI库/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
