@@ -108,17 +108,17 @@
 
 
 
-<meta name="description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
+<meta name="description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish    Swift 结构体指针 所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它">
 <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Struct References">
 <meta property="og:url" content="https://swants.github.io/2017/08/27/Swift-Struct-References/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
-<meta property="og:updated_time" content="2017-08-27T03:45:41.000Z">
+<meta property="og:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish    Swift 结构体指针 所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它">
+<meta property="og:updated_time" content="2017-08-27T03:47:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Struct References">
-<meta name="twitter:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
+<meta name="twitter:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish    Swift 结构体指针 所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它">
 
 
 
@@ -407,6 +407,8 @@
 <li>译者：    <a href="https://swants.github.io">Swants</a></li>
 <li>校对者：  <a href="https://github.com/ChenDongnan" target="_blank" rel="external">ChenDongnan</a> <a href="https://github.com/FlyOceanFish" target="_blank" rel="external">FlyOceanFish</a> </li>
 </ul>
+</blockquote>
+<h1 id="Swift-结构体指针"><a href="#Swift-结构体指针" class="headerlink" title="Swift 结构体指针"></a>Swift 结构体指针</h1><blockquote>
 <p>所有的代码都可以在 <a href="https://gist.github.com/chriseidhof/3423e722d1da4e8cce7cfdf85f026ef7" target="_blank" rel="external">gist</a> 上获取。</p>
 </blockquote>
 <p>最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。</p>
@@ -670,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">1.</span> <span class="nav-text">实现细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讨论"><span class="nav-number">2.</span> <span class="nav-text">讨论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-结构体指针"><span class="nav-number">1.</span> <span class="nav-text">Swift 结构体指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">1.0.1.</span> <span class="nav-text">实现细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讨论"><span class="nav-number">1.0.2.</span> <span class="nav-text">讨论</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
