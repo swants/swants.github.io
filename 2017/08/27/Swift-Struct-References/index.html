@@ -92,7 +92,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CALayer," />
+  <meta name="keywords" content="swants, ios" />
 
 
 
@@ -108,25 +108,17 @@
 
 
 
-<meta name="description" content="本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 laye">
-<meta name="keywords" content="CALayer">
+<meta name="description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
+<meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CALayer 入门指引">
-<meta property="og:url" content="https://swants.github.io/2016/10/04/CALayer-入门指引/index.html">
+<meta property="og:title" content="Swift Struct References">
+<meta property="og:url" content="https://swants.github.io/2017/08/27/Swift-Struct-References/index.html">
 <meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 laye">
-<meta property="og:image" content="https://swants.github.io/images/blog01/CALayerLevel.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/CALayerDemo.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/calayer-corner-radius.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/calayer-cornner-more.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/calayer-shadow.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/calayer-border.png">
-<meta property="og:image" content="https://swants.github.io/images/blog01/calayermasktobounds.png">
-<meta property="og:updated_time" content="2017-07-07T07:42:28.000Z">
+<meta property="og:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
+<meta property="og:updated_time" content="2017-08-27T03:42:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CALayer 入门指引">
-<meta name="twitter:description" content="本篇文章将会介绍 iOS 中一个老生常谈的话题: layers .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 Core Animation framework 的重要一部分. 你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 laye">
-<meta name="twitter:image" content="https://swants.github.io/images/blog01/CALayerLevel.png">
+<meta name="twitter:title" content="Swift Struct References">
+<meta name="twitter:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  ChenDongnan FlyOceanFish   所有的代码都可以在 gist 上获取。  最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。">
 
 
 
@@ -154,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="https://swants.github.io/2016/10/04/CALayer-入门指引/"/>
+  <link rel="canonical" href="https://swants.github.io/2017/08/27/Swift-Struct-References/"/>
 
 
 
 
 
-  <title>CALayer 入门指引 | 塞万提斯</title>
+  <title>Swift Struct References | 塞万提斯</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -334,7 +326,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2016/10/04/CALayer-入门指引/">
+    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2017/08/27/Swift-Struct-References/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="swants">
@@ -351,7 +343,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">CALayer 入门指引</h2>
+          <h2 class="post-title" itemprop="name headline">Swift Struct References</h2>
         
 
         <div class="post-meta">
@@ -363,8 +355,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-04T13:58:52+08:00">
-                2016-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-27T11:40:36+08:00">
+                2017-08-27
               </time>
             
 
@@ -381,7 +373,7 @@
 
           
           
-             <span id="/2016/10/04/CALayer-入门指引/" class="leancloud_visitors" data-flag-title="CALayer 入门指引">
+             <span id="/2017/08/27/Swift-Struct-References/" class="leancloud_visitors" data-flag-title="Swift Struct References">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -409,71 +401,88 @@
       
 
       
-        <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
-<p>你可能还不了解 layer 的作用,甚至觉得自己从来不曾使用过 layer ,它可能是一个无足轻重的东西, 不管你是否了解 layer ,你的app中到处都是 layer 的身影.你app中每个 view 的背后都有个 layer 在支撑.是它让你的 app 轻松地将每个 view 的位图信息提供给手机 GPUs 绘制.下面的这张图片清楚的展示了 <strong>Core Animation</strong> 在 iOS 绘制层级中的位置.</p>
-<a id="more"></a> 
-<p><img src="/images/blog01/CALayerLevel.png" alt="&quot;CALayer&quot;"></p>
-<h2 id="为什么要使用-Layers"><a href="#为什么要使用-Layers" class="headerlink" title="为什么要使用 Layers?"></a>为什么要使用 Layers?</h2><p>在智能手机上,用户希望能够飞速的进行各种操作.所以保持界面稳定的刷新帧率给用户丝滑般的感觉就显得尤为重要.在 iOS 系统中屏幕平均每秒钟刷新 60 次,为了保证系统在这个帧率下稳定运行,最基本同时也最强大的能够在 GPU 上精准运行的 <strong>OpenGL</strong> 就诞生了.<br>OpenGL 提供了手机图形硬件最低层但也是最快的权限.但这也是需要权衡的,OpenGL过于低层,甚至完成最简单的任务都需要大量的代码. </p>
-<p>为了缓解这个问题, <strong>Core Graphocs</strong> 就诞生了. Core Graphocs 可以用更少的代码提供更轻量的高层次的功能.为了让 Core Graphocs 使用起来更简单, <strong>Core  Animation</strong> 也出现了. Core Animation 提供了 <strong>CALayer</strong> 类,并且能够使用一些基本的的图形能力. </p>
-<p>后来苹果公司发现 Core Animation 强大的功能大部分在常规app内并没有使用到.于是苹果公司便推出了具有更高层次图形权限的 <strong>UIKit</strong>. 这么设计的好处就是你的 app 可以根据需求自由选择不同的图形层次功能.允许灵活选择需要实现的功能有效的防止了不必要的代码产生.</p>
-<p>UIKit 缺点就是高层次的图形 API 所能提供的功能比较少.我们可以这件事中知道: CALayer 可以让 iOS 系统快速便捷地获得 app 页面上 views 的位图信息, 这些信息将会交付给 Core Graphics 甚至 OpenGL处理 然后通过 GPU 绘制在你的手机屏幕上. 虽然在大部分的情况下我们不需要直接使用 CALayer, 但是低层次的 APIs 提供给开发者很多灵活可定制的功能,我们在文章后面将会提到.</p>
-<h2 id="获得-CALayer"><a href="#获得-CALayer" class="headerlink" title="获得 CALayer"></a>获得 CALayer</h2><p>通过讨论 layers 为什么存在之后, 让我们来学着去使用! 就像我刚才提到的, 每一个 view 的背后都有个 layer 支撑. 我们可以通过 UIView 的属性来获得这个 layer. 假使我们有一个 myView 对象, 我们可以得到它的 layer 就像这样:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myView.layer</div></pre></td></tr></table></figure>
-<p>好了, 当我们拿到 view 的 layer 之后都能做些什么操作呢? 你将会对之后我们能做的事之多感到惊奇. 在接下来的文章中我们将会看到 layer 的一些使用方法和所能达到的效果.</p>
-<h2 id="Demo-Project"><a href="#Demo-Project" class="headerlink" title="Demo Project"></a>Demo Project</h2><p>首先, 打开<a href="https://github.com/appcoda/CALayerDemo/raw/master/layers-starter.zip" target="_blank" rel="external"> 示例工程 </a> ,学习的最好方法就是实践,接下来我们将要在 app 内的 layer 上添加一些自定义的效果. 打开工程 你将会看到界面很简洁,一个空白的 view 中间有一个方块的 subview. 让我们来帮它美化下. 打开 ViewController.swift 开始操作吧.</p>
-<p><img src="/images/blog01/CALayerDemo.png" alt="CALayer Demo"></p>
-<h2 id="切圆角"><a href="#切圆角" class="headerlink" title="切圆角"></a>切圆角</h2><p>你可以使用 CALayer 的 cornerRadius 属性来制作圆角. 让我们试一下吧. 在 <code>viewDidLoad()</code> 内 添加如下代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">box.layer.cornerRadius = 5</div></pre></td></tr></table></figure>
-<p>正如期望的那样,这行代码在 <code>box</code> 的 layer 上添加了一个 5个点单位的圆角. 就是下面这个样子:</p>
-<p><img src="/images/blog01/calayer-corner-radius.png" alt="圆角"></p>
-<p>还不错吧! 增加圆角弧度会让 layer 更加的圆滑,相反减少圆角弧度 会让layer 更加的棱角分明. 所有的 layer 默认的圆角弧度是 0 .</p>
-<p><img src="/images/blog01/calayer-cornner-more.png" alt="圆角对比"></p>
-<h2 id="增加阴影效果"><a href="#增加阴影效果" class="headerlink" title="增加阴影效果"></a>增加阴影效果</h2><p>阴影可以让我们的 app 更有立体感,并且阴影在设计界面的时候是非常有帮助的.在阴影效果下 我们可以让 views 看起来像漂浮在屏幕上. 让我们研究下用 CALayer 如何制作出隐形效果. 把下面代码插入到 <code>ViewController</code> 的 <code>viewDidLoad</code> 方法中:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">box.layer.shadowOffset = CGSizeMake(5, 5)</div><div class="line">box.layer.shadowOpacity = 0.7</div><div class="line">box.layer.shadowRadius = 5</div><div class="line">box.layer.shadowColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).CGColor</div></pre></td></tr></table></figure>
+        <blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
+<li>译者：    <a href="https://swants.github.io">Swants</a></li>
+<li>校对者：  <a href="https://github.com/ChenDongnan" target="_blank" rel="external">ChenDongnan</a> <a href="https://github.com/FlyOceanFish" target="_blank" rel="external">FlyOceanFish</a> </li>
+</ul>
+<p>所有的代码都可以在 <a href="https://gist.github.com/chriseidhof/3423e722d1da4e8cce7cfdf85f026ef7" target="_blank" rel="external">gist</a> 上获取。</p>
+</blockquote>
+<p>最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。</p>
+<a id="more"></a>
+<p>思考一个简单的通讯录应用，这个应用包含一个展示联系人的列表视图和展示联系人实例的详情视图控制器。如果把 <code>人</code> 定义成一个类的话，大概是这个样子：</p>
+<p>class Person {<br>var name: String<br>var addresses: [Address]<br>init(name: String, addresses: [Address]) {<br>self.name = name<br>self.addresses = addresses<br>}<br>}</p>
+<p>class Address {<br>var street: String<br>init(street: String) {<br>self.street = street<br>}<br>}</p>
+<p>我们的（假设）viewController  有一个通过初始化方法设置的 person 属性。这个类还有一个 <code>change</code> 方法来修改这个人的属性。</p>
+<p>final class PersonVC {<br>var person: Person<br>init(person: Person) {<br>self.person = person<br>}</p>
+<p>func change() {<br>person.name = “New Name”<br>}<br>}</p>
+<p>让我们思考下当 <code>Person</code> 初始化为一个对象后遇到的问题：</p>
+<ul>
+<li>因为 <code>person</code> 是一个指针，其他部分的代码就可能修改它。这是非常实用的，因为这让消息传递成为了可能。而与此同时，我们需要保证我们可以一直监听的到这些改变（比如使用 KVO ），否则我们可能会遇到数据不同步的问题。但保证我们能够实时监听则是不容易实现的。</li>
+<li>当地址发生变化时，收到通知就更难了。观察嵌套的对象属性则是最困难的。</li>
+<li>如果我们需要给 <code>Person</code> 创建一个独立的本地 copy，我们就需要实现一些像 <code>NSCopying</code> 这样的东西， 这需要不少的工作量。甚至当我们决定这么做时，我们仍然不得不考虑是想要深拷贝（地址也被拷贝）还是浅拷贝（地址数组是独立的，但是里面的地址仍指向相同的对象）？</li>
+<li>如果我们把 <code>Person</code> 当成 <code>AddressBook</code> 数组的元素，我们可能想要知道通讯录什么时候做了修改（比如说进行排序）。而想要知道你的对象图中的东西何时做了改变要么需要大量的样板，要么需要大量的观察。</li>
+</ul>
+<p>如果 <code>Person</code> 和 <code>Address</code> 做成结构体的话，我们又会碰到不同的问题：</p>
+<ul>
+<li>每个结构体都是独立的拷贝。这是有用的，因为我们知道它总是一致的，不会在我们手底下改变。然而，当我们在详情控制器 中对 <code>Person</code> 做了修改时。我们就需要一个方法来将这些改变反馈给列表视图（或者说通讯录列表）。而对于对象，这种情况会自动发生（通过在适当的位置修改 <code>Person</code> ）。</li>
+<li>我们可以观察通讯录结构体的根地址，从而知道通讯录发生的任何变化。然而，我们还是不能很容易得观察到它内部属性的变化（比如：观察第一个人的名字）。</li>
+</ul>
+<p>我现在提出的解决方案结合了两个方案的最大优势：</p>
+<ul>
+<li>我们有可变的共享指针</li>
+<li>因为底层数据是结构体，所以我们可以随时得到我们自己的独立拷贝</li>
+<li>我们可以观察任何部分：无论在根级别，还是观察独立的属性（例如第一个人的名字）</li>
+</ul>
+<p>我接下来会演示这个方案怎么使用，如何工作，最后再说说方案的局限性和问题。</p>
+<p>让我们用结构体来创建一个通讯录。</p>
+<p>struct Address {<br>var street: String<br>}<br>struct Person {<br>var name: String<br>var addresses: [Address]<br>}</p>
+<p>typealias Addressbook = [Person]</p>
+<p>现在我们可以使用我们的 <code>Ref</code> 类型（ <code>Reference</code> 的简称）。<br>我们用一个初始化的空数组来创建一个新的 <code>addressBook</code>。然后添加一个 <code>Person</code> 。接下来就是最酷的地方：通过使用下标我们可以获得指向第一个人的 <strong>指针</strong> ，接着是一个指向他们名字的 <strong>指针</strong> 。我们可以将指针指向的内容改为 <code>“New Name&quot;</code> 来验证我们是否更改了原始的通讯录。</p>
+<p>let addressBook = Ref<addressbook>(initialValue: [])<br>addressBook.value.append(Person(name: “Test”, addresses: []))<br>let firstPerson: Ref<person> = addressBook[0]<br>let nameOfFirstPerson: Ref<string> = firstPerson[.name]<br>nameOfFirstPerson.value = “New Name”<br>addressBook.value // shows [Person(name: “New Name”, addresses: [])]</string></person></addressbook></p>
+<p><code>firstPerson</code> 和 <code>nameOfFirstPerson</code> 类型可以被忽略，它们仅仅是为了增加代码可读性。</p>
+<p>无论何时我们都可以对 <code>Person</code> 内容进行独立备份。一旦你做了拷贝，我们就可以使用 <code>myOwnCopy</code> ，并且不必实现 <code>NSCopying</code> 就能保证它的内容不会在我们手底下改变：</p>
+<p>var myOwnCopy: Person = firstPerson.value</p>
+<p>我们可以监听任何 <code>Ref</code> 。就像 reactive 库一样，我们得到了一个可以控制观察者生命周期的一次性调用：</p>
+<p>var disposable: Any?<br>disposable = addressBook.addObserver { newValue in<br>print(newValue) // Prints the entire address book<br>}</p>
+<p>disposable = nil // stop observing</p>
+<p>我们也可以监听 <code>nameOfFirstPerson</code> 。在目前的实现中，无论什么时候通讯录中的任何改变都会触发监听，但以后的实现会有更多的功能。</p>
+<p>nameOfFirstPerson.addObserver { newValue in<br>print(newValue) // Prints a string<br>}</p>
+<p>让我们返回我们的 <code>PersonVC</code> 。我们可以使用 <code>Ref</code> 作为他的实现。 这样 viewController 就可以收到每一次更改。在响应式编程中，信号通常是只读类型的（你只会收到发生了变化的信息），这时你就需要找到另一种回传信号的方法。 在 <code>Ref</code> 方案中，我们可以使用 <code>person.value</code> 进行回写：</p>
+<p>final class PersonVC {<br>let person: Ref<person><br>var disposeBag: Any?<br>init(person: Ref<person>) {<br>self.person = person<br>disposeBag = person.addObserver { newValue in<br>print(“update view for new person value: (newValue)”)<br>}<br>}</person></person></p>
+<p>func change() {<br>person.value.name = “New Name”<br>}<br>}</p>
+<p>这个 <code>PersonVC</code> 不知道 <code>Ref &lt;Person&gt;</code>是从哪里获得的：是从一个 person 数组，一个数据库或者其他地方。实际上，我们可以通过将我们的数组包装在 <a href="http://chris.eidhof.nl/post/undo-history-in-swift/" target="_blank" rel="external"><code>History</code> 结构体</a> 中来撤销对我们通讯录的支持。<br>这样我们就不再需要修改 <code>PersonVC</code>：</p>
+<p>let source: Ref<history<addressbook>&gt; = Ref(initialValue: History(initialValue: []))<br>let addressBook: Ref<addressbook> = source[.value]<br>addressBook.value.append(Person(name: “Test”, addresses: []))<br>addressBook[0].value.name = “New Name”<br>print(addressBook[0].value)<br>source.value.undo()<br>print(addressBook[0].value)<br>source.value.redo()</addressbook></history<addressbook></p>
+<p>我们还可以为它添加其他的很多东西：缓存，<a href="https://gist.github.com/chriseidhof/40fde6c2be5519d5bb341fc65b3029ad" target="_blank" rel="external">序列化</a>，自动同步（比如只在子线程上修改和观察），但这都是之后的工作。</p>
+<h3 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h3><p>我们来看看这个事情是如何实现的。我们首先从 <code>Ref</code> 类的定义开始。<br><code>Ref</code> 包含一个获取值和一个设置值的方法，以及添加一个观察者的方法。它有一个需要三个参数的初始化方法：</p>
+<p>final class Ref<a> {<br>typealias Observer = (A) -&gt; ()</a></p>
+<p>private let _get: () -&gt; A<br>private let _set: (A) -&gt; ()<br>private let _addObserver: (@escaping Observer) -&gt; Disposable</p>
+<p>var value: A {<br>get {<br>return _get()<br>}<br>set {<br>_set(newValue)<br>}<br>}</p>
+<p>init(get: @escaping () -&gt; A, set: @escaping (A) -&gt; (), addObserver: @escaping (@escaping Observer) -&gt; Disposable) {<br>_get = get<br>_set = set<br>_addObserver = addObserver<br>}</p>
+<p>func addObserver(observer: @escaping Observer) -&gt; Disposable {<br>return _addObserver(observer)<br>}<br>}</p>
+<p>现在我们可以添加一个可以观察单个结构体值的初始化方法。它创建了一个观察者和变量对应的字典。这样无论变量什么时候被修改了，所有的观察者都会被通知到。它使用上述定义的初始化方法，并传递给 <code>get</code>, <code>set</code>, 和 <code>addObserver</code>:</p>
+<p>extension Ref {<br>convenience init(initialValue: A) {<br>var observers: [Int: Observer] = [:]<br>var theValue = initialValue {<br>didSet { observers.values.forEach { $0(theValue) } }<br>}<br>var freshId = (Int.min…).makeIterator()<br>let get = { theValue }<br>let set = { newValue in theValue = newValue }<br>let addObserver = { (newObserver: @escaping Observer) -&gt; Disposable in<br>let id = freshId.next()!<br>observers[id] = newObserver<br>return Disposable {<br>observers[id] = nil<br>}<br>}<br>self.init(get: get, set: set, addObserver: addObserver)<br>}<br>}</p>
+<p>想一下我们现在已经有 <code>Person</code> 指针，为了拿到 <code>Person name</code>  属性的指针，我们需要一种方式来对 name 进行读写操作。而 <code>WritableKeyPath</code> 恰好可以做到。因此，我们可以在 <code>Ref</code> 中添加一个<code>subscript</code> 来创建可以指向 <code>Person</code> 某一部分的指针：</p>
+<p>extension Ref {<br>subscript<b>(keyPath: WritableKeyPath<a,b>) -&gt; Ref<b> {<br>let parent = self<br>return Ref<b>(get: { parent._get()[keyPath: keyPath] }, set: {<br>var oldValue = parent.value<br>oldValue[keyPath: keyPath] = $0<br>parent._set(oldValue)<br>}, addObserver: { observer in<br>parent.addObserver { observer($0[keyPath: keyPath]) }<br>})<br>}<br>}</b></b></a,b></b></p>
+<p>上面的代码有一点难于理解，但如果只是为了使用这个库，我们不需要真的弄明白它是怎么实现的。</p>
+<p>也许某一天，Swift 中的 keypath 也会支持下标，但至少现在没有，接下来我们必须为集合添加另外一个下标。除了使用索引而不是 keypath ，它的实现几乎就跟上面的一样。</p>
+<p>extension Ref where A: MutableCollection {<br>subscript(index: A.Index) -&gt; Ref<a.element> {<br>return Ref<a.element>(get: { self._get()[index] }, set: { newValue in<br>var old = self.value<br>old[index] = newValue<br>self._set(old)<br>}, addObserver: { observer in<br>self.addObserver { observer($0[index]) }<br>})<br>}<br>}</a.element></a.element></p>
+<p>这就是全部实现了。上面代码使用了 Swift 大量新特性，但它仍保持在 100 行代码以下。如果没有 Swift 4 最新功能，这也基本不可能实现。它依赖于 keypaths ，通用下标，开放范围以及以前在 Swift 中提供的许多功能。</p>
+<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><p>就如之前所提到的那样，这些仍处于研究中而不是生产级的代码。一旦我开始在一个真正的应用程序中使用它，我非常感兴趣想知道将来会遇到什么样问题。 下面就是其中一个让我感到困惑的代码段：：</p>
+<p>var twoPeople: Ref<addressbook> = Ref(initialValue:<br>[Person(name: “One”, addresses: []),<br>Person(name: “Two”, addresses: [])])<br>let p0 = twoPeople[0]<br>twoPeople.value.removeFirst()<br>print(p0.value) // what does this print?</addressbook></p>
+<p>我很有兴趣将它更进一步。我甚至可以想象的到，如果我为他添加队列支持，你就可以像下面那样使用：</p>
+<p>var source = Ref<addressbook>(initialValue: [],<br>queue: DispatchQueue(label: “private queue”))</addressbook></p>
+<p>我还能想象的到你可以用它和数据库搭配使用。这个 <code>Var</code> 将会让你同时支持读写操作，并订阅任何修改的通知：</p>
+<p>final class MyDatabase {<br>func readPerson(id: Person.Id) -&gt; Var<person> {<br>}<br>}</person></p>
+<p>我期待着听到您的评论和反馈，如果你需要更深入的理解它是如何工作的，试着自己去实现它（即便你已经看了代码）。顺便提一下，我们将会以它为主题开展两场 <a href="http://talk.objc.io/" target="_blank" rel="external">Swift Talk</a>。如果你对 Florian 和我从头开始构建这个项目感兴趣，就订阅它吧。</p>
 <blockquote>
-<p> 第一行 设置 layer 的阴影偏移量是 (5,5). 将阴影的 <code>layer.shadowOffset</code> 设置(5,5), 意味着这个 layer 的阴影是到 <code>box.layer</code> 右边 5 个点单位距离, 下边 5 个单位的距离.<br>第二行 设置 layer 的阴影透明度是 0.7 . 意味着这个阴影应该是70%的不透明度.<br>第三行 设置的是 layer 的阴影半径是5个点. 阴影的范围是 <code>box.layer</code> 的模糊弧度决定的.更高的弧度会让阴影的范围更广,但是更加模糊不可见.更低的弧度会让阴影更加清晰可见度更高.<br> 第四行 设置的是阴影的颜色是深蓝. 注意这里的颜色属性是 <code>CGColor</code> 类型. 而不是 <code>UIColor</code>. 这两个颜色类的转换是非常简单的,你只需要写成 <code>myUIColor.CGColor</code>.</p>
+<p>更新： 感谢 Egor Sobko 指出了一个微妙但却至关重要的错误:我为观察者发送的是 <code>initialValue</code> 而不是 <code>theValue</code>，已修改!</p>
 </blockquote>
-<p>让我们看一下效果:</p>
-<p><img src="/images/blog01/calayer-shadow.png" alt="阴影效果"></p>
-<h2 id="添加边框"><a href="#添加边框" class="headerlink" title="添加边框"></a>添加边框</h2><p> 我们能够轻易地使用 CALayer 添加边框.让我们给 box 添加一个边框.</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box.layer.borderColor = UIColor.blueColor().CGColor</div><div class="line">box.layer.borderWidth = 3</div></pre></td></tr></table></figure>
+<hr>
 <blockquote>
-<p>第一行 设置 <code>box</code> 的边框颜色是蓝色.这将会让 box 的所有边框都是蓝色的.<br>第二行 设置边框线条的宽度是 3 点. 也就是 box 的边框厚度是 3 个点的单位.</p>
+<p><a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a> 是一个翻译优质互联网技术文章的社区，文章来源为 <a href="https://juejin.im" target="_blank" rel="external">掘金</a> 上的英文分享文章。内容覆盖 <a href="https://github.com/xitu/gold-miner#android" target="_blank" rel="external">Android</a>、<a href="https://github.com/xitu/gold-miner#ios" target="_blank" rel="external">iOS</a>、<a href="https://github.com/xitu/gold-miner#react" target="_blank" rel="external">React</a>、<a href="https://github.com/xitu/gold-miner#前端" target="_blank" rel="external">前端</a>、<a href="https://github.com/xitu/gold-miner#后端" target="_blank" rel="external">后端</a>、<a href="https://github.com/xitu/gold-miner#产品" target="_blank" rel="external">产品</a>、<a href="https://github.com/xitu/gold-miner#设计" target="_blank" rel="external">设计</a> 等领域，想要查看更多优质译文请持续关注 <a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a>、<a href="http://weibo.com/juejinfanyi" target="_blank" rel="external">官方微博</a>、<a href="https://zhuanlan.zhihu.com/juejinfanyi" target="_blank" rel="external">知乎专栏</a>。</p>
 </blockquote>
-<p>让我们看一下 <code>box</code>添加边框之后的效果:</p>
-<p><img src="/images/blog01/calayer-border.png" alt="添加边框"></p>
-<h2 id="渲染图片"><a href="#渲染图片" class="headerlink" title="渲染图片"></a>渲染图片</h2><p>你也可以吧一张图片赋值给 layer 这样 layer 就会将这张图片渲染出来. 在这里有一张树的图片, 让我们试着用 layer 来显示这张图片.把下面的代码插入到 <code>viewDidLoad</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">box.layer.contents = UIImage(named: &quot;tree.jpg&quot;)?.CGImage</div><div class="line">box.layer.contentsGravity = kCAGravityResize</div><div class="line">box.layer.masksToBounds = true</div></pre></td></tr></table></figure>
-<blockquote>
-<p>第一行 将图片赋值给 layer 的 contents 属性.<br>第二行 将 layer 的内容这是成自适应大小, 图片会自适应 layer 大小.<br>第三行 将 layer 的任何 扩展到 layer 外的子 layer 部分都剪切掉.如果你不明白是什么意思.你可以将 <code>masksToBounds</code> 设置成 false 来看看他们的区别 (阴影被裁剪掉了):</p>
-</blockquote>
-<p><img src="/images/blog01/calayermasktobounds.png" alt="裁剪图片"></p>
-<h2 id="背景颜色和不透明度"><a href="#背景颜色和不透明度" class="headerlink" title="背景颜色和不透明度"></a>背景颜色和不透明度</h2><p>研究了在 layer 添加一些 <code>UIKit</code> 无法实现的特殊效果. 我们也应该讨论下通过 CALayer 来修改 UIKit 类的属性的可能性. 比如 你可以修改 view 的背景颜色和不透明度:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">box.layer.backgroundColor = UIColor.blueColor().CGColor</div><div class="line">box.layer.opacity = 0.5</div></pre></td></tr></table></figure>
-<h2 id="CALayer-的性能"><a href="#CALayer-的性能" class="headerlink" title="CALayer 的性能"></a>CALayer 的性能</h2><p>在 layers 上添加太多的特殊效果会影响到性能, 现在我们来聊一聊可以帮助我们提高 app 性能的 2 个 CALayer 属性.</p>
-<p>首先是 <code>drawsAsynchronously</code> 属性.这个属性决定 CPU 是否应该在子线程里渲染 layer. 如果设置成 true, 这个 layer 看起来像我们平时看到的样子, 但是 CPU 需要在子线程中来计算和渲染它.如果你的 app 里面有一个 view 需要频繁重绘(比如一个地图view 或者 tableView),你需要将这个属性设置为 true;</p>
-<p>第二个属性是 <code>shouldRasterize</code>,这个属性决定这 layer 是否会栅格化.当这个属性设置为 true 后,这个 layer 只会被绘制一次,当它具有动画时 layer不会被渲染 并且第一次绘制的位图信息将会被回收.当你的app有一个不需要频繁绘制的 view 时 你可以把这个属性设置为 true. 注意 当你设置了<code>shouldRasterize</code>属性后,layer 的外观可能在 Retina 屏上有锯齿. 这是因为 layer 有一个控制 layer 的栅格化因子 rasterizationScale.为了防止这种情况. 将 layer 的 rasterizationScale 设置成 <code>UIScreen.mainScreen().scale</code> 这样就不会出现锯齿了.</p>
-<blockquote>
-<p>栅格化 是PS中的一个专业术语，栅格即像素，栅格化即将矢量图形转化为位图。<br>开启 shouldRasterize 后, CALayer 会被栅格化为 bitmap , layer 的阴影等效果也会被保存到 bitmap 中。</p>
-</blockquote>
-<h3 id="避免-shouldRasterize-和-drawsAsynchronously-的过度使用"><a href="#避免-shouldRasterize-和-drawsAsynchronously-的过度使用" class="headerlink" title="避免 shouldRasterize 和 drawsAsynchronously 的过度使用"></a>避免 shouldRasterize 和 drawsAsynchronously 的过度使用</h3><p>当我们开启光栅化后,需要注意三点问题。</p>
-<p>如果我们更新已光栅化的layer,会造成大量的 offscreen 渲染。</p>
-<blockquote>
-<p>offscreen rendring指的是在图像在绘制到当前屏幕前,需要先进行一次渲染,之后才绘制到当前屏幕。offscreen渲染会耗费大量资源.</p>
-</blockquote>
-<p><strong>因此 CALayer 的光栅化选项的开启与否需要我们仔细衡量使用场景。</strong> 只能用在图像内容不变的前提下的：</p>
-<p>用于避免静态内容的复杂特效的重绘,例如前面讲到的UIBlurEffect<br>用于避免多个View嵌套的复杂View的重绘。<br>而对于经常变动的内容,这个时候不要开启,否则会造成性能的浪费。</p>
-<p>例如我们日程经常打交道的 TableViewCell ,因为 TableViewCell 的重绘是很频繁的（因为Cell 的复用）,如果Cell的内容不断变化,则 Cell 需要不断重绘,如果此时设置了cell.layer 可光栅化。则会造成大量的 offscreen 渲染,降低图形性能。</p>
-<p>当然,合理利用的话,是能够得到不少性能的提高的,因为使用 shouldRasterize 后 layer 会缓存为Bitmap位图,对一些添加了 shawdow 等效果的耗费资源较多的静态内容进行缓存,能够得到性能的提升。</p>
-<p>不要过度使用,系统限制了缓存的大小为 2.5 x Screen Size.<br>如果过度使用,超出缓存之后,同样会造成大量的 offscreen 渲染。<br>被光栅化的图片如果超过 100ms 没有被使用,则会被移除</p>
-<p>因此我们应该只对连续不断使用的图片进行缓存。对于不常使用的图片缓存是没有意义,且耗费资源的。</p>
-<p><strong>基于 99% 的情况下 你都不需要手动设置这两个属性.不当的设置它们可能会反而导致你 app 的性能变得更糟.</strong></p>
-<h2 id="题外"><a href="#题外" class="headerlink" title="题外"></a>题外</h2><blockquote>
-<p>关于 offscreen rendering 注意到上面提到的 offscreen rendering 。我们需要注意 shouldRasterize 的地方就是会造成 offscreen rendering 的地方,那么为什么需要避免呢？<br>WWDC 2011 Understanding UIKit Rendering 指出一般导致图形性能的问题大部分都出在了 offscreen rendering ,因此如果我们发现列表滚动不流畅,动画卡顿等问题,就可以想想和找出我们哪部分代码导致了大量的 offscreen 渲染。<br>那么为什么 offscreen 渲染会耗费大量资源呢？<br>原因是显卡需要另外 alloc 一块内存来进行渲染,渲染完毕后在绘制到当前屏幕,而且对于显卡来说, onscreen 到 offscreen 的上下文环境切换是非常昂贵的(涉及到 OpenGL 的 pipelines 和 barrier 等),<br>我们在开发应用,提高性能通常要注意的是避免 offscreen  rendering 。不需要纠结和拘泥于它的定义.<br>有兴趣可以继续阅读 Andy Matuschak , 前 UIKit team 成员关于offscreen rendering 的 <a href="https://lobste.rs/s/ckm4uw/a_performance-minded_take_on_ios_design/comments/itdkfh" target="_blank" rel="external">评论</a> 。</p>
-</blockquote>
-<p>总之,我们通常需要避免大量的offscreen rendering.<br>会造成 offscreen rendering的原因有：<br>Any layer with a mask (layer.mask)<br>Any layer with layer.masksToBounds being true<br>Any layer with layer.allowsGroupOpacity set to YES and layer.opacity is less than 1.0<br>Any layer with a drop shadow (layer.shadow*).<br>Any layer with layer.shouldRasterize being true<br>Any layer with layer.cornerRadius, layer.edgeAntialiasingMask,<br>layer.allowsEdgeAntialiasing </p>
-<p>因此,对于一些需要优化图像性能的场景,我们可以检查我们是否触发了 offscreen rendering 。并用更高效的实现手段来替换。<br>阴影绘制:<br>裁剪图片为圆:<br>Blending 的过多使用<br>检查有无过多offscreen渲染<br>检查有无过多Blending<br>检查有无不正确图片格式,图片是否被放缩,像素是否对齐。<br>检查有无使用复杂的图形效果。</p>
-<p><strong>– 原创所有,转载请注明出处。</strong></p>
 
       
     </div>
@@ -522,12 +531,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/CALayer/" rel="tag"># CALayer</a>
-          
-        </div>
-      
 
       
         
@@ -537,15 +540,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/14/Swift-中的通用数据源/" rel="next" title="Swift 中的通用数据源">
+                <i class="fa fa-chevron-left"></i> Swift 中的通用数据源
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/11/iOS-APP-崩溃日志分析/" rel="prev" title="iOS APP 崩溃日志分析">
-                iOS APP 崩溃日志分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +670,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用-Layers"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用 Layers?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获得-CALayer"><span class="nav-number">2.</span> <span class="nav-text">获得 CALayer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-Project"><span class="nav-number">3.</span> <span class="nav-text">Demo Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切圆角"><span class="nav-number">4.</span> <span class="nav-text">切圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加阴影效果"><span class="nav-number">5.</span> <span class="nav-text">增加阴影效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加边框"><span class="nav-number">6.</span> <span class="nav-text">添加边框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染图片"><span class="nav-number">7.</span> <span class="nav-text">渲染图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景颜色和不透明度"><span class="nav-number">8.</span> <span class="nav-text">背景颜色和不透明度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CALayer-的性能"><span class="nav-number">9.</span> <span class="nav-text">CALayer 的性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#避免-shouldRasterize-和-drawsAsynchronously-的过度使用"><span class="nav-number">9.1.</span> <span class="nav-text">避免 shouldRasterize 和 drawsAsynchronously 的过度使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外"><span class="nav-number">10.</span> <span class="nav-text">题外</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">1.</span> <span class="nav-text">实现细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讨论"><span class="nav-number">2.</span> <span class="nav-text">讨论</span></a></li></ol></div>
             
 
           </div>
