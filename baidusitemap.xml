@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://swants.github.io/2017/08/27/Swift-Struct-References/</loc>
-    <lastmod>2017-08-27T03:49:37.000Z</lastmod>
+    <loc>https://swants.github.io/2017/06/15/%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9UI%E5%BA%93/</loc>
+    <lastmod>2017-08-27T03:55:22.000Z</lastmod>
     <data>
         <display>
-        <title>Swift Struct References</title>
-        <pubTime>2017-08-27T03:40:36.000Z</pubTime>
+        <title>[译]避免使用第三方UI库</title>
+        <pubTime>2017-06-15T08:19:50.000Z</pubTime>
         
          
            
@@ -20,7 +20,7 @@
     
   <url>
     <loc>https://swants.github.io/2017/07/07/%E5%BC%80%E5%8F%91%E8%80%85%E7%9C%BC%E4%B8%AD-iOS-11-%E9%83%BD%E6%9B%B4%E6%96%B0%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F/</loc>
-    <lastmod>2017-08-27T03:45:12.000Z</lastmod>
+    <lastmod>2017-08-27T03:54:42.000Z</lastmod>
     <data>
         <display>
         <title>开发者眼中 iOS 11 都更新了什么？</title>
@@ -28,6 +28,21 @@
         
         <tag>iOS 11</tag>
          
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://swants.github.io/2017/08/27/Swift-Struct-References/</loc>
+    <lastmod>2017-08-27T03:49:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift Struct References</title>
+        <pubTime>2017-08-27T03:40:36.000Z</pubTime>
+        
          
            
         </display>
@@ -77,21 +92,6 @@
         
         <tag>CALayer</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://swants.github.io/2017/06/15/%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9UI%E5%BA%93/</loc>
-    <lastmod>2017-07-07T07:31:54.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]避免使用第三方UI库</title>
-        <pubTime>2017-06-15T08:19:50.000Z</pubTime>
-        
          
            
         </display>
