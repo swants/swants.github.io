@@ -1,24 +1,28 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Swift 中的通用数据源"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
 
 
 
@@ -29,391 +33,191 @@
 
 
 
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.github.io/2017/08/14/Swift-中的通用数据源/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="swants, ios" />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
-
-
-
-<meta name="description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
-<meta name="keywords" content="swants 塞万提斯  saiwantisi 博客">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Swift 中的通用数据源">
-<meta property="og:url" content="https://swants.github.io/2017/08/14/Swift-中的通用数据源/index.html">
-<meta property="og:site_name" content="塞万提斯">
-<meta property="og:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
-<meta property="og:image" content="https://swants.github.io/images/blog03/blog03.gif">
-<meta property="og:updated_time" content="2017-08-14T03:29:58.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 中的通用数据源">
-<meta name="twitter:description" content="译文出自：掘金翻译计划 译者：    Swants 校对者：  iOSleep      在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样">
-<meta name="twitter:image" content="https://swants.github.io/images/blog03/blog03.gif">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
 
-  <link rel="canonical" href="https://swants.github.io/2017/08/14/Swift-中的通用数据源/"/>
+    <title> Swift 中的通用数据源 - 塞万提斯 </title>
+  </head>
 
-
-
-
-
-  <title>Swift 中的通用数据源 | 塞万提斯</title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-<a href="https://github.com/swants/swants.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">塞万提斯</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description">swants'blog</h1>
-      
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-<nav class="site-nav">
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/photos">
+        <li class="mobile-menu-item">
+          
+          
+            摄影
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
 
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
   
     <ul id="menu" class="menu">
       
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+              首页
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/photos">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+              摄影
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            分类
+              归档
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+              关于我
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
           </a>
         </li>
       
     </ul>
   
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
 </nav>
 
+      </header>
 
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+      <main id="main" class="main">
+        <div class="content-wrapper">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
-    
-
   
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Swift 中的通用数据源
+        
+      </h1>
 
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://swants.github.io/2017/08/14/Swift-中的通用数据源/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="swants">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="塞万提斯">
-    </span>
+      <div class="post-meta">
+        <span class="post-time">
+          2017-08-14
+        </span>
+        
+      </div>
+    </header>
 
     
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">Swift 中的通用数据源</h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T11:20:31+08:00">
-                2017-08-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/08/14/Swift-中的通用数据源/" class="leancloud_visitors" data-flag-title="Swift 中的通用数据源">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TableView-vs-CollectionView"><span class="toc-text">TableView vs CollectionView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swift-泛型与有效抽取的探索"><span class="toc-text">Swift 泛型与有效抽取的探索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Collection-View-Cell-抽取"><span class="toc-text">Collection View Cell 抽取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReusableCell"><span class="toc-text">ReusableCell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConfigurableCell"><span class="toc-text">ConfigurableCell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据源的抽取-CollectionDataProvider"><span class="toc-text">数据源的抽取: CollectionDataProvider</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#封装样板-CollectionDataSource"><span class="toc-text">封装样板: CollectionDataSource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider"><span class="toc-text">实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#封装到一块-CollectionArrayDataSource"><span class="toc-text">封装到一块: CollectionArrayDataSource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个基本的-CollectionView"><span class="toc-text">创建一个基本的 CollectionView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置带有组标题和组的-CollectionView"><span class="toc-text">设置带有组标题和组的 CollectionView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#额外链接"><span class="toc-text">额外链接</span></a></li></ol></li></ol>
+    </div>
+  </div>
 
-    <div class="post-body" itemprop="articleBody">
 
+    <div class="post-content">
       
-      
-
-      
-        <blockquote>
-<ul>
-<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
-<li>译者：    <a href="https://swants.github.io">Swants</a></li>
-<li>校对者：  <a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
-</ul>
-</blockquote>
-<p><img src="/images/blog03/blog03.gif" alt="image">  </p>
-<p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
-<p>本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。</p>
+        <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
 <a id="more"></a>
+<p>本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。</p>
 <h3 id="TableView-vs-CollectionView"><a href="#TableView-vs-CollectionView" class="headerlink" title="TableView vs CollectionView"></a>TableView vs CollectionView</h3><p>有些人可能会问 <strong>为什么单讨论 collectionView 而不提 tableView 呢?</strong></p>
 <p>在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 <strong>几乎完全</strong> 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：</p>
 <ul>
@@ -437,9 +241,9 @@
 </ul>
 <p>让我们详细地看一下这两个抽取后代码吧。</p>
 <h3 id="ReusableCell"><a href="#ReusableCell" class="headerlink" title="ReusableCell"></a>ReusableCell</h3><p>这个 <strong>ReusableCell</strong> 协议需要你定义一个 <strong>重用标识符</strong> ，这个标志符将在重用 cell 的时候被用到。在我的 APP 里，我总是图方便把 cell 的重用标识符设置为和 cell 的类名一样。因此，很容易通过创建一个协议扩展来抽取出，让 <strong>reuseIdentifier</strong> 返回一个带有类名称的字符串：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public protocol ReusableCell &#123;</div><div class="line">    static var reuseIdentifier: String &#123; get &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public extension ReusableCell &#123;</div><div class="line">    static var reuseIdentifier: String &#123;</div><div class="line">        return String(describing: self)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">ReusableCell</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">var</span> reuseIdentifier: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">extension</span> <span class="title">ReusableCell</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">var</span> reuseIdentifier: <span class="type">String</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">String</span>(describing: <span class="keyword">self</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="ConfigurableCell"><a href="#ConfigurableCell" class="headerlink" title="ConfigurableCell"></a>ConfigurableCell</h3><p>这个 <strong>ConfigurableCell</strong> 协议需要你实现一个方法，这个方法将使用特定类型的实例配置 cell ,而这个实例被定义成了一个泛型类型 <strong>T</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public protocol ConfigurableCell: ReusableCell &#123;</div><div class="line">    associatedtype T</div><div class="line"></div><div class="line">    func configure(_ item: T, at indexPath: IndexPath)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">ConfigurableCell</span>: <span class="title">ReusableCell</span> </span>&#123;</div><div class="line">    associatedtype <span class="type">T</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">configure</span><span class="params">(<span class="number">_</span> item: T, at indexPath: IndexPath)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个 <strong>ConfigurableCell</strong> 协议将会在加载 cell 内容的时候被调用。接下来我会详细介绍一些细节，现在我就强调下一些地方：</p>
 <ol>
 <li><p><strong>ConfigurableCell</strong> 继承 <strong>ReusableCell</strong></p>
@@ -455,7 +259,7 @@
 </ul>
 <p>将上述代理方法实现，会确保我们能够对指定 collectionView 的 cell 进行展示 。而对于我来说，这里是非常适合进行代码抽取的地方。</p>
 <p>为了抽取和封装上述步骤，我创建了以下泛型协议：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public protocol CollectionDataProvider &#123;</div><div class="line">    associatedtype T</div><div class="line"></div><div class="line">    func numberOfSections() -&gt; Int</div><div class="line">    func numberOfItems(in section: Int) -&gt; Int</div><div class="line">    func item(at indexPath: IndexPath) -&gt; T?</div><div class="line"></div><div class="line">    func updateItem(at indexPath: IndexPath, value: T)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">CollectionDataProvider</span> </span>&#123;</div><div class="line">    associatedtype <span class="type">T</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">()</span></span> -&gt; <span class="type">Int</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfItems</span><span class="params">(<span class="keyword">in</span> section: Int)</span></span> -&gt; <span class="type">Int</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">item</span><span class="params">(at indexPath: IndexPath)</span></span> -&gt; <span class="type">T</span>?</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">updateItem</span><span class="params">(at indexPath: IndexPath, value: T)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个协议前三个方法是：</p>
 <ul>
 <li><strong><em>numberOfSections()</em></strong></li>
@@ -465,7 +269,7 @@
 <p>他们指明了遵循 <strong>UICollectionViewDataSource</strong> 协议需要实现的代理方法列表。基于我有过一些当用户交互后需要更新数据源的使用场景，我在最后又加了一个 <strong>(updateItem(at:, value:))</strong> 方法。这个方法允许你在需要的时候更新底层数据。到这里，在 <strong>CollectionDataProvider</strong> 定义的方法满足了遵循 <strong>UICollectionViewDataSource</strong> 协议时需要实现的常用功能。</p>
 <h3 id="封装样板-CollectionDataSource"><a href="#封装样板-CollectionDataSource" class="headerlink" title="封装样板: CollectionDataSource"></a>封装样板: CollectionDataSource</h3><p>通过上面的抽取，现在可以开始实现一个基类，这个基类将被封装为 collectionView 创建数据源所需的常用样板。这就是最神奇地方！这个类的主要作用就是利用特定的 <strong>CollectionDataProvider</strong> 和 <strong>UICollectionViewCell</strong> 来满足遵循 <strong>UICollectionViewDataSource</strong> 协议所需要实现的方法。</p>
 <p>这是这个类的定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open class CollectionDataSource&lt;Provider: CollectionDataProvider, Cell: UICollectionViewCell&gt;:</div><div class="line">    NSObject,</div><div class="line">    UICollectionViewDataSource,</div><div class="line">    UICollectionViewDelegate,</div><div class="line">    where Cell: ConfigurableCell, Provider.T == Cell.T</div><div class="line">&#123; [...] &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionDataSource</span>&lt;<span class="type">Provider: CollectionDataProvider, Cell: UICollectionViewCell</span>&gt;:</span></div><div class="line">    <span class="type">NSObject</span>,</div><div class="line">    <span class="type">UICollectionViewDataSource</span>,</div><div class="line">    <span class="type">UICollectionViewDelegate</span>,</div><div class="line">    <span class="type">where Cell: ConfigurableCell</span>, <span class="type">Provider.T == Cell.T</span></div><div class="line">&#123; [...] &#125;</div></pre></td></tr></table></figure>
 <p>它为我们做了很多事：</p>
 <ol>
 <li>这个类有一个公有属性，让我们能够将它扩展为指定 CollectionDataProvider 提供正确的实现。</li>
@@ -478,21 +282,21 @@
 <li>特定类型 <strong>T</strong> 必须和 cell 跟 Provider 的 <strong>T</strong> 相同 (<strong>Provider.T == Cell.T</strong>)。</li>
 </ul>
 <p>代码需要像下面一样对 <strong>CollectionDataSource</strong> 进行初始化和设置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// MARK: - Private Properties</div><div class="line">let provider: Provider</div><div class="line">let collectionView: UICollectionView</div><div class="line"></div><div class="line">// MARK: - Lifecycle</div><div class="line">init(collectionView: UICollectionView, provider: Provider) &#123;</div><div class="line">    self.collectionView = collectionView</div><div class="line">    self.provider = provider</div><div class="line">    super.init()</div><div class="line">    setUp()</div><div class="line">&#125;</div><div class="line"></div><div class="line">func setUp() &#123;</div><div class="line">    collectionView.dataSource = self</div><div class="line">    collectionView.delegate = self</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - Private Properties</span></div><div class="line"><span class="keyword">let</span> provider: <span class="type">Provider</span></div><div class="line"><span class="keyword">let</span> collectionView: <span class="type">UICollectionView</span></div><div class="line"></div><div class="line"><span class="comment">// MARK: - Lifecycle</span></div><div class="line"><span class="keyword">init</span>(collectionView: <span class="type">UICollectionView</span>, provider: <span class="type">Provider</span>) &#123;</div><div class="line">    <span class="keyword">self</span>.collectionView = collectionView</div><div class="line">    <span class="keyword">self</span>.provider = provider</div><div class="line">    <span class="keyword">super</span>.<span class="keyword">init</span>()</div><div class="line">    setUp()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</div><div class="line">    collectionView.dataSource = <span class="keyword">self</span></div><div class="line">    collectionView.delegate = <span class="keyword">self</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>代码是非常简单的：<strong>CollectionDataSource</strong> 需要知道它将针对哪个 collectionView 对象，将根据哪个作为数据提供者。这些问题都是通过 <strong>init</strong> 方法的参数进行传递确定的。在初始化的过程中，<strong>CollectionDataSource</strong> 将自己设置为 <strong>UICollectionViewDataSource</strong> 和 <strong>UICollectionViewDelegate</strong> 的代理对象(在 <strong>setUp</strong> 方法中)。</p>
 <p>现在让我们看一下 <strong>UICollectionViewDataSource</strong> 代理的样板代码。</p>
 <p>这是代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// MARK: - UICollectionViewDataSource</div><div class="line">public func numberOfSections(in collectionView: UICollectionView) -&gt; Int &#123;</div><div class="line">    return provider.numberOfSections()</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int &#123;</div><div class="line">    return provider.numberOfItems(in: section)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open func collectionView(_ collectionView: UICollectionView,</div><div class="line">     cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell</div><div class="line">&#123;</div><div class="line">    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier,</div><div class="line">        for: indexPath) as? Cell else &#123;</div><div class="line">        return UICollectionViewCell()</div><div class="line">    &#125;</div><div class="line">    let item = provider.item(at: indexPath)</div><div class="line">    if let item = item &#123;</div><div class="line">        cell.configure(item, at: indexPath)</div><div class="line">    &#125;</div><div class="line">    return cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - UICollectionViewDataSource</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> collectionView: UICollectionView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> provider.numberOfSections()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> provider.numberOfItems(<span class="keyword">in</span>: section)</div><div class="line">&#125;</div><div class="line"></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></div><div class="line">     cellForItemAt indexPath: IndexPath) -&gt; <span class="type">UICollectionViewCell</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> cell = collectionView.dequeueReusableCell(withReuseIdentifier: <span class="type">Cell</span>.reuseIdentifier,</div><div class="line">        <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>? <span class="type">Cell</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">UICollectionViewCell</span>()</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> item = provider.item(at: indexPath)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> item = item &#123;</div><div class="line">        cell.configure(item, at: indexPath)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面的代码片段通过 <strong>CollectionDataProvider</strong> 的一个对象展示了 <strong>UICollectionViewDataSource</strong> 代理的主要实现，就像之前所说的那样，它封装了数据源实现的所有细节。每个代理都使用指定的 <strong>CollectionDataProvider</strong> 方法来抽取跟数据源之间进行交互。</p>
 <p>注意 <strong>collectionView(_:cellForItemAt:)</strong> 方法有一个公开的属性，这就能够让它的任何子类在需要对 cell 内容进行更多定制化的时候进行扩展。</p>
 <p>现在对 collectionView cell 展示的功能已经做好了，让我们再为它添加更多的功能吧。</p>
 <p>而作为第一个要添加的功能，用户应该能够在点击 cell 的时候触发某些操作。为了实现这个功能，一个简单的方案就是定义一个简单的 closure,并对这个 closure 初始化，当用户点击 cell 的时候执行这个 closure 。</p>
 <p>处理 cell 点击的自定义 closure 如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public typealias CollectionItemSelectionHandlerType = (IndexPath) -&gt; Void</div></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public typealias CollectionItemSelectionHandlerType = <span class="function"><span class="params">(IndexPath)</span> -&gt;</span> Void</div></pre></td></tr></table></figure>
 <p>现在，我们能定义个属性来存储这个 closure ，当用户点击这个 cell 的时候就会在 <strong>UICollectionViewDelegate</strong> 的 <strong>collectionView(_:didSelectItemAt:)</strong> 代理方法实现中执行这个初始化好的 closure 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// MARK: - Delegates</div><div class="line">public var collectionItemSelectionHandler: CollectionItemSelectionHandlerType?</div><div class="line"></div><div class="line">// MARK: - UICollectionViewDelegate</div><div class="line">public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) &#123;</div><div class="line">    collectionItemSelectionHandler?(indexPath)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - Delegates</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> collectionItemSelectionHandler: <span class="type">CollectionItemSelectionHandlerType</span>?</div><div class="line"></div><div class="line"><span class="comment">// MARK: - UICollectionViewDelegate</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)</span></span> &#123;</div><div class="line">    collectionItemSelectionHandler?(indexPath)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>作为第二个要添加的功能，我打算在 <strong>CollectionDataSource</strong> 中对多组组头和组的一些代码样板进行封装。这就需要实现 <strong>UICollectionViewDataSource</strong> 的代理方法 <strong>viewForSupplementaryElementOfKind</strong> 。为了能够让子类自定义的实现 <strong>viewForSupplementaryElementOfKind</strong> ，这个代理方法需要定义为公开方法，以便让任何子类能够对这个方法进行重写。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open func collectionView(_ collectionView: UICollectionView,</div><div class="line">    viewForSupplementaryElementOfKind kind: String,</div><div class="line">    at indexPath: IndexPath) -&gt; UICollectionReusableView</div><div class="line">&#123;</div><div class="line">    return UICollectionReusableView(frame: CGRect.zero)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></div><div class="line">    viewForSupplementaryElementOfKind kind: String,</div><div class="line">    at indexPath: IndexPath) -&gt; <span class="type">UICollectionReusableView</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">UICollectionReusableView</span>(frame: <span class="type">CGRect</span>.zero)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>通常来说，这种方式适用于所有的代理方法，当他们需要被子类重写覆盖时，这些方法需要定义为公有方法，并在 <strong>CollectionDataSource</strong> 中实现。</p>
 <p>另一种不同的解决方案就是使用一个自定义的 closure ，就像在 <strong>(CollectionItemSelectionHandlerType)</strong> 方法中处理 cell 点击事件一样。</p>
 <p>我实现的这个特定方面是软件工程中的一个典型的权衡，一方面 —— 为 collectionView 设置数据源的主要细节都被隐藏（被抽取封装）。另一方面 —— 封装的样板代码中没有提供的功能，就会变得不能开箱即用，添加新的功能并不复杂，但是需要像我上面两个例子那样，需要实现更多的自定义代码。</p>
@@ -502,11 +306,11 @@
 <li>数组，表示 collectionView 只有一组 cell 的内容（没有组头）。</li>
 </ul>
 <p>上面的代码实现都包含在泛型类 <strong>ArrayDataProvider</strong> 中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class ArrayDataProvider&lt;T&gt;: CollectionDataProvider &#123;</div><div class="line">    // MARK: - Internal Properties</div><div class="line">    var items: [[T]] = []</div><div class="line"></div><div class="line">    // MARK: - Lifecycle</div><div class="line">    init(array: [[T]]) &#123;</div><div class="line">        items = array</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // MARK: - CollectionDataProvider</div><div class="line">    public func numberOfSections() -&gt; Int &#123;</div><div class="line">        return items.count</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func numberOfItems(in section: Int) -&gt; Int &#123;</div><div class="line">        guard section &gt;= 0 &amp;&amp; section &lt; items.count else &#123;</div><div class="line">            return 0</div><div class="line">        &#125;</div><div class="line">        return items[section].count</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func item(at indexPath: IndexPath) -&gt; T? &#123;</div><div class="line">        guard indexPath.section &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.section &lt; items.count &amp;&amp;</div><div class="line">            indexPath.row &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].count else</div><div class="line">        &#123;</div><div class="line">            return items[indexPath.section][indexPath.row]</div><div class="line">        &#125;</div><div class="line">        return nil</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public func updateItem(at indexPath: IndexPath, value: T) &#123;</div><div class="line">        guard indexPath.section &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.section &lt; items.count &amp;&amp;</div><div class="line">            indexPath.row &gt;= 0 &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].count else</div><div class="line">        &#123;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line">        items[indexPath.section][indexPath.row] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayDataProvider</span>&lt;<span class="title">T</span>&gt;: <span class="title">CollectionDataProvider</span> </span>&#123;</div><div class="line">    <span class="comment">// MARK: - Internal Properties</span></div><div class="line">    <span class="keyword">var</span> items: [[<span class="type">T</span>]] = []</div><div class="line"></div><div class="line">    <span class="comment">// MARK: - Lifecycle</span></div><div class="line">    <span class="keyword">init</span>(array: [[<span class="type">T</span>]]) &#123;</div><div class="line">        items = array</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// MARK: - CollectionDataProvider</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> items.<span class="built_in">count</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">numberOfItems</span><span class="params">(<span class="keyword">in</span> section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">guard</span> section &gt;= <span class="number">0</span> &amp;&amp; section &lt; items.<span class="built_in">count</span> <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> items[section].<span class="built_in">count</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">item</span><span class="params">(at indexPath: IndexPath)</span></span> -&gt; <span class="type">T</span>? &#123;</div><div class="line">        <span class="keyword">guard</span> indexPath.section &gt;= <span class="number">0</span> &amp;&amp;</div><div class="line">            indexPath.section &lt; items.<span class="built_in">count</span> &amp;&amp;</div><div class="line">            indexPath.row &gt;= <span class="number">0</span> &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].<span class="built_in">count</span> <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> items[indexPath.section][indexPath.row]</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">updateItem</span><span class="params">(at indexPath: IndexPath, value: T)</span></span> &#123;</div><div class="line">        <span class="keyword">guard</span> indexPath.section &gt;= <span class="number">0</span> &amp;&amp;</div><div class="line">            indexPath.section &lt; items.<span class="built_in">count</span> &amp;&amp;</div><div class="line">            indexPath.row &gt;= <span class="number">0</span> &amp;&amp;</div><div class="line">            indexPath.row &lt; items[indexPath.section].<span class="built_in">count</span> <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        items[indexPath.section][indexPath.row] = value</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样做可以提取访问数据源的细节，线性数据结构可以表示 cell 的内容是最常见的使用情况。</p>
 <h3 id="封装到一块-CollectionArrayDataSource"><a href="#封装到一块-CollectionArrayDataSource" class="headerlink" title="封装到一块: CollectionArrayDataSource"></a>封装到一块: CollectionArrayDataSource</h3><p>这样 <strong>CollectionDataProvider</strong> 协议就具体实现了，创建一个 <strong>CollectionDataSource</strong> 子类来实现最常见的简单的列表数据展示是非常容易的。</p>
 <p>让我们从这个类的定义开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open class CollectionArrayDataSource&lt;T, Cell: UICollectionViewCell&gt;: CollectionDataSource&lt;ArrayDataProvider&lt;T&gt;, Cell&gt;</div><div class="line">     where Cell: ConfigurableCell, Cell.T == T</div><div class="line"> &#123; [...] &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">CollectionArrayDataSource</span>&lt;T, <span class="title">Cell</span>: <span class="title">UICollectionViewCell</span>&gt;: <span class="title">CollectionDataSource</span>&lt;ArrayDataProvider&lt;T&gt;, <span class="title">Cell</span>&gt;</span></div><div class="line">     where <span class="symbol">Cell:</span> ConfigurableCell, Cell.T == T</div><div class="line"> &#123; [...] &#125;</div></pre></td></tr></table></figure>
 <p>这个声明定义了很多事情：</p>
 <ol>
 <li>这个类有一个公有的属性，因为它最终将被扩展为 <strong>UICollectionView</strong> 对象的数据源对象。</li>
@@ -524,10 +328,10 @@
 <li>cell 中的特定类型 <strong>T</strong> 必须跟 Provider 的 <strong>T</strong> 相同  (<strong>Provider.T == Cell.T</strong>) 。</li>
 </ul>
 <p>类的实现非常简单：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// MARK: - Lifecycle</div><div class="line">public convenience init(collectionView: UICollectionView, array: [T]) &#123;</div><div class="line">   self.init(collectionView: collectionView, array: [array])</div><div class="line">&#125;</div><div class="line"></div><div class="line">public init(collectionView: UICollectionView, array: [[T]]) &#123;</div><div class="line">   let provider = ArrayDataProvider(array: array)</div><div class="line">   super.init(collectionView: collectionView, provider: provider)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// MARK: - Public Methods</div><div class="line">public func item(at indexPath: IndexPath) -&gt; T? &#123;</div><div class="line">   return provider.item(at: indexPath)</div><div class="line">&#125;</div><div class="line"></div><div class="line">public func updateItem(at indexPath: IndexPath, value: T) &#123;</div><div class="line">   provider.updateItem(at: indexPath, value: value)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - Lifecycle</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(collectionView: <span class="type">UICollectionView</span>, array: [<span class="type">T</span>]) &#123;</div><div class="line">   <span class="keyword">self</span>.<span class="keyword">init</span>(collectionView: collectionView, array: [array])</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">init</span>(collectionView: <span class="type">UICollectionView</span>, array: [[<span class="type">T</span>]]) &#123;</div><div class="line">   <span class="keyword">let</span> provider = <span class="type">ArrayDataProvider</span>(array: array)</div><div class="line">   <span class="keyword">super</span>.<span class="keyword">init</span>(collectionView: collectionView, provider: provider)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - Public Methods</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">item</span><span class="params">(at indexPath: IndexPath)</span></span> -&gt; <span class="type">T</span>? &#123;</div><div class="line">   <span class="keyword">return</span> provider.item(at: indexPath)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">updateItem</span><span class="params">(at indexPath: IndexPath, value: T)</span></span> &#123;</div><div class="line">   provider.updateItem(at: indexPath, value: value)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>它只是提供了一些初始化方法和与交互方法，这些方法使我们能够让数据提供者与数据源透明地进行读取和写入操作。</p>
 <h3 id="创建一个基本的-CollectionView"><a href="#创建一个基本的-CollectionView" class="headerlink" title="创建一个基本的 CollectionView"></a>创建一个基本的 CollectionView</h3><p>可以将 <strong>CollectionArrayDataSource</strong> 基类扩展，为任何可以用二维数组展示的 collection view 创建一个特定的数据源。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class PhotosDataSource: CollectionArrayDataSource&lt;PhotoViewModel, PhotoCell&gt; &#123;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PhotosDataSource</span>: <span class="title">CollectionArrayDataSource</span>&lt;PhotoViewModel, <span class="title">PhotoCell</span>&gt; &#123;&#125;</span></div></pre></td></tr></table></figure>
 <p>声明比较简单:</p>
 <ol>
 <li>继承于 <strong>CollectionArrayDataSource</strong> 。</li>
@@ -535,7 +339,7 @@
 </ol>
 <p>请注意，<strong>PhotoCell</strong> 必须遵守 <strong>ConfigurableCell</strong> 协议，并且能够通过 <strong>PhotoViewModel</strong> 实例初始化它的属性。</p>
 <p>创建一个 <strong>PhotosDataSource</strong> 对象是非常简单的。只需要传递过去将要展示的 collectionView 和由展示每个 cell 内容的 <strong>PhotoViewModel</strong> 元素组成的数组：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let dataSource = PhotosDataSource(collectionView: collectionView, array: viewModels)</div></pre></td></tr></table></figure>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dataSource = PhotosDataSource(collectionView: collectionView, <span class="keyword">array</span>: viewModels)</div></pre></td></tr></table></figure>
 <p><strong>collectionView</strong> 参数通常是 storyboard 上的 collectionView 通过 outlet 指向获取到的。</p>
 <p>所有的就完成了！两行代码就可以设置一个基本的 collectionView 数据源。</p>
 <h3 id="设置带有组标题和组的-CollectionView"><a href="#设置带有组标题和组的-CollectionView" class="headerlink" title="设置带有组标题和组的 CollectionView"></a>设置带有组标题和组的 CollectionView</h3><p>对于更高级和复杂的用例，你可以简单在 <a href="https://github.com/andrea-prearo/GenericDataSource" target="_blank" rel="external">GitHub repo</a> 上查看 <strong>TaskList</strong> 。内容已经很长了，本文就不再不介绍示例的更多细节。我将在下一篇 <em>“Collection View with Headers and Sections”</em> 文章里进行深入地探讨。在这个说明中，如果存在一个话题对你来说很有意思，请不要犹豫让我知道，这样我就可以优先考虑下一步写什么。为了和我联系，请在这篇文章下方留言或发邮件给我: <a href="mailto:andrea.prearo@gmail.com" target="_blank" rel="external">andrea.prearo@gmail.com</a> 。</p>
@@ -550,351 +354,107 @@
 <p>更多关于 API、开源、社区活动或开发文化的信息，请访问我们的一站式开发网站  <a href="https://developer.capitalone.com/" target="_blank" rel="external"><strong>developer.capitalone.com</strong></a> 。</p>
 <hr>
 <blockquote>
-<p><a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a> 是一个翻译优质互联网技术文章的社区，文章来源为 <a href="https://juejin.im" target="_blank" rel="external">掘金</a> 上的英文分享文章。内容覆盖 <a href="https://github.com/xitu/gold-miner#android" target="_blank" rel="external">Android</a>、<a href="https://github.com/xitu/gold-miner#ios" target="_blank" rel="external">iOS</a>、<a href="https://github.com/xitu/gold-miner#react" target="_blank" rel="external">React</a>、<a href="https://github.com/xitu/gold-miner#前端" target="_blank" rel="external">前端</a>、<a href="https://github.com/xitu/gold-miner#后端" target="_blank" rel="external">后端</a>、<a href="https://github.com/xitu/gold-miner#产品" target="_blank" rel="external">产品</a>、<a href="https://github.com/xitu/gold-miner#设计" target="_blank" rel="external">设计</a> 等领域，想要查看更多优质译文请持续关注 <a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a>。</p>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a><ul>
+<li>译者：    <a href="https://swants.github.io">Swants</a></li>
+<li>校对者：  <a href="https://github.com/iOSleep" target="_blank" rel="external">iOSleep</a></li>
+</ul>
+</li>
+</ul>
 </blockquote>
 
       
     </div>
 
-    <div>
+    
       
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-
-      
-    </div>
-
-    <div>
-      
         
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>写的不错,打赏一下吧！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="swants WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="swants Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
         
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/27/Swift-Struct-References/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Swift Struct References</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？/">
+        <span class="next-text nav-default">开发者眼中 iOS 11 都更新了什么？</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
 
-      
-    </div>
+      </footer>
+    
 
-    <footer class="post-footer">
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？/" rel="next" title="开发者眼中 iOS 11 都更新了什么？">
-                <i class="fa fa-chevron-left"></i> 开发者眼中 iOS 11 都更新了什么？
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/27/Swift-Struct-References/" rel="prev" title="Swift Struct References">
-                Swift Struct References <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
           </div>
-          
-
-
           
   <div class="comments" id="comments">
     
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODQ2MC81MDMx"></div>
-    
   </div>
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+        </div>  
+      </main>
 
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.png"
-               alt="swants" />
-          <p class="site-author-name" itemprop="name">swants</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-           
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
+      <footer id="footer" class="footer">
 
 
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TableView-vs-CollectionView"><span class="nav-number">1.</span> <span class="nav-text">TableView vs CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-泛型与有效抽取的探索"><span class="nav-number">2.</span> <span class="nav-text">Swift 泛型与有效抽取的探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection-View-Cell-抽取"><span class="nav-number">3.</span> <span class="nav-text">Collection View Cell 抽取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReusableCell"><span class="nav-number">4.</span> <span class="nav-text">ReusableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConfigurableCell"><span class="nav-number">5.</span> <span class="nav-text">ConfigurableCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据源的抽取-CollectionDataProvider"><span class="nav-number">6.</span> <span class="nav-text">数据源的抽取: CollectionDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装样板-CollectionDataSource"><span class="nav-number">7.</span> <span class="nav-text">封装样板: CollectionDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现一个具体的-CollectionDataProvider-也就是-ArrayDataProvider"><span class="nav-number">8.</span> <span class="nav-text">实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装到一块-CollectionArrayDataSource"><span class="nav-number">9.</span> <span class="nav-text">封装到一块: CollectionArrayDataSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个基本的-CollectionView"><span class="nav-number">10.</span> <span class="nav-text">创建一个基本的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置带有组标题和组的-CollectionView"><span class="nav-number">11.</span> <span class="nav-text">设置带有组标题和组的 CollectionView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">12.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#额外链接"><span class="nav-number">12.1.</span> <span class="nav-text">额外链接</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
-  <span class="author" itemprop="copyrightHolder">swants</span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">swants</span>
+  </span>
 </div>
 
+      </footer>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
+    </div>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
+  
+
+
+
     
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
   
 
 
@@ -902,483 +462,20 @@
 
 
   
-
-
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (search_path.endsWith("json")) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("CiqFMeuRYwi07I6KGH9ItyF2-gzGzoHsz", "03rLUyPUu1Lh13EgQ4SGndOy");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   
 
   
-
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   
 
-</body>
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
 </html>
