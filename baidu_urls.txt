@@ -1,6 +1,7 @@
-https://swants.github.io/2017/08/27/Swift-Struct-References/
-https://swants.github.io/2017/08/14/Swift-中的通用数据源/
-https://swants.github.io/2017/07/07/开发者眼中-iOS-11-都更新了什么？/
-https://swants.github.io/2017/06/15/避免使用第三方UI库/
-https://swants.github.io/2017/05/11/iOS-APP-崩溃日志分析/
-https://swants.github.io/2016/10/04/CALayer-入门指引/
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
+https://swants.github.io/:/title.html
