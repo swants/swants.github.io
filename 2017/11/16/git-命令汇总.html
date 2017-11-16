@@ -188,23 +188,26 @@
     
     
   <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
+    <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git"><span class="toc-text">git</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git-仓库命令"><span class="toc-text">git 仓库命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提交命令："><span class="toc-text">提交命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-查看命令"><span class="toc-text">Git 查看命令:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暂存-stash-命令"><span class="toc-text">暂存 stash 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标签命令"><span class="toc-text">标签命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tip"><span class="toc-text">tip:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#官方文档解释的常用命令："><span class="toc-text">官方文档解释的常用命令：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支策略"><span class="toc-text">分支策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#情景-单人开发-未考虑到冲突"><span class="toc-text">情景: (单人开发 未考虑到冲突)</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-仓库命令"><span class="toc-text">git 仓库命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交命令："><span class="toc-text">提交命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-查看命令"><span class="toc-text">Git 查看命令:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#暂存-stash-命令"><span class="toc-text">暂存 stash 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标签命令"><span class="toc-text">标签命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tip"><span class="toc-text">tip:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#官方文档解释的常用命令："><span class="toc-text">官方文档解释的常用命令：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分支策略"><span class="toc-text">分支策略</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#情景-单人开发-未考虑到冲突"><span class="toc-text">情景: (单人开发 未考虑到冲突)</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
 
 
     <div class="post-content">
       
-        <h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><h2 id="git-仓库命令"><a href="#git-仓库命令" class="headerlink" title="git 仓库命令"></a>git 仓库命令</h2><p><code>git clone</code> : 下载仓库到本地。   <code>git clone 仓库URL 目的路径</code>  把仓库下载到目的路径。</p>
+        <h3 id="git-仓库命令"><a href="#git-仓库命令" class="headerlink" title="git 仓库命令"></a>git 仓库命令</h3><p><code>git clone</code> : 下载仓库到本地。   <code>git clone 仓库URL 目的路径</code>  把仓库下载到目的路径。</p>
 <blockquote>
-<p>当clone仓库到本地时  本地只能看到master分支 如果想看到其他分支 使用git checkout -b <name> origin/<name></name></name></p>
-<p>如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch –set-upstream branch-name origin/branch-name </p>
+<p>当 clone 仓库到本地时  本地只能看到 master 分支 如果想看到其他分支 使用 <code>git checkout -b &lt;name&gt; origin/&lt;name&gt;</code>  </p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>如果 git pull 提示 “no tracking information” ，则说明本地分支和远程分支的链接关系没有创建，用命令 <code>git branch --set-upstream branch-name origin/branch-name</code>  </p>
 </blockquote>
 <p><code>git pull</code> : 将远程仓库最新的提交更新到本地。</p>
-<p><code>git push</code>：将本地提交更新到远程仓库。</p>
-<h2 id="提交命令："><a href="#提交命令：" class="headerlink" title="提交命令："></a>提交命令：</h2><p><code>git add .</code>添加文件到暂存区</p>
+<p><code>git push</code> ：将本地提交更新到远程仓库。</p>
+<h3 id="提交命令："><a href="#提交命令：" class="headerlink" title="提交命令："></a>提交命令：</h3><p><code>git add .</code>添加文件到暂存区</p>
 <p><code>git commit -m ”提交注释”</code>  将暂存区的文件更改提交到本地仓库.</p>
 <p><code>git reset --&lt;m
 创建分支：</code>git branch <new-name> <father-name>`</father-name></new-name></p>
@@ -214,19 +217,19 @@
 <p>将本地分支推送到远端分支  <code>git push origin &lt;name&gt;</code></p>
 <p>删除分支：<code>git branch -d &lt;name&gt;</code></p>
 <p>删除远端分支     <code>git push origin --delete &lt;name&gt;</code>  </p>
-<h2 id="Git-查看命令"><a href="#Git-查看命令" class="headerlink" title="Git 查看命令:"></a>Git 查看命令:</h2><p><code>git status</code>：查看本地仓库文件状态。</p>
+<h3 id="Git-查看命令"><a href="#Git-查看命令" class="headerlink" title="Git 查看命令:"></a>Git 查看命令:</h3><p><code>git status</code>：查看本地仓库文件状态。</p>
 <p><code>git log</code>： 查看提交记录。</p>
 <p><code>git log --pretty=oneline</code>  单行查看提交历史</p>
 <p> <code>git log --graph --pretty=oneline --abbrev-commit</code>  查看提交网络图</p>
 <p><code>git diff</code> : 查看文件改动.</p>
-<h2 id="暂存-stash-命令"><a href="#暂存-stash-命令" class="headerlink" title="暂存 stash 命令"></a>暂存 stash 命令</h2><blockquote>
+<h3 id="暂存-stash-命令"><a href="#暂存-stash-命令" class="headerlink" title="暂存 stash 命令"></a>暂存 stash 命令</h3><blockquote>
 <p> 工作的时候未 commit  想保存工作区内容 去另一条分支上工作</p>
 </blockquote>
 <p><code>Git  stash</code> 可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作</p>
 <p><code>git stash list</code>  查看储存现场储藏列表</p>
 <p><code>git stash apply</code> 恢复恢复后，stash内容并不删除，你需要用git stash drop来删除</p>
 <p><code>git stash pop</code> 恢复的同时把stash内容也删了</p>
-<h2 id="标签命令"><a href="#标签命令" class="headerlink" title="标签命令"></a>标签命令</h2><p>创建标签  <code>git tag  -a &lt;标签名&gt; -m ”标签说明”</code></p>
+<h3 id="标签命令"><a href="#标签命令" class="headerlink" title="标签命令"></a>标签命令</h3><p>创建标签  <code>git tag  -a &lt;标签名&gt; -m ”标签说明”</code></p>
 <p>查看所有标签 <code>git tag</code></p>
 <p>给以前某个c ommit 打标签 <code>git tag v0.9   6224937</code></p>
 <p>查看标签详情 <code>git show v0.9</code></p>
@@ -250,19 +253,9 @@
 </li>
 </ol>
 <p>这时你的本地库就已经更新到最新的了， 然后 push 到自己的 fork 库里，就完成了</p>
-<h2 id="官方文档解释的常用命令："><a href="#官方文档解释的常用命令：" class="headerlink" title="官方文档解释的常用命令："></a>官方文档解释的常用命令：</h2><p>不同情境下常用的 <code>git</code> 命令：</p>
-<p>start a working area </p>
-<p>   <code>clone</code>      Clone a repository into a new directory </p>
-<p>   <code>init</code>       Create an empty Git repository or reinitialize an existing one</p>
-<p>work on the current change </p>
-<p>   <code>add</code>        Add file contents to the index<br>   <code>mv</code>         Move or rename a file, a directory, or a symlink<br>   <code>eset</code>      Reset current HEAD to the specified state<br>   <code>rm</code>         Remove files from the working tree and from the index</p>
-<p>examine the history and state </p>
-<p>   <code>bisect</code>     Use binary search to find the commit that introduced a bug<br>   <code>grep</code>       Print lines matching a pattern<br>   <code>log</code>        Show commit logs<br>   <code>show</code>       Show various types of objects<br>   <code>status</code>     Show the working tree status</p>
-<p>grow, mark and tweak your common history</p>
-<p>   <code>branch</code>     List, create, or delete branches<br>   <code>checkout</code>   Switch branches or restore working tree files<br>   <code>commit</code>     Record changes to the repository<br>   <code>diff</code>       Show changes between commits, commit and working tree, etc<br>   <code>merge</code>      Join two or more development histories together<br>   <code>rebase</code>     Reapply commits on top of another base tip<br>   <code>tag</code>        Create, list, delete or verify a tag object signed with GPG</p>
-<p>collaborate </p>
-<p>   <code>fetch</code>      Download objects and refs from another repository<br>   <code>pull</code>       Fetch from and integrate with another repository or a local branch<br>   <code>push</code>       Update remote refs along with associated objects</p>
-<h2 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h2><ul>
+<h4 id="官方文档解释的常用命令："><a href="#官方文档解释的常用命令：" class="headerlink" title="官方文档解释的常用命令："></a>官方文档解释的常用命令：</h4><p>不同情境下常用的 <code>git</code> 命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">start a working area </div><div class="line"></div><div class="line">   `clone`      Clone a repository into a new directory </div><div class="line"></div><div class="line">   `init`       Create an empty Git repository or reinitialize an existing one</div><div class="line"></div><div class="line">work on the current change </div><div class="line"></div><div class="line">   `add`        Add file contents to the index</div><div class="line">   `mv`         Move or rename a file, a directory, or a symlink</div><div class="line">   `eset`      Reset current HEAD to the specified state</div><div class="line">   `rm`         Remove files from the working tree and from the index</div><div class="line"></div><div class="line">examine the history and state </div><div class="line"></div><div class="line">   `bisect`     Use binary search to find the commit that introduced a bug</div><div class="line">   `grep`       Print lines matching a pattern</div><div class="line">   `log`        Show commit logs</div><div class="line">   `show`       Show various types of objects</div><div class="line">   `status`     Show the working tree status</div><div class="line"></div><div class="line">grow, mark and tweak your common history</div><div class="line"></div><div class="line">   ` branch`     List, create, or delete branches</div><div class="line">   `checkout`   Switch branches or restore working tree files</div><div class="line">   `commit`     Record changes to the repository</div><div class="line">   `diff`       Show changes between commits, commit and working tree, etc</div><div class="line">   `merge`      Join two or more development histories together</div><div class="line">   `rebase`     Reapply commits on top of another base tip</div><div class="line">   `tag`        Create, list, delete or verify a tag object signed with GPG</div><div class="line"></div><div class="line">collaborate </div><div class="line"></div><div class="line">   `fetch`      Download objects and refs from another repository</div><div class="line">   `pull`       Fetch from and integrate with another repository or a local branch</div><div class="line">   `push`       Update remote refs along with associated objects</div></pre></td></tr></table></figure>
+<h4 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h4><ul>
 <li><p>主分支          master 用于发布版本 保持稳定</p>
 </li>
 <li><p>开发分支      develop 用于日常开发  每日提交  当发布版本时 合并到master 用于发布 并做标记  合并完成处理完冲突后 要记得更新develop</p>
@@ -277,7 +270,7 @@
 </li>
 </ul>
 <p><img src="http://ovjjo0pi7.bkt.clouddn.com/git01.png" alt="图一"></p>
-<h3 id="情景-单人开发-未考虑到冲突"><a href="#情景-单人开发-未考虑到冲突" class="headerlink" title="情景: (单人开发 未考虑到冲突)"></a>情景: (单人开发 未考虑到冲突)</h3><p>发现之前版本有bug需要紧急修复, 修复完成后合并到现有代码内</p>
+<h5 id="情景-单人开发-未考虑到冲突"><a href="#情景-单人开发-未考虑到冲突" class="headerlink" title="情景: (单人开发 未考虑到冲突)"></a>情景: (单人开发 未考虑到冲突)</h5><p>发现之前版本有bug需要紧急修复, 修复完成后合并到现有代码内</p>
 <ol>
 <li>回滚到 bug 版本 <code>git reset —hard (bug版本号)</code></li>
 <li>工程内修复bug   并执行 add  commit (修复bug) 等操作</li>
@@ -309,7 +302,7 @@
     
       <a class="next" href="/2017/08/27/Swift-Struct-References.html">
         <span class="next-text nav-default">Swift Struct References</span>
-        <span class="prev-text nav-mobile">Next</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
     
