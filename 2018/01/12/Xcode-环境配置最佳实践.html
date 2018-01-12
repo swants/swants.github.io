@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Xcode 环境配置最佳实践"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/01/12/Xcode-环境配置最佳实践.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> Xcode 环境配置最佳实践 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Xcode 环境配置最佳实践
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-12
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Xcode-配置"><span class="toc-text">Xcode 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Debug-vs-Release"><span class="toc-text">Debug vs. Release</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#我们可以继续完善"><span class="toc-text">我们可以继续完善</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#让我们重新定义配置环境"><span class="toc-text">让我们重新定义配置环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第五种配置环境"><span class="toc-text">第五种配置环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义设置"><span class="toc-text">自定义设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Settings-swift"><span class="toc-text">Settings.swift</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Info-plist"><span class="toc-text">Info.plist</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#User-Defined-Settings"><span class="toc-text">User-Defined Settings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#整合全部"><span class="toc-text">整合全部</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工欲善其事，必先利其器。在 iOS 中,如何处理 <strong>配置环境</strong> 和根据需求自定义的 <strong>设置</strong> 关系也尤为重要。虽然 Xcode 提供了一系列的工具帮助我们进行妥善地配置。但遗憾的是，我见过的很多团队在绝大多数时候都没有充分利用这些辅助工具。这并不是他们的错：苹果只为我们提供了一些不怎么好用的默认配置，而没有更好的帮助我们学习如何达到最佳实践。</p>
+<p>在这篇文章里，我们将探索如何更好地利用 Xcode 配置，如何把 APP 的设置定义得更加有条理。</p>
+<a id="more"></a>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de685c6302e?w=2000&amp;h=937&amp;f=jpeg&amp;s=290672" alt=""></p>
+<h3 id="Xcode-配置"><a href="#Xcode-配置" class="headerlink" title="Xcode 配置"></a>Xcode 配置</h3><p>Xcode 可以通过各种配置构建不同设置的包。通俗地讲，配置就是告诉编译器如何构建版本的一系列设置。IDE 允许你根据不同的配置来自定义一些设置。你可能经常看到这些：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de69d626fb6?w=533&amp;h=310&amp;f=png&amp;s=31101" alt=""></p>
+<p>等等…</p>
+<h4 id="Debug-vs-Release"><a href="#Debug-vs-Release" class="headerlink" title="Debug vs. Release"></a>Debug vs. Release</h4><p>Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创建你自己的配置，但我们通常不这么做，因为自定义的配置是否有效可能取决于项目，iOS 开发者们对哪些配置可以对项目普遍有效还没有达成共识。 </p>
+<p>这两种默认配置有几处差别，具体的差别在这里我不会详细讨论，只是简单概括下：</p>
+<blockquote>
+<p>在 <strong>debug</strong> 构建的版本中，Xcode 会给我们发送完整的符号调试信息来帮助我们调试应用，并且 Xcode 不会对代码进行优化（更快的构建速度）。而在 <strong>release</strong> 构建的版本中，不会发送调试信息并且代码会被优化（较慢的构建速度）。</p>
+</blockquote>
+<p>至于这两种配置的用途，<strong>debug</strong> 通常会在我们日常开发中使用。而 <strong>release</strong> 我们通常会在需要将 APP 分发给其他非开发人员如：测试人员、项目经理、客户或用户时使用。</p>
+<p>需要注意的是，这两个配置通常是不能完全满足需求的。而且开发者经常把 ≪debug vs. release≫ 和 ≪staging vs. production≫ 这两个概念搞混，这完全是不应该的。</p>
+<h4 id="我们可以继续完善"><a href="#我们可以继续完善" class="headerlink" title="我们可以继续完善"></a>我们可以继续完善</h4><p>一些项目使用不同的配置环境：开发环境、临时环境、生产环境、预生产环境等等，用你最想用的那个就好。这种分类方式和上面讨论的两种默认配置没有直接联系。就算我们强制这么分类，用的时候达到的效果也没有想象中的那样好。比如，你想准备构建一个 <strong><em>release</em></strong> 版本，但这并不意味着你的 APP 一定要指向 <strong>生产</strong> 服务器：想像一下，你需要为 QA 打个 release 的版本的包，而这个包需要在临时服务器上进行测试。 这时就连 debug &amp; release 两个默认的配置也不能满足需求了。</p>
+<p>因此，我想用可以满足我们更多需求的其他配置方案来代替基本的 debug &amp; release 配置。为了足够简单，在我的方案中只会保留临时环境和生产环境，在你需要使用其它环境配置时，你会发现在我的方案里可以轻松添加。</p>
+<h4 id="让我们重新定义配置环境"><a href="#让我们重新定义配置环境" class="headerlink" title="让我们重新定义配置环境"></a>让我们重新定义配置环境</h4><p>我们可以定义四种配置环境：</p>
+<ul>
+<li>Debug Staging</li>
+<li>Debug Production</li>
+<li>TestFlight Staging</li>
+<li>TestFlight Production</li>
+</ul>
+<p>从它们的名字上，你就能猜到它们大概的设置，下面就是它们的详细设置：</p>
+<ul>
+<li>前两个（Debug Staging &amp; Debug Production）和默认的 Debug 配置一样，但 <strong>每个都指向不同的服务器环境</strong>。</li>
+<li>后两个配置环境（两个 TestFlight 配置环境 ）也是这样，它们和默认的 Release 配置一样，不包含调试信息并进行了代码优化，但 <strong>每个都在对应的服务器环境下使用</strong>。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de74d9efa7e?w=516&amp;h=187&amp;f=png&amp;s=17315" alt=""></p>
+<p>实现的操作也是非常简单，找到 project 的 Settings &gt; Info &gt; Configurations，然后点击 + 按钮。拷贝一份 Debug 配置，并将默认的配置命名为 “Debug Staging”，拷贝出来的配置命名为 “Debug Production”。按照这个方式对 Release 进行处理。</p>
+<p>当你操作完后是这个效果：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de696a70895?w=1000&amp;h=711&amp;f=png&amp;s=107303" alt=""></p>
+<p>一个 project 包含四种不同的配置环境。</p>
+<h4 id="第五种配置环境"><a href="#第五种配置环境" class="headerlink" title="第五种配置环境"></a>第五种配置环境</h4><p>我使用 “ <strong>TestFlight</strong>” 命名 release 配置，而不是使用原来的 “<strong>Release</strong>” 命名是有原因的。因为代码中有些特定事件只在最终用户使用时触发，而在测试人员和客户使用时不触发。一个具体的场景就是使用用户统计来跟踪事件，这可能要求跟踪事件仅作用于最终用户，而不是生产环境下的测试人员。在这种情况下， 我们就要考虑 <strong>TestFlight Production</strong> 配置具有的细微差别，因此我们需要将这个配置继续细分下去。引进第五种配置：</p>
+<ul>
+<li>AppStore</li>
+</ul>
+<p>你可以快速地拷贝一份 TestFlight Production 来添加这个配置。但需要注意的是这个配置可能一直不会用到，因为你不一定会遇到需要细分 TestFlight Production 配置的需求。</p>
+<p>那么，现在你可能很想知道 <strong>如何根据所选配置来管理 APP 中的触发事件</strong>。这些将会在接下来部分详细介绍。</p>
+<h3 id="自定义设置"><a href="#自定义设置" class="headerlink" title="自定义设置"></a>自定义设置</h3><p>有很多方式可以做到根据所选不同配置来执行不同的操作：预编译器指令、环境变量、各种 plist 文件等等。这些方式都有自己的优缺点，这里只讨论我将采取的比较纯净的方式。</p>
+<p>需要根据配置执行的各种操作通常可以由变量来控制，通过这些变量来决定 APP 的行为。这些变量通常称为 <strong>settings</strong> 。比如一些像这样的 settings ：服务器 API 的 base URL、Facebook App ID、日志的详细级别、是否支持离线访问等等。</p>
+<p>接着，展示我现在如何根据所选配置来管理这些自定义 settings 的方法。从我的以往经验来看，这是目前最方便的方案。</p>
+<h4 id="Settings-swift"><a href="#Settings-swift" class="headerlink" title="Settings.swift"></a>Settings.swift</h4><p>APP 的自定义 settings 可以通过单例很简单的获取到。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Settings</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">var</span> shared = <span class="type">Settings</span>()</div><div class="line">    <span class="keyword">let</span> apiURL: <span class="type">URL</span></div><div class="line">    <span class="keyword">let</span> isOfflineAccessEnabled: <span class="type">Bool</span></div><div class="line">    <span class="keyword">let</span> feedItemsPerPage: <span class="type">Int</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</div><div class="line">        <span class="keyword">let</span> path = <span class="type">Bundle</span>.main.path(forResource: <span class="string">"Info"</span>, ofType: <span class="string">"plist"</span>)!</div><div class="line">        <span class="keyword">let</span> plist = <span class="type">NSDictionary</span>(contentsOfFile: path) <span class="keyword">as</span>! [<span class="type">AnyHashable</span>: <span class="type">Any</span>]</div><div class="line">        <span class="keyword">let</span> settings = plist[<span class="string">"AppSetings"</span>] <span class="keyword">as</span>! [<span class="type">AnyHashable</span>: <span class="type">Any</span>]</div><div class="line">        </div><div class="line">        apiURL = <span class="type">URL</span>(string: (settings[<span class="string">"ServerBaseURL"</span>] <span class="keyword">as</span>! <span class="type">String</span>))!</div><div class="line">        isOfflineAccessEnabled = settings[<span class="string">"EnableOfflineAccess"</span>] <span class="keyword">as</span>! <span class="type">Bool</span></div><div class="line">        feedItemsPerPage = settings[<span class="string">"FeedItemsPerPage"</span>] <span class="keyword">as</span>! <span class="type">Int</span></div><div class="line">        </div><div class="line">        <span class="built_in">print</span>(<span class="string">"Settings loaded: <span class="subst">\(<span class="keyword">self</span>)</span>"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个结构体用来读取和记录 APP 的各种 settings（这些 settings 会在 APP 的 <code>Info.plist</code> 文件中定义），这样我们就可以在代码中随时拿到这些 settings。在这里我喜欢使用强制解包，因为这样如果缺少某项设置，APP 也会无法运行。</p>
+<h4 id="Info-plist"><a href="#Info-plist" class="headerlink" title="Info.plist"></a>Info.plist</h4><p>在 <code>Info.plist</code> 文件中定义 appSettings 。这里我建议大家使用字典把这些设置汇总到一起。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de698dcc129?w=1000&amp;h=711&amp;f=png&amp;s=180155" alt=""></p>
+<p>这样，我们就非常纯净地完成了对 APP settings 的读取。这些 settings 在不同的配置环境中值都是不同的，还差一点就完成了。</p>
+<h4 id="User-Defined-Settings"><a href="#User-Defined-Settings" class="headerlink" title="User-Defined Settings"></a>User-Defined Settings</h4><p>想一下，在所有的工程内 <strong>什么会随配置的不同而改变</strong> ？ 对，编译器的代码优化级别、header 的搜索路径、描述文件等等。如果我们能够定义我们自己的随所选配置改变的设置，那不就简单了！事实证明，我们确实可以创建用户自定义的设置。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de74cc6e194?w=800&amp;h=304&amp;f=png&amp;s=89226" alt=""></p>
+<p>创建 User-Defined settings 非常简单，只需要在你的 Target &gt; Build Settings 中，点击 + 按钮，然后选择 “Create User-Defined Setting”。这些也可以在 project &gt; Build Settings 下创建，但我觉得在 Target &gt; Build Settings 创建更合适。</p>
+<p> 因为你刚创建的 User-Defined Settings 可能还需与其他的 Settings 来搭配使用，所以建议最好用合适的前缀来命名。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de684691f87?w=594&amp;h=224&amp;f=png&amp;s=52943" alt=""></p>
+<p>我这里使用了我名字缩写来作为 User-Defined Settings 的前缀， 但我建议最好用项目名的缩写。</p>
+<p>接下来，在你的 <code>Info.plist</code> 文件中引用对应的属性值，你可以这样做：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">(YOUR_USER_DEFINED_SETTING_NAME)</span></div></pre></td></tr></table></figure>
+<h4 id="整合全部"><a href="#整合全部" class="headerlink" title="整合全部"></a>整合全部</h4><p>真正神奇的地方在于：你可以将 <code>Info.plist</code> 中 settings 的所有已经填好的属性值替换为 User-Defined Setting 的对应地址。而你现有的自定义 setting 各需对应一条 User-Defined Setting。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de7480b8016?w=1000&amp;h=711&amp;f=png&amp;s=186746" alt=""></p>
+<p>当 <code>Info.plist</code> 文件被编译时，它会获取所选配置对应的所有 settings 属性值，而这些属性值也会在编译时对应到每个 settings 上。</p>
+<p>现在，你就可以在你的代码里随时随地 <em>优雅</em> 地获取到这些 settings 的属性值：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> Settings<span class="selector-class">.shared</span><span class="selector-class">.isOfflineAccessEnabled</span> &#123;</div><div class="line">    <span class="comment">// do stuff</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，在 Xcode 中选择所需的编译配置就非常简单了：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de72f4e990b?w=800&amp;h=452&amp;f=png&amp;s=73907" alt=""></p>
+<p>或者在 CLI 中:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/5/160c4de69d99fd87?w=800&amp;h=45&amp;f=png&amp;s=38600" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>采用这套方案，我们会获得这些好处：</p>
+<ul>
+<li>有组织地构建工作流程。</li>
+<li>有组织地管理应用程序的自定义设置。</li>
+<li>根据配置灵活改变设置。</li>
+<li>轻松持续集成（在命令行工具中，选择要编译的配置很容易实现）。</li>
+</ul>
+<p>然而，这个方案也有些值得警惕的地方：</p>
+<ul>
+<li>在运行时不能灵活地更改设置，因为设置在编译时就被打包到版本内了。</li>
+<li>在配置之间切换时体验并不是很好：每次更改配置后，Xcode 都会重新创建一个版本，也就是说你必须等待整个项目重新编译。</li>
+<li>只能在 <code>.xcodeproj</code> 中修改这些设置的值，而不能在外部 <a href="https://hackernoon.com/system-settings-9ed72d5ef629" target="_blank" rel="external">灵活</a>  修改这些设置的值。</li>
+<li>User-Defined Settings <a href="https://medium.freecodecamp.org/how-to-securely-store-api-keys-4ff3ea19ebda" target="_blank" rel="external">暴露给了所有能够接触到代码的人</a> , <strong>所以千万不要把任何重要的 key 值放到这里</strong> 。</li>
+</ul>
+<p>虽然这些隐患可以一一排除，但是，这个方案的初衷只是为了从这片几乎空白的领域摸索出这些工具更好的使用方法。解决这些问题就意味着更多更复杂的修改，而且这些已经超出了本文讨论的内容，我不希望这篇文章跑题。但相信我，我们做的已经足够完善了。<strong>在下篇文章里，我们将研究如何处理这些隐患，并让我们的项目变得更加完善…</strong></p>
+<p>待续。</p>
+<hr>
+<blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
+<li>译者：<a href="http://www.swants.cn" target="_blank" rel="external">swants</a></li>
+<li>校对者：<a href="https://github.com/charsdavy" target="_blank" rel="external">charsdavy</a> <a href="https://github.com/VernonVan" target="_blank" rel="external">VernonVan</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/11/16/git-命令汇总.html">
+        <span class="next-text nav-default">git  命令汇总</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
