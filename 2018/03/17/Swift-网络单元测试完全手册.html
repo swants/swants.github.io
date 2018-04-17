@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://swants.cn/2018/04/17/Swift-网络单元测试完全手册.html"/>
+<link rel="canonical" href="https://swants.cn/2018/03/17/Swift-网络单元测试完全手册.html"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
@@ -179,7 +179,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          2018-04-17
+          2018-03-17
         </span>
         
       </div>
@@ -197,7 +197,7 @@
 
     <div class="post-content">
       
-        <p><img src="https://user-gold-cdn.xitu.io/2018/2/5/16165e56a27ebb39?w=2000&amp;h=860&amp;f=png&amp;s=178862" alt=""></p>
+        <p><img src="/images/blog04/01.jpeg" alt="image">  </p>
 <p>不得不承认，对于 iOS 开发写测试并不是很普遍(至少和后端写测试程度相比)。我过去是个独立开发者而且最初也没经过原生“测试驱动”的开发培训，因此我花费了大量的时间来学习如何编写测试用例，如何写出可测试的代码。这也是我写这篇文章的初衷，我想把自己用 Swift 写测试时摸索到的心得分享给大家，希望我的见解能够帮助大家节省学习时间，少走些弯路。</p>
 <a id="more"></a>
 <p>在这篇文章，我们将会讨论着手写测试的入门知识：<strong>依赖注入</strong>。</p>
@@ -264,17 +264,17 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HttpClientTests</span>: <span class="title">XCTestCase</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> httpClient: <span class="type">HttpClient</span>!</div><div class="line">    <span class="keyword">let</span> session = <span class="type">MockURLSession</span>()</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.setUp()</div><div class="line">        httpClient = <span class="type">HttpClient</span>(session: session) <span class="comment">// Doesn't compile </span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.tearDown()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这是因为 MockURLSession 和 URLSession 的接口不一样。所以当我们试着注入 MockURLSession 的时候会发现 MockURLSession 并不能被编译器识别。我们必须让模拟的对象和真实对象拥有相同的接口，所以我们引入了 “协议” !</p>
 <p>HttpClient 的依赖：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: <span class="type">URLSession</span></div></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: URLSession</div></pre></td></tr></table></figure>
 <p>我们希望不论 URLSession 还是 MockURLSession 都可以作为 session 对象，因此我们将 session 的 URLSession 类型改为 URLSessionProtocol 协议：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: <span class="type">URLSessionProtocol</span></div></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: URLSessionProtocol</div></pre></td></tr></table></figure>
 <p>这样我们就能够注入 URLSession 或 MockURLSession 或者其它遵循这个协议的对象。</p>
 <p>以下是协议的实现：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">URLSessionProtocol</span> </span>&#123; <span class="keyword">typealias</span> <span class="type">DataTaskResult</span> = (<span class="type">Data</span>?, <span class="type">URLResponse</span>?, <span class="type">Error</span>?) -&gt; <span class="type">Void</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dataTask</span><span class="params">(with request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span></span> -&gt; <span class="type">URLSessionDataTaskProtocol</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol URLSessionProtocol &#123; typealias <span class="function"><span class="title">DataTaskResult</span> = <span class="params">(Data?, URLResponse?, Error?)</span> -&gt;</span> Void</div><div class="line">    func dataTask<span class="function"><span class="params">(<span class="keyword">with</span> request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span> -&gt;</span> URLSessionDataTaskProtocol</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>测试代码中我们只需要一个方法：<code>dataTask(NSURLRequest, DataTaskResult)</code>，因此在协议中我们也只需定义一个必须实现的方法。当我们需要模拟不属于我们的对象时这个技术通常很适用。</p>
 <p>还记得 MockURLDataTask 吗？另一个不属于我们的对象，是的，我们要再创建个协议。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">URLSessionDataTaskProtocol</span> </span>&#123; <span class="function"><span class="keyword">func</span> <span class="title">resume</span><span class="params">()</span></span> &#125;</div></pre></td></tr></table></figure>
 <p>我们还需让真实的对象遵循这个协议。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">URLSession</span>: <span class="title">URLSessionProtocol</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">URLSessionDataTask</span>: <span class="title">URLSessionDataTaskProtocol</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">extension URLSession: <span class="keyword">URLSessionProtocol</span> &#123;&#125;</div><div class="line"><span class="keyword">extension</span> <span class="keyword">URLSessionDataTask</span>: <span class="keyword">URLSessionDataTaskProtocol</span> &#123;&#125;</div></pre></td></tr></table></figure>
 <p>URLSessionDataTask 有个同样的 resume() 协议方法，所以这项修改对于 URLSessionDataTask 是没有影响的。</p>
 <p>问题是 URLSession 没有 dataTask() 方法来返回 URLSessionDataTaskProtocol 协议，因此我们需要拓展方法来遵循协议。</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">extension</span> <span class="selector-tag">URLSession</span>: <span class="selector-tag">URLSessionProtocol</span> &#123;</div><div class="line">    <span class="selector-tag">func</span> <span class="selector-tag">dataTask</span>(with <span class="attribute">request</span>: NSURLRequest, <span class="attribute">completionHandler</span>: <span class="variable">@escaping</span> DataTaskResult) <span class="selector-tag">-</span>&gt; <span class="selector-tag">URLSessionDataTaskProtocol</span> &#123;</div><div class="line">        <span class="selector-tag">return</span> <span class="selector-tag">dataTask</span>(<span class="attribute">with</span>: request, <span class="attribute">completionHandler</span>: completionHandler) <span class="selector-tag">as</span> <span class="selector-tag">URLSessionDataTaskProtocol</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
