@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Swift 网络单元测试完全手册"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/04/17/Swift-网络单元测试完全手册.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> Swift 网络单元测试完全手册 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Swift 网络单元测试完全手册
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-17
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TL-DR"><span class="toc-text">TL;DR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖注入"><span class="toc-text">依赖注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试数据"><span class="toc-text">测试数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试行为"><span class="toc-text">测试行为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="https://user-gold-cdn.xitu.io/2018/2/5/16165e56a27ebb39?w=2000&amp;h=860&amp;f=png&amp;s=178862" alt=""></p>
+<p>不得不承认，对于 iOS 开发写测试并不是很普遍(至少和后端写测试程度相比)。我过去是个独立开发者而且最初也没经过原生“测试驱动”的开发培训，因此我花费了大量的时间来学习如何编写测试用例，如何写出可测试的代码。这也是我写这篇文章的初衷，我想把自己用 Swift 写测试时摸索到的心得分享给大家，希望我的见解能够帮助大家节省学习时间，少走些弯路。</p>
+<a id="more"></a>
+<p>在这篇文章，我们将会讨论着手写测试的入门知识：<strong>依赖注入</strong>。</p>
+<p>想象一下，你此时正在写测试。<br>如果你的测试对象(被测系统)是和真实世界相连的，比如 Networking 和 CoreData，编写测试代码将会非常复杂。原则上讲，我们不希望我们的测试代码被客观世界的事物所影响。被测系统不应依赖于其他的复杂系统，这样我们才能够保证在时间恒定和环境恒定条件下迅速完成测试。况且，保证我们的测试代码不会“污染”生产环境也是十分重要的。“污染”意味着什么？意味着我们的测试代码将一些测试对象写进了数据库，提交了些测试数据到生产服务器等等。而避免这些情况的发生就是 <strong>依赖注入</strong> 存在的意义。</p>
+<p>让我们从一个例子开始。<br>假设你拿到个应该联网并且在生产环境下才能被执行的类，联网部分就被称作该类的 <strong>依赖</strong>。如之前所言，当我们执行测试时这个类的联网部分必须能够被模拟的，或者假的环境所替换。换句话说，该类的依赖必须支持“可注入”，依赖注入使我们的系统更加灵活。我们能够为生产代码“注入”真实的网络环境；与此同时，也能够“注入”模拟的网络环境来让我们在不访问互联网的条件下运行测试代码。</p>
+<h3 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h3><blockquote>
+<p>译者注：TL;DR 是 Too long;Don’t read 的缩写。在这里的意思是篇幅较长，不想深入研究，请直接看文章总结。</p>
+</blockquote>
+<p>在这篇文章，我们将会讨论：</p>
+<ol>
+<li>如何使用 <strong>依赖注入</strong> 技术设计一个对象</li>
+<li>在 Swift 中如何使用协议设计一个模拟对象</li>
+<li>如何测试对象使用的数据及如何测试对象的行为</li>
+</ol>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>开始动手吧! 现在我们打算实现一个叫做 <strong>HttpClient</strong> 的类。这个 HttpClient 应该满足以下要求：</p>
+<ol>
+<li>HttpClient 跟初始的网络组件对于同一 URL 应提交同样的 request。</li>
+<li>HttpClient 应能够提交 request。</li>
+</ol>
+<p>所以我们对 HttpClient 的初次实现是这样的：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> HttpClient &#123;</div><div class="line">    typealias completeClosure = ( _ data: Data?, _ <span class="keyword">error</span>: <span class="keyword">Error</span>?)-&gt;Void</div><div class="line">    func <span class="keyword">get</span>( url: URL, callback: @escaping completeClosure ) &#123;</div><div class="line">        <span class="keyword">let</span> <span class="built_in">request</span> = NSMutableURLRequest(url: url)</div><div class="line">        <span class="built_in">request</span>.httpMethod = <span class="string">"GET"</span></div><div class="line">        <span class="keyword">let</span> task = URLSession.shared.dataTask(<span class="keyword">with</span>: <span class="built_in">request</span>) &#123; (data, <span class="built_in">response</span>, <span class="keyword">error</span>) <span class="keyword">in</span></div><div class="line">            callback(data, <span class="keyword">error</span>)</div><div class="line">        &#125;</div><div class="line">        task.<span class="keyword">resume</span>()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>HttpClient 看起来可以提交一个 “GET” 请求，并通过 “callback” 闭包将返回值回传。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">HttpClient</span><span class="params">()</span></span>.get(url: url) &#123; (success, response) <span class="keyword">in</span> <span class="comment">// Return data &#125;</span></div></pre></td></tr></table></figure>
+<p>HttpClient 的用法。</p>
+<p>这就是问题所在：我们怎么对它测试？我们如何确保这些代码达到上述的两点要求？凭直觉，我们可以给 HttpClient 传入一个 URL，运行代码，然后在闭包里观察得到的结果。但是这些操作意味着我们在运行 HttpClient 时必须每次都连接互联网。更糟糕的是如果你测试的 URL 是连接生产服务器：你的测试在一定程度上会影响服务器性能，而且你提交的测试数据将会被提交到真实的世界。就像我们之前描述的，我们必须让 HttpClient “可测试”。</p>
+<p>我们来看下 URLSession。URLSession 是 HttpClient 的一种‘环境’，是 HttpClient 连接互联网的入口。还记得我们刚讨论的“可测试”代码吗？ 我们需要将互联网部分变得可替换，于是我们修改了 HttpClient 的实现：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> HttpClient &#123;</div><div class="line">    typealias completeClosure = ( _ data: Data?, _ <span class="keyword">error</span>: <span class="keyword">Error</span>?)-&gt;Void</div><div class="line">    <span class="keyword">private</span> <span class="keyword">let</span> session: URLSession</div><div class="line">    init(session: URLSessionProtocol) &#123;</div><div class="line">        self.session = session</div><div class="line">    &#125;</div><div class="line">    func <span class="keyword">get</span>( url: URL, callback: @escaping completeClosure ) &#123;</div><div class="line">        <span class="keyword">let</span> <span class="built_in">request</span> = NSMutableURLRequest(url: url)</div><div class="line">        <span class="built_in">request</span>.httpMethod = <span class="string">"GET"</span></div><div class="line">        <span class="keyword">let</span> task = session.dataTask(<span class="keyword">with</span>: <span class="built_in">request</span>) &#123; (data, <span class="built_in">response</span>, <span class="keyword">error</span>) <span class="keyword">in</span></div><div class="line">            callback(data, <span class="keyword">error</span>)</div><div class="line">        &#125;</div><div class="line">        task.<span class="keyword">resume</span>()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们将</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let task = URLSession<span class="selector-class">.shared</span><span class="selector-class">.dataTask</span>()</div></pre></td></tr></table></figure>
+<p>修改成了</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="attr">task</span> = session.dataTask()</div></pre></td></tr></table></figure>
+<p>我们增加了新的变量：<strong>session</strong>，并添加了对应的 <strong>init</strong> 方法。之后每当我们创建 HttpClient 对象时，就必须初始化 <strong>session</strong>。也就是说，我们已经将 session “注入”到了我们创建的 HttpClient 对象中。现在我们就能够在运行生产代码时注入 ‘URLSession.shared’，而运行测试代码时注入一个模拟的 session。Bingo!</p>
+<p>这时 HttpClient 的用法就变成了：HttpClient(session: SomeURLSession() ).get(url: url) { (success, response) in // Return data }</p>
+<p>给此时的 HttpClient 写测试代码就会变得非常简单。因此我们开始布置我们的测试环境：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HttpClientTests</span>: <span class="title">XCTestCase</span> </span>&#123; </div><div class="line">    <span class="keyword">var</span> httpClient: <span class="type">HttpClient</span>! </div><div class="line">    <span class="keyword">let</span> session = <span class="type">MockURLSession</span>()</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.setUp()</div><div class="line">        httpClient = <span class="type">HttpClient</span>(session: session)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.tearDown()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是个规范的 XCTestCase 设置。<strong>httpClient</strong> 变量就是被测系统，<strong>session</strong> 变量是我们将为 httpClient 注入的环境。因为我们要在测试环境运行代码，所以我们将 MockURLSession 对象传给 <strong>session</strong>。这时我们将模拟的 <strong>session</strong> 注入到了 httpClient，使得 httpClient 在 URLSession.shared 被替换成 MockURLSession 的情况下运行。</p>
+<h3 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h3><p>现在让我们注意下第一点要求：</p>
+<ol>
+<li>HttpClient 和初始的网络组件对于同一 URL 应提交同样的 request 。</li>
+</ol>
+<p>我们想达到的效果是确保该 request 的 url 和我们传入 “get” 方法的 url 完全一致。</p>
+<p>以下是我们的测试用例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">test_get_request_withURL</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: <span class="string">"https://mockurl"</span>) <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"URL can't be empty"</span>)</div><div class="line">    &#125;</div><div class="line">    httpClient.<span class="keyword">get</span>(url: url) &#123; (success, response) <span class="keyword">in</span></div><div class="line">        <span class="comment">// Return data</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// Assert </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个测试用例可表示为：</p>
+<ul>
+<li><strong>Precondition</strong>: Given a url “<a href="https://mockurl”" target="_blank" rel="external">https://mockurl”</a></li>
+<li><strong>When</strong>: Submit a http GET request</li>
+<li><strong>Assert</strong>: The submitted url should be equal to “<a href="https://mockurl”" target="_blank" rel="external">https://mockurl”</a></li>
+</ul>
+<p>我们还需要写断言部分。</p>
+<p>但是我们怎么知道 HttpClient 的 “get” 方法确实提交了正确的 url 呢？让我们再看眼依赖：URLSession。通常，“get” 方法会用拿到的 url 创建一个 request，并把 request 传给 URLSession 来完成提交:</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> task = session.dataTask(<span class="keyword">with</span>: <span class="built_in">request</span>) &#123; (data, <span class="built_in">response</span>, <span class="keyword">error</span>) <span class="keyword">in</span></div><div class="line">    callback(data, <span class="keyword">error</span>)</div><div class="line">&#125;</div><div class="line">task.<span class="keyword">resume</span>()</div></pre></td></tr></table></figure>
+<p>接下来，在测试环境中 request 将会传给 MockURLSession，所以我们只要 hack 进我们自己的 MockURLSession 就可以查看 request 是否被正确创建了。</p>
+<p>下面是 MockURLSession 的粗略实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockURLSession</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> (<span class="keyword">set</span>) <span class="keyword">var</span> lastURL: <span class="type">URL</span>?</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dataTask</span><span class="params">(with request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span></span> -&gt; <span class="type">URLSessionDataTask</span> &#123;</div><div class="line">        lastURL = request.url</div><div class="line">        completionHandler(nextData, successHttpURLResponse(request: request), nextError)        </div><div class="line">        <span class="keyword">return</span> <span class="comment">// dataTask, will be impletmented later</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>MockURLSession 的作用和 URLSession 一样，URLSession 和 MockURLSession 有同样的 dataTask() 方法和相同的回调闭包类型。虽然 URLSession 比 MockURLSession 的 dataTask() 做了更多的工作，但它们的接口是类似的。正是由于它们的接口相似，我们才能不需要修改 “get” 方法太多代码就可以用 MockURLSession 替换掉 URLSession。接着我们创建一个 <strong>lastURL</strong> 变量来跟踪 “get” 方法提交的最终 url 。简单点说，就是当测试的时候，我们创建一个注入 MockURLSession 的 HttpClient，然后观察 url 是否前后相同。</p>
+<p>以下是测试用例的大概实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">test_get_request_withURL</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: <span class="string">"https://mockurl"</span>) <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"URL can't be empty"</span>)</div><div class="line">    &#125;</div><div class="line">    httpClient.<span class="keyword">get</span>(url: url) &#123; (success, response) <span class="keyword">in</span></div><div class="line">        <span class="comment">// Return data</span></div><div class="line">    &#125;</div><div class="line">    <span class="type">XCTAssert</span>(session.lastURL == url)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们为 <strong>lastURL</strong> 和 <strong>url</strong> 添加断言，这样就会得知注入后的 “get” 方法是否正确创建了带有正确 url 的 request。</p>
+<p>上面的代码仍有一处地方需要实现：<code>return // dataTask</code>。在 URLSession 中返回值必须是个 URLSessionDataTask 对象，但是 URLSessionDataTask 已经不能正常创建了，所以这个 URLSessionDataTask 对象也需要被模拟创建：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockURLSessionDataTask</span> </span>&#123;  </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">resume</span><span class="params">()</span></span> &#123; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>作为 URLSessionDataTask，模拟对象需要有相同的方法 resume()。这样才会把模拟对象当做 dataTask() 的返回值。</p>
+<p>如果你跟着我一块敲代码，就会发现你的代码会被编译器报错：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HttpClientTests</span>: <span class="title">XCTestCase</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> httpClient: <span class="type">HttpClient</span>!</div><div class="line">    <span class="keyword">let</span> session = <span class="type">MockURLSession</span>()</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.setUp()</div><div class="line">        httpClient = <span class="type">HttpClient</span>(session: session) <span class="comment">// Doesn't compile </span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.tearDown()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是因为 MockURLSession 和 URLSession 的接口不一样。所以当我们试着注入 MockURLSession 的时候会发现 MockURLSession 并不能被编译器识别。我们必须让模拟的对象和真实对象拥有相同的接口，所以我们引入了 “协议” !</p>
+<p>HttpClient 的依赖：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: <span class="type">URLSession</span></div></pre></td></tr></table></figure>
+<p>我们希望不论 URLSession 还是 MockURLSession 都可以作为 session 对象，因此我们将 session 的 URLSession 类型改为 URLSessionProtocol 协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> session: <span class="type">URLSessionProtocol</span></div></pre></td></tr></table></figure>
+<p>这样我们就能够注入 URLSession 或 MockURLSession 或者其它遵循这个协议的对象。</p>
+<p>以下是协议的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">URLSessionProtocol</span> </span>&#123; <span class="keyword">typealias</span> <span class="type">DataTaskResult</span> = (<span class="type">Data</span>?, <span class="type">URLResponse</span>?, <span class="type">Error</span>?) -&gt; <span class="type">Void</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dataTask</span><span class="params">(with request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span></span> -&gt; <span class="type">URLSessionDataTaskProtocol</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码中我们只需要一个方法：<code>dataTask(NSURLRequest, DataTaskResult)</code>，因此在协议中我们也只需定义一个必须实现的方法。当我们需要模拟不属于我们的对象时这个技术通常很适用。</p>
+<p>还记得 MockURLDataTask 吗？另一个不属于我们的对象，是的，我们要再创建个协议。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">URLSessionDataTaskProtocol</span> </span>&#123; <span class="function"><span class="keyword">func</span> <span class="title">resume</span><span class="params">()</span></span> &#125;</div></pre></td></tr></table></figure>
+<p>我们还需让真实的对象遵循这个协议。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">URLSession</span>: <span class="title">URLSessionProtocol</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">URLSessionDataTask</span>: <span class="title">URLSessionDataTaskProtocol</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>URLSessionDataTask 有个同样的 resume() 协议方法，所以这项修改对于 URLSessionDataTask 是没有影响的。</p>
+<p>问题是 URLSession 没有 dataTask() 方法来返回 URLSessionDataTaskProtocol 协议，因此我们需要拓展方法来遵循协议。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">extension</span> <span class="selector-tag">URLSession</span>: <span class="selector-tag">URLSessionProtocol</span> &#123;</div><div class="line">    <span class="selector-tag">func</span> <span class="selector-tag">dataTask</span>(with <span class="attribute">request</span>: NSURLRequest, <span class="attribute">completionHandler</span>: <span class="variable">@escaping</span> DataTaskResult) <span class="selector-tag">-</span>&gt; <span class="selector-tag">URLSessionDataTaskProtocol</span> &#123;</div><div class="line">        <span class="selector-tag">return</span> <span class="selector-tag">dataTask</span>(<span class="attribute">with</span>: request, <span class="attribute">completionHandler</span>: completionHandler) <span class="selector-tag">as</span> <span class="selector-tag">URLSessionDataTaskProtocol</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个简单的方法只是将返回类型从 URLSessionDataTask 改成了 URLSessionDataTaskProtocol，不会影响到 dataTask() 的其它行为。</p>
+<p>现在我们就能够补全 MockURLSession 缺失的部分了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockURLSession</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> (<span class="keyword">set</span>) <span class="keyword">var</span> lastURL: <span class="type">URL</span>?</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dataTask</span><span class="params">(with request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span></span> -&gt; <span class="type">URLSessionDataTask</span> &#123;</div><div class="line">        lastURL = request.url</div><div class="line">        completionHandler(nextData, successHttpURLResponse(request: request), nextError)        </div><div class="line">        <span class="keyword">return</span> <span class="comment">// dataTask, will be impletmented later</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们已经知道   // dataTask… 可以是一个 MockURLSessionDataTask：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockURLSession</span>: <span class="title">URLSessionProtocol</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> nextDataTask = <span class="type">MockURLSessionDataTask</span>()</div><div class="line">    <span class="keyword">private</span> (<span class="keyword">set</span>) <span class="keyword">var</span> lastURL: <span class="type">URL</span>?</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dataTask</span><span class="params">(with request: NSURLRequest, completionHandler: @escaping DataTaskResult)</span></span> -&gt; <span class="type">URLSessionDataTaskProtocol</span> &#123;</div><div class="line">        lastURL = request.url</div><div class="line">        completionHandler(nextData, successHttpURLResponse(request: request), nextError)</div><div class="line">        <span class="keyword">return</span> nextDataTask</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在测试环境中模拟对象就会充当 URLSession 的角色，并且 url 也能够被记录供断言判断。是不是有种万丈高楼平地起的感觉! 所有的代码都已经编译完成并且测试也顺利通过！</p>
+<p>让我们继续。</p>
+<h3 id="测试行为"><a href="#测试行为" class="headerlink" title="测试行为"></a>测试行为</h3><p>第二点要求是：</p>
+<p><code>The HttpClient should submit the request</code></p>
+<p>我们希望 HttpClient 的 “get” 方法将 request 如预期地提交。</p>
+<p>和之前验证数据是否正确的测试不同，我们现在要测试的是方法是否被顺利调用。换句话说，我们想知道 URLSessionDataTask.resume() 方法是否被调用了。让我们继续使用刚才的老把戏：<br>我们创建一个新的 resumeWasCalled 变量来记录 resume() 方法是否被调用。</p>
+<p>我们简单写一个测试：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">test_get_resume_called</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> dataTask = <span class="type">MockURLSessionDataTask</span>()</div><div class="line">    session.nextDataTask = dataTask</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: <span class="string">"https://mockurl"</span>) <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"URL can't be empty"</span>)</div><div class="line">    &#125;</div><div class="line">    httpClient.<span class="keyword">get</span>(url: url) &#123; (success, response) <span class="keyword">in</span></div><div class="line">        <span class="comment">// Return data</span></div><div class="line">    &#125;</div><div class="line">    <span class="type">XCTAssert</span>(dataTask.resumeWasCalled)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>dataTask</strong> 变量是我们自己拥有的模拟对象，所以我们可以添加一个属性来监控 resume() 方法的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockURLSessionDataTask</span>: <span class="title">URLSessionDataTaskProtocol</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> (<span class="keyword">set</span>) <span class="keyword">var</span> resumeWasCalled = <span class="literal">false</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">resume</span><span class="params">()</span></span> &#123;</div><div class="line">        resumeWasCalled = <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果 resume() 方法被调用了，<code>resumeWasCalled</code> 就会被设置成 <code>true</code>! :) 很简单，对不对？</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过这篇文章，我们学到：</p>
+<ol>
+<li>如何调整依赖注入来改变生产/测试环境。</li>
+<li>如何利用协议来创建模拟对象。</li>
+<li>如何检测传值的正确性。</li>
+<li>如何断言某个函数的行为。</li>
+</ol>
+<p>刚起步时，你必须花费大量时间来写简单的测试，而且测试代码也是代码，所以你仍需要保持测试代码的简洁和良好的架构。但编写测试用例得到的好处也是弥足珍贵的，代码只有在恰当的测试后才能被扩展，测试帮你免于琐碎 bug 的困扰。所以让我们一起加油写好测试吧!</p>
+<p>所有的示例代码都在 <a href="https://github.com/koromiko/Tutorial/blob/master/NetworkingUnitTest.playground/Contents.swift" target="_blank" rel="external">GitHub</a> 上，代码是以 Playground 的形式展示的，我还在上面添加了个额外的测试。 你可以自由下载或 fork 这些代码，并且欢迎任何反馈！</p>
+<p>感谢阅读我的文章 💚 。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ol>
+<li><a href="http://masilotti.com/testing-nsurlsession-input/" target="_blank" rel="external">Mocking Classes You Don’t Own</a></li>
+<li><a href="https://www.objc.io/issues/15-testing/dependency-injection/" target="_blank" rel="external">Dependency Injection</a></li>
+<li><a href="https://www.amazon.com/Test-Driven-Development-Swift-Dominik-Hauser/dp/178588073X" target="_blank" rel="external">Test-Driven iOS Development with Swift</a></li>
+</ol>
+<p>感谢 <a href="https://medium.com/@lisadziuba?source=post_page" target="_blank" rel="external">Lisa Dziuba</a> 和 <a href="https://medium.com/@ahmedsulaiman?source=post_page" target="_blank" rel="external">Ahmed Sulaiman</a>.</p>
+<hr>
+<hr>
+<blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a><ul>
+<li>译者：    <a href="https://swants.github.io" target="_blank" rel="external">Swants</a></li>
+<li>校对者：  <a href="https://github.com/pthtc" target="_blank" rel="external">pthtc</a> <a href="https://github.com/ZhiyuanSun" target="_blank" rel="external">ZhiyuanSun</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/01/12/Xcode-环境配置最佳实践.html">
+        <span class="next-text nav-default">Xcode 环境配置最佳实践</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

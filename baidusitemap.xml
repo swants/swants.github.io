@@ -4,6 +4,36 @@
 
     
   <url>
+    <loc>https://swants.cn/2017/06/15/%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9UI%E5%BA%93.html</loc>
+    <lastmod>2018-04-17T04:51:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>避免使用第三方UI库</title>
+        <pubTime>2017-06-15T08:19:50.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://swants.cn/2018/04/17/Swift-%E7%BD%91%E7%BB%9C%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%AE%8C%E5%85%A8%E6%89%8B%E5%86%8C.html</loc>
+    <lastmod>2018-04-17T04:46:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift 网络单元测试完全手册</title>
+        <pubTime>2018-04-17T04:44:58.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://swants.cn/2018/01/12/Xcode-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html</loc>
     <lastmod>2018-01-12T01:48:11.000Z</lastmod>
     <data>
@@ -108,21 +138,6 @@
         
         <tag>CALayer</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://swants.cn/2017/06/15/%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9UI%E5%BA%93.html</loc>
-    <lastmod>2017-08-30T05:40:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]避免使用第三方UI库</title>
-        <pubTime>2017-06-15T08:19:50.000Z</pubTime>
-        
          
            
         </display>
