@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="看完 Masonry 源码后的几点思考？"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/05/25/ 看完 Masonry 源码后的几点思考？.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 看完 Masonry 源码后的几点思考？ - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          看完 Masonry 源码后的几点思考？
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-25
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>   最近花了两周的时间读了 <code>Masonry</code> 源码，被它优雅的语法深深打动。它把 <code>Apple</code> 原生 <code>AutoLayout</code> 冗长,繁琐的约束语法真是封装得简洁优雅到了极致。每一次看，都能看到不一样的东西，在这里也强烈推荐各位小伙伴阅读它的源码。我把我在看源码期间想到的问题，收获，总结到了下面几个问题中，您看能答出来多少呢？欢迎在下方评论。</p>
+<ol>
+<li><code>Masonry</code> 都做了些什么？</li>
+</ol>
+<p>2.下面代码会发生循环引用吗，为什么？</p>
+<a id="more"></a>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="name">self.view</span> addSubview:btn]<span class="comment">;</span></div><div class="line">[<span class="name">btn</span> makeConstrants:^(<span class="name">MASLayoutConstraint</span> *make)&#123;</div><div class="line">make.left.equalTo(<span class="name">self.view</span>).offset(<span class="name">12</span>)<span class="comment">;</span></div><div class="line">&#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<ol>
+<li><code>MAS_SHORTHAND</code>、<code>MAS_SHORTHAND_GLOBALS</code> 宏是做什么用的？它的效果是怎么实现的呢？</li>
+</ol>
+<ol>
+<li><code>Masonry</code> 的 <code>makeConstraints:</code> 、<code>updateConstraints:</code>、 <code>remakeConstraints:</code> 有什么区别，分别适合那些场景？</li>
+<li>描述下代码 <code>make.left.right.top.equalTo(self.view).offset(0);</code> 都做了些什么？</li>
+<li><code>Masonry</code> 是如何做到链式优雅调用的？</li>
+</ol>
+<blockquote>
+<p>下面几个问题可能比较细节，希望不要介意。</p>
+</blockquote>
+<ol>
+<li><p><code>MASViewConstraint</code> 为什么要弱引用一个 MASLayoutConstraint 的实例对象，它又用这个对象做了什么？</p>
+</li>
+<li><p><code>MASConstraintMaker</code> 持有一个 <code>constraints</code> 数组， 而 <code>MASViewConstrint</code> 类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那么这两个数组有什么区别吗？各自的作用又是什么？</p>
+</li>
+<li><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)mas_updateConstraints:(<span class="keyword">void</span>(^)(MASConstraintMaker *))block &#123;</div><div class="line">    <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div><div class="line">    MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:<span class="keyword">self</span>];</div><div class="line">    constraintMaker.updateExisting = <span class="literal">YES</span>;</div><div class="line">    block(constraintMaker);</div><div class="line">    <span class="keyword">return</span> [constraintMaker install];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述源码中，<code>MASConstraintMaker</code> 的初始化方法 <code>initWithView:</code> 为<code>MASConstraintMaker</code>初始化了一个 <code>view</code> 属性 ，<code>MASConstraintMaker</code> 持有这个 <code>view</code> 做什么？</p>
+</li>
+<li><p><code>MASConstraintMaker</code> 都在什么时候会初始化 <code>MASViewAttribute</code>对象？</p>
+</li>
+</ol>
+<p>尽管笔者水平有限，但对这些问题的拙劣见解还是会在下篇文章中放出，在这希望可以抛砖引玉，期待各位大牛共同探讨 <code>Masonry</code> 优雅的精髓。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/06/11/关于 Masonry 的一些思考（下）.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">关于 Masonry 的一些思考（下）</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html">
+        <span class="next-text nav-default">如何判断某经纬度是否在地图不规则区域内</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

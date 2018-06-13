@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="关于 Masonry 的一些思考（下）"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/06/11/关于 Masonry 的一些思考（下）.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 关于 Masonry 的一些思考（下） - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          关于 Masonry 的一些思考（下）
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-11
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于-Masonry-思考的解答"><span class="toc-text">关于 Masonry 思考的解答</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Masonry-都做了些什么？"><span class="toc-text">1. Masonry 都做了些什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-下面代码会发生循环引用吗，为什么？"><span class="toc-text">2. 下面代码会发生循环引用吗，为什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-MAS-SHORTHAND、MAS-SHORTHAND-GLOBALS-宏是做什么用的？它的效果是如何实现的呢？"><span class="toc-text">3. MAS_SHORTHAND、MAS_SHORTHAND_GLOBALS 宏是做什么用的？它的效果是如何实现的呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Masonry-的-makeConstraints-、updateConstraints-、-remakeConstraints-有什么区别，分别适合那些场景？"><span class="toc-text">4. Masonry 的 makeConstraints: 、updateConstraints:、 remakeConstraints: 有什么区别，分别适合那些场景？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-描述下代码-make-left-right-top-equalTo-self-view-offset-0-都做了些什么？"><span class="toc-text">5. 描述下代码 make.left.right.top.equalTo(self.view).offset(0) 都做了些什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Masonry-是如何做到链式优雅调用的？"><span class="toc-text">6. Masonry 是如何做到链式优雅调用的？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-MASViewConstraint-为什么要弱引用一个-MASLayoutConstraint-的实例对象，它又用这个对象做了什么？"><span class="toc-text">7.MASViewConstraint 为什么要弱引用一个 MASLayoutConstraint 的实例对象，它又用这个对象做了什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-MASConstraintMaker-持有一个-constraints-数组，-而-MASViewConstrint-类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？"><span class="toc-text">8.MASConstraintMaker 持有一个 constraints 数组， 而 MASViewConstrint 类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇文章是笔者对上篇文章《关于 Masonry 的一些思考》的一些自己的解答，哪里有理解不到位的地方，请尽情拍砖。如果想先看无答案版，请前往上篇文章 《<a href="https://juejin.im/post/5b07dcbff265da0dcd0b61f7" target="_blank" rel="external">看完 <code>Masonry</code> 源码后的几点思考？</a>》。</p>
+<a id="more"></a>
+<p><img src="/images/blog05/02.jpg" alt="&quot;CALayer&quot;"></p>
+<blockquote>
+<p>图片来自戴铭文章 《<a href="http://www.starming.com/2018/04/07/read-snapkit-and-masonry-source-code/" target="_blank" rel="external">读 SnapKit 和 Masonry 自动布局框架源码</a>》</p>
+</blockquote>
+<h1 id="关于-Masonry-思考的解答"><a href="#关于-Masonry-思考的解答" class="headerlink" title="关于 Masonry 思考的解答"></a>关于 Masonry 思考的解答</h1><h2 id="1-Masonry-都做了些什么？"><a href="#1-Masonry-都做了些什么？" class="headerlink" title="1. Masonry 都做了些什么？"></a>1. <strong><code>Masonry</code> 都做了些什么？</strong></h2><p><code>Masonry</code> 是一个让开发者用简洁优雅的语法来调用原生 <code>AutoLayout</code> 进行布局的轻量级框架。<code>Masonry</code> 拥有自己的 <code>DSL</code> 布局语言，让我们可以更具象地描述约束的增加与更新，让约束的代码也变得更加简洁易读、容易理解。</p>
+<blockquote>
+<p>DSL 是一种基于特定领域的语言，它使工作更贴近于客户的理解，而不是实现本身，这样有利于开发过程中，所有参与人员使用同一种语言进行交流。简单来说，就是我们只需描述出我们想要什么效果，而毋需涉及底层实现，这无疑降低了工作过程中沟通协调的门槛。</p>
+</blockquote>
+<p>语言过于苍白，让我们 show code：</p>
+<p>原生 <code>AutoLayout</code> 实现一个红色 view 布局</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="string">UIView</span> <span class="meta">*superview</span> <span class="string">=</span> <span class="string">self.view;</span></div><div class="line"><span class="string">UIView</span> <span class="meta">*view1</span> <span class="string">=</span> <span class="string">[[UIView</span> <span class="string">alloc]</span> <span class="string">init];</span></div><div class="line"><span class="string">view1.translatesAutoresizingMaskIntoConstraints</span> <span class="string">=</span> <span class="literal">NO</span><span class="string">;</span></div><div class="line"><span class="string">view1.backgroundColor</span> <span class="string">=</span> <span class="string">[UIColor</span> <span class="string">greenColor];</span></div><div class="line"><span class="string">[superview</span> <span class="attr">addSubview:view1];</span></div><div class="line"><span class="string">UIEdgeInsets</span> <span class="string">padding</span> <span class="string">=</span> <span class="string">UIEdgeInsetsMake(10,</span> <span class="number">10</span><span class="string">,</span> <span class="number">10</span><span class="string">,</span> <span class="number">10</span><span class="string">);</span></div><div class="line"><span class="string">[superview</span> <span class="attr">addConstraints:@[</span></div><div class="line"></div><div class="line">    <span class="string">//view1</span> <span class="string">constraints</span></div><div class="line">    <span class="string">[NSLayoutConstraint</span> <span class="attr">constraintWithItem:view1</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeTop</span></div><div class="line"><span class="attr">                                 relatedBy:</span><span class="string">NSLayoutRelationEqual</span></div><div class="line"><span class="attr">                                    toItem:</span><span class="string">superview</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeTop</span></div><div class="line"><span class="attr">                                multiplier:</span><span class="number">1.0</span></div><div class="line"><span class="attr">                                  constant:</span><span class="string">padding.top],</span></div><div class="line"></div><div class="line">    <span class="string">[NSLayoutConstraint</span> <span class="attr">constraintWithItem:view1</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeLeft</span></div><div class="line"><span class="attr">                                 relatedBy:</span><span class="string">NSLayoutRelationEqual</span></div><div class="line"><span class="attr">                                    toItem:</span><span class="string">superview</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeLeft</span></div><div class="line"><span class="attr">                                multiplier:</span><span class="number">1.0</span></div><div class="line"><span class="attr">                                  constant:</span><span class="string">padding.left],</span></div><div class="line"></div><div class="line">    <span class="string">[NSLayoutConstraint</span> <span class="attr">constraintWithItem:view1</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeBottom</span></div><div class="line"><span class="attr">                                 relatedBy:</span><span class="string">NSLayoutRelationEqual</span></div><div class="line"><span class="attr">                                    toItem:</span><span class="string">superview</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeBottom</span></div><div class="line"><span class="attr">                                multiplier:</span><span class="number">1.0</span></div><div class="line"><span class="attr">                                  constant:</span><span class="bullet">-padding.bottom],</span></div><div class="line"></div><div class="line">    <span class="string">[NSLayoutConstraint</span> <span class="attr">constraintWithItem:view1</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeRight</span></div><div class="line"><span class="attr">                                 relatedBy:</span><span class="string">NSLayoutRelationEqual</span></div><div class="line"><span class="attr">                                    toItem:</span><span class="string">superview</span></div><div class="line"><span class="attr">                                 attribute:</span><span class="string">NSLayoutAttributeRight</span></div><div class="line"><span class="attr">                                multiplier:</span><span class="number">1</span></div><div class="line"><span class="attr">                                  constant:</span><span class="bullet">-padding.right],</span></div><div class="line"></div><div class="line"> <span class="string">]];</span></div></pre></td></tr></table></figure>
+<p>使用 Masonry 进行布局：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">UIEdgeInsets padding = UIEdgeInsetsMake(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>);</div><div class="line">[view1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">    make.<span class="built_in">top</span>.equalTo(superview.mas_top).<span class="built_in">with</span>.offset(padding.<span class="built_in">top</span>); //<span class="built_in">with</span> is an optional semantic filler</div><div class="line">    make.<span class="built_in">left</span>.equalTo(superview.mas_left).<span class="built_in">with</span>.offset(padding.<span class="built_in">left</span>);</div><div class="line">    make.<span class="built_in">bottom</span>.equalTo(superview.mas_bottom).<span class="built_in">with</span>.offset(-padding.<span class="built_in">bottom</span>);</div><div class="line">    make.<span class="built_in">right</span>.equalTo(superview.mas_right).<span class="built_in">with</span>.offset(-padding.<span class="built_in">right</span>);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>代码甚至可以再精简下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UIEdgeInsets padding = UIEdgeInsetsMake(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)<span class="comment">;</span></div><div class="line">[view1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">    make.edges.equalTo(superview).with.<span class="keyword">insets(padding);</span></div><div class="line">&#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>以上代码来自 Masonry 的 <a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">github 介绍</a></p>
+</blockquote>
+<p>经过上面的代码比较，<code>Masonry</code> 语法的简洁优雅效果是浅显易见的。代码不仅变得精简，而且阅读成本也基本降到了最低。</p>
+<h2 id="2-下面代码会发生循环引用吗，为什么？"><a href="#2-下面代码会发生循环引用吗，为什么？" class="headerlink" title="2. 下面代码会发生循环引用吗，为什么？"></a>2. <strong>下面代码会发生循环引用吗，为什么？</strong></h2><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="name">self.view</span> addSubview:btn]<span class="comment">;</span></div><div class="line">[<span class="name">btn</span> makeConstrants:^(<span class="name">MASLayoutConstraint</span> *make)&#123;</div><div class="line">make.left.equalTo(<span class="name">self.view</span>).offset(<span class="name">12</span>)<span class="comment">;</span></div><div class="line">&#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><strong>答：</strong> 不会发生循环引用，方法中 <code>block</code> 参数虽然引用 <code>self.view</code>，间接持有了 <code>btn</code>，但是 <code>block</code> 参数是个匿名 block，并且在方法实现里未额外引用这个 <code>block</code> 参数， <code>block</code> 并未被 <code>btn</code> 所持有，也就不存在两者相互持有、循环引用。<code>block -&gt; self.view -&gt; btn -(未引用)- block</code></p>
+<p>而上述方法定义中也明确使用 <code>NS_NOESCAPE</code> 修饰 <code>block</code> 参数, 这个修饰符表明 <code>block</code> 在方法执行完前就会被执行释放，而不会对 <code>block</code> 进行额外的引用保存。</p>
+<p><code>- (NSArray *)mas_updateConstraints:(void(NS_NOESCAPE ^)(MASConstraintMaker *make))block</code></p>
+<p>在代码中 <code>Masonry</code> 也确实是这么做的：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)mas_makeConstraints:(<span class="keyword">void</span>(^)(MASConstraintMaker *))block &#123;</div><div class="line">    <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div><div class="line">    MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:<span class="keyword">self</span>];</div><div class="line">    block(constraintMaker);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> [constraintMaker install];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面代码中，可以清除地看到，<code>block</code> 参数在 <code>return</code> 之前就被执行，并未被其他对象引用。</p>
+<p>更多关于 <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0012-add-noescape-to-public-library-api.md" target="_blank" rel="external">NS_NOESCAPE</a> 的介绍</p>
+<blockquote>
+<p>额外拓展，很多同学对 <code>block</code> 的循环引用都不太了解：<strong>同样是匿名 block 参数，系统动画</strong></p>
+</blockquote>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="name">UIView</span> animateWithDuration:100 animations:^&#123;</div><div class="line">        NSLog(<span class="name">@</span><span class="string">"%@"</span>,self)<span class="comment">;</span></div><div class="line">    &#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p> <strong>不会造成循环引用，而 <code>MJRefresh</code> 的 <code>header</code> 初始化方法</strong></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.<span class="keyword">scrollView.mj_header </span>= [MJRefreshNormalHeader headerWithRefreshingBlock:^&#123;</div><div class="line">        NSLog(@<span class="string">"%@"</span>, self)<span class="comment">;</span></div><div class="line">    &#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p><strong>为什么会造成循环引用？</strong></p>
+<p><code>MJRefresh</code> 的 <code>headerWithRefreshingBlock：</code> 方法内部，返回的  <code>MJRefreshNormalHeader</code> 对象强引用了这个 <code>block</code>，而这个返回对象最后又被 <code>self.scrollView.mj_header</code> 强引用了，也就造成了 <code>self -&gt; scrollView -&gt; mj_header -&gt; block -&gt; self</code> 的强引用闭环，因此会造成循环引用。</p>
+<p><code>headerWithRefreshingBlock:</code> 实现代码：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">+ (instancetype)headerWithRefreshingBlock:(MJRefreshComponentRefreshingBlock)refreshingBlock</div><div class="line">&#123;</div><div class="line">    MJRefreshHeader *<span class="keyword">cmp </span>= [[<span class="keyword">self </span>alloc] init]<span class="comment">;</span></div><div class="line">    <span class="keyword">cmp.refreshingBlock </span>= refreshingBlock<span class="comment">;</span></div><div class="line">    return <span class="keyword">cmp;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>系统的动画实现方法中，<code>self</code> 并未和这个 <code>block</code> 产生关联，但 <code>block</code> 确实持有了 <code>self</code>，但笔者猜测 <code>block</code> 对self 并不是强引用，因为如果在这个动画时间内控制器执行 <code>POP</code> 操作，<code>self</code> 会立即被释放掉，也就是说除了导航控制器栈，<code>self</code> 并未被额外的强引用，否则 self 不会被释放。</p>
+<p><code>self 未引用 block (弱)-&gt; self 。因此也不存在循环引用</code></p>
+<blockquote>
+<p>想一想，当方法中使用匿名 <code>block</code>、匿名对象作为参数，这些匿名对象是被谁持有？会在什么时候释放呢？欢迎在评论中探讨。</p>
+</blockquote>
+<h2 id="3-MAS-SHORTHAND、MAS-SHORTHAND-GLOBALS-宏是做什么用的？它的效果是如何实现的呢？"><a href="#3-MAS-SHORTHAND、MAS-SHORTHAND-GLOBALS-宏是做什么用的？它的效果是如何实现的呢？" class="headerlink" title="3. MAS_SHORTHAND、MAS_SHORTHAND_GLOBALS 宏是做什么用的？它的效果是如何实现的呢？"></a>3. <strong><code>MAS_SHORTHAND</code>、<code>MAS_SHORTHAND_GLOBALS</code> 宏是做什么用的？它的效果是如何实现的呢？</strong></h2><p><code>MAS_SHORTHAND</code> 宏可以在调用 <code>Masonry</code> <code>api</code> 的时候省去 <code>mas_</code> 前缀</p>
+<p><code>Masonry</code> 为 <code>View</code> 定义了 一个 <code>View+MASAdditions</code> 分类。在这个分类中，所有的成员属性和方法都是带有 <code>mas_</code> 前缀的。Masonry 还另外定义了 <code>View+MASShorthandAdditions</code> 分类，在这个分类中所有的所有属性和成员变量都不带 mas_ 前缀。但这个分类被  <code>#ifdef MAS_SHORTHAND  #endif</code> 所包裹。 效果如下：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//MASShorthandAdditions 分类</span></div><div class="line">#ifdef MAS_SHORTHAND  </div><div class="line">...</div><div class="line">...（不带有 mas_ 前缀的成员变量和方法）</div><div class="line">...</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<p>这样只有定义了 <code>MAS_SHORTHAND</code> 之后这个分类才会被编译，而这个分类内部所有属性的 <code>get</code> 方法、对外的接口方法实现还是调用的带有 <code>mas_</code> 前缀的方法，对于我们开发者来说，只是在 <code>mas_</code> 属性与方法外面包裹上了一层语法糖。</p>
+<p>不带有 <code>mas_</code> 前缀方法的实现：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//属性的 <span class="meta">get</span> 方法宏，在属性前拼接 mas_ 前缀，调用带有前缀的属性 <span class="meta">get</span> 方法</div><div class="line"><span class="symbol">#define</span> MAS_ATTR_FORWARD(<span class="meta">attr</span>)  \</div><div class="line">- (MASViewAttribute *)<span class="meta">attr</span> &#123;    \</div><div class="line">    return [<span class="keyword">self </span>mas_#<span class="symbol">#attr</span>]<span class="comment">;   \</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//不带有 mas_ 前缀的 API，内部会调用带有 mas_ 前缀的 API</span></div><div class="line">- (<span class="built_in">NSArray</span> *)makeConstraints:(<span class="keyword">void</span>(<span class="built_in">NS_NOESCAPE</span> ^)(MASConstraintMaker *))block &#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> mas_makeConstraints:block];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而<code>MAS_SHORTHAND_GLOBALS</code> 宏会将 <code>equalTo()</code>、 <code>greaterThanOrEqualTo()</code>、  <code>offset()</code>  宏定义为 <code>mas_equalTo()</code>、 <code>mas_greaterThanOrEqualTo()</code>、  <code>mas_offset()</code>  。</p>
+<p>而带有 <code>mas_</code> 前缀的方法会将括号内的 <code>block</code> 参数从基本数据类型转化为 <code>NSValue</code> 对象类型</p>
+<p> <code>#define mas_equalTo(...)                 equalTo(MASBoxValue((__VA_ARGS__)))</code></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#ifdef</span> <span class="selector-tag">MAS_SHORTHAND_GLOBALS</span></div><div class="line"></div><div class="line"><span class="selector-id">#define</span> <span class="selector-tag">equalTo</span>(...)                     <span class="selector-tag">mas_equalTo</span>(VA_ARGS)</div><div class="line"><span class="selector-id">#define</span> <span class="selector-tag">greaterThanOrEqualTo</span>(...)        <span class="selector-tag">mas_greaterThanOrEqualTo</span>(VA_ARGS)</div><div class="line"><span class="selector-id">#define</span> <span class="selector-tag">lessThanOrEqualTo</span>(...)           <span class="selector-tag">mas_lessThanOrEqualTo</span>(VA_ARGS)</div><div class="line"><span class="selector-id">#define</span> <span class="selector-tag">offset</span>(...)                      <span class="selector-tag">mas_offset</span>(VA_ARGS)</div><div class="line"></div><div class="line"><span class="selector-id">#endif</span></div></pre></td></tr></table></figure>
+<h2 id="4-Masonry-的-makeConstraints-、updateConstraints-、-remakeConstraints-有什么区别，分别适合那些场景？"><a href="#4-Masonry-的-makeConstraints-、updateConstraints-、-remakeConstraints-有什么区别，分别适合那些场景？" class="headerlink" title="4. Masonry 的 makeConstraints: 、updateConstraints:、 remakeConstraints: 有什么区别，分别适合那些场景？"></a>4. <strong><code>Masonry</code> 的 <code>makeConstraints:</code> 、<code>updateConstraints:</code>、 <code>remakeConstraints:</code> 有什么区别，分别适合那些场景？</strong></h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSArray</span> *)mas_makeConstraints:(<span class="keyword">void</span>(^)(MASConstraintMaker *))block &#123;</div><div class="line">    <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</div><div class="line">    MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:<span class="keyword">self</span>];</div><div class="line">    block(constraintMaker);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> [constraintMaker install];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>remakeConstraints:</code>  和上面代码的唯一区别就是增加了<code>constraintMaker.removeExisting = YES;</code></p>
+<p>当 <code>[constraintMaker install]</code> 时，如果 <code>removeExisting</code> 判断为 <code>true</code>，会将已安装的约束全部执行 <code>[constraint uninstall]</code> 卸载;</p>
+<p>而 <code>updateConstraints:</code>  和上面代码的唯一区别就是在调用 <code>block</code> 之前增加了一句 <code>constraintMaker.updateExisting = YES</code> 标示。</p>
+<p>当 <code>[constraint install]</code> 执行时，会判断 <code>updateExisting</code> 的值， 如果为 <code>true</code> 会接着判断约束和已安装的约束是否相似，（<strong>判断是否相似的规则是，两条约束只有 <code>constant</code> 常量值不一样，其它诸如 <code>firstItem</code> <code>secondItem</code> <code>firstAttribute</code> <code>secondAttribute</code> <code>relation</code> <code>multiplier</code> <code>priority</code> 必须和之前约束完全一致，才为相似约束。</strong>），如果存在相似约束，则进行约束更新，否则就新增这条约束。因此我们要十分注意 <code>updateConstraints:</code> 新更新的约束会不会和已有的约束冲突， 例如当我们之前约束为 <code>make.right.equalTo(self.view).offset(-12);</code> 更新后为 <code>make.right.equalTo(self.view.mas_centerX).offset(-15);</code> 这是两条不相似的约束（<code>secondAttribute</code> 不一样），如果更新约束，会造成约束冲突。 </p>
+<h2 id="5-描述下代码-make-left-right-top-equalTo-self-view-offset-0-都做了些什么？"><a href="#5-描述下代码-make-left-right-top-equalTo-self-view-offset-0-都做了些什么？" class="headerlink" title="5. 描述下代码 make.left.right.top.equalTo(self.view).offset(0) 都做了些什么？"></a>5. <strong>描述下代码 <code>make.left.right.top.equalTo(self.view).offset(0)</code> 都做了些什么？</strong></h2><p>   <code>make.left</code> 生成并返回 <code>MASViewConstraint</code> 对象，需要注意的是：</p>
+<ul>
+<li><p>该对象已保存了调用 <code>view</code>（<code>FirstView</code>） 和 <code>left</code>（<code>FirstAttribute</code>）</p>
+</li>
+<li><p>该对象已被添加到 <code>make</code> 的 <code>constraints</code> 数组内保存</p>
+</li>
+</ul>
+<p><code>MASViewConstraint.right</code> 生成并返回了 <code>MASCompositeConstraint</code> 对象，需要注意的是：</p>
+<ul>
+<li><code>MASCompositeConstraint</code> 对象保存了包含 <code>left</code> 和 <code>top</code> 的两条 <code>MASViewConstraint</code> 对象</li>
+<li><code>make</code> 的 <code>constraints</code> 数组之前保存的 <code>MASViewConstraint</code> 对象被替换为该 <code>MASCompositeConstraint</code> 对象</li>
+</ul>
+<p><code>MASCompositeConstraint.top</code> 返回之前的 <code>MASCompositeConstraint</code> 对象，需要注意的是：</p>
+<ul>
+<li><code>MASCompositeConstraint</code> 增加了一条 <code>top</code> 约束 </li>
+</ul>
+<p><code>MASCompositeConstraint .equalTo(self.view)</code> 返回之前的 <code>MASCompositeConstraint</code>，</p>
+<ul>
+<li>遍历 <code>MASCompositeConstraint</code> 保存的几条约束， 为他们设置 <code>layoutRelation</code>、<code>secondView</code> 和 <code>secondAttribute</code> </li>
+<li><code>equalTo()</code> 参数是 <code>view</code> 类型，<code>secondAttribute</code> 依旧是 <code>nil</code>，会在最后约束安装时如果判断为 <code>nil</code> 则值初始化为 <code>FirstAttribute</code></li>
+</ul>
+<p><code>MASCompositeConstraint.offset</code>  无返回值</p>
+<ul>
+<li>遍历 <code>MASCompositeConstraint</code> 保存的几条约束，为他们设置 <code>layoutConstant</code></li>
+</ul>
+<p>最后约束安装时 执行 <code>[constraintMaker install]</code>; 就会根据 <code>firstView</code> <code>FirstAttribute</code>  <code>layoutRelation</code>  <code>secondView</code> <code>secondAttribute</code>  <code>layoutConstant</code> 来生成原生的约束 <code>NSLayoutConstraint</code> ，并将原生约束添加到 <code>firstView</code> <code>secondView</code> 最近的公共父视图上生效。</p>
+<h2 id="6-Masonry-是如何做到链式优雅调用的？"><a href="#6-Masonry-是如何做到链式优雅调用的？" class="headerlink" title="6. Masonry 是如何做到链式优雅调用的？"></a>6. <strong><code>Masonry</code> 是如何做到链式优雅调用的？</strong></h2><p>链式编程思想：简单来说，是将多个操作（多行代码）通过点号(.)链接在一起成为一句代码,使代码可读性好。a(1).b(2).c(3)</p>
+<p>链式编程特点：方法的返回值是 block , block 必须有返回值（本身对象），block 参数就是需要操作的值。</p>
+<p>那  <code>make.left.right.top.bottom.equalTo(self.view).offset(12)</code> 链式调用的具体过程是什么样的呢?</p>
+<p>首先 <code>Masonry</code> 定义了一个 <code>MASConstraint</code> 抽象类 上面所有的方法返回值都是 <code>MASConstraint</code> 类型，而所有的调用者除了第一个为 <code>MASConstraintMake</code> 类型，其它都是 <code>MASConstraint</code> 类型调用。所以前一个方法的返回值正好作为下一个方法的调用者，而调用过的所有方法修改的约束都被 <code>maker</code> 的 <code>constraints</code> 所记录下来。随后在 <code>[constraintMaker install]</code>; 的时候遍历 <code>constraints</code> 执行  <code>[constraint install]</code></p>
+<h3 id="7-MASViewConstraint-为什么要弱引用一个-MASLayoutConstraint-的实例对象，它又用这个对象做了什么？"><a href="#7-MASViewConstraint-为什么要弱引用一个-MASLayoutConstraint-的实例对象，它又用这个对象做了什么？" class="headerlink" title="7.MASViewConstraint 为什么要弱引用一个 MASLayoutConstraint 的实例对象，它又用这个对象做了什么？"></a>7.<strong><code>MASViewConstraint</code> 为什么要弱引用一个 MASLayoutConstraint 的实例对象，它又用这个对象做了什么？</strong></h3><p><code>Masonry</code> 库最后都会生成一个 <code>MASVIewConstraint</code> 对象，<code>Masonry</code> 会根据这个对象生成系统原生 <code>NSLayoutConstraint</code> 约束的创建，而后期可能要对这个原生约束进行一些移除操作。需要记录这个原生约束对象。 </p>
+<h2 id="8-MASConstraintMaker-持有一个-constraints-数组，-而-MASViewConstrint-类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？"><a href="#8-MASConstraintMaker-持有一个-constraints-数组，-而-MASViewConstrint-类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？" class="headerlink" title="8.MASConstraintMaker 持有一个 constraints 数组， 而 MASViewConstrint 类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？"></a>8.<strong><code>MASConstraintMaker</code> 持有一个 <code>constraints</code> 数组， 而 <code>MASViewConstrint</code> 类也有一个用来记录约束的数组，这两个数组都是用来记录生成的约束，那这两个数组有什么区别吗？各自的作用又是什么？</strong></h2><p><code>MASConstraintMaker</code> 的 数组是记录 本次 <code>Masonry</code>  <code>API</code> 调用生成的约束，最后 <code>make</code> 将这个数组内的约束遍历安装 <code>install</code>。<br>数组里存储的是 <code>MASViewConstraint</code> 和 <code>MASCompositeConstraint</code> 对象</p>
+<p>而 <code>MASViewConstrint</code> 类的数组，记录的是 <code>Masonry</code> 调用者 <code>View</code> 已经安装了哪些约束，这个数组在后期调用者调用 <strong><code>updateConstraints:</code></strong> 时判断，更新的约束是否已经安装了 ，<strong><code>remakeConstraints:</code></strong> 方法时，需要根据数组将已经安装过的约束移除。数组里存储的都是 <code>MASViewConstrint</code> 对象。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>尽管笔者水平有限，但对这些问题的拙劣见解还是奉上，希望可以给读 <code>Masonry</code> 源码的小伙伴带来些不一样的视角，如果对于文中有解读不当的地方也请您不吝指出。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/05/25/ 看完 Masonry 源码后的几点思考？.html">
+        <span class="next-text nav-default">看完 Masonry 源码后的几点思考？</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
