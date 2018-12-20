@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="我们就像活脱脱的唐吉可德:抱着让旁人忍不住发笑的梦想， 不断地被生活一次次惨烈打击， 仍毫不畏惧一次次出发， 依旧不肯放弃对拯救世界的偏执。"/>
+  <meta name="description" content="iOS高级编程ARC笔记"/>
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://swants.cn/"/>
+<link rel="canonical" href="https://swants.cn/2018/09/29/iOS高级编程ARC笔记.html"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
@@ -75,7 +75,7 @@
 
 
 
-    <title> 塞万提斯 </title>
+    <title> iOS高级编程ARC笔记 - 塞万提斯 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -168,111 +168,12 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <section id="posts" class="posts">
-    
-      
+  
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/12/17/iOS开发中的设计模式下.html">iOS 开发中的设计模式下</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-17
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。</p>
-<blockquote>
-<p><strong>更新说明</strong>：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem 发布。</p>
-</blockquote>
-<p>欢迎回到 iOS 设计模式的入门教程第二部分！在 <a href="http://www.swants.cn/2018/12/03/iOS开发中的设计模式上.html" target="_blank" rel="external">第一部分</a> 中，你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。</p>
-<p>在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们现在就开始吧！</p>
-          <div class="read-more">
-            <a href="/2018/12/17/iOS开发中的设计模式下.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/12/03/iOS开发中的设计模式上.html">iOS 开发中的设计模式上</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-12-03
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。</p>
-<blockquote>
-<p><strong>更新说明</strong>：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem发布。</p>
-</blockquote>
-<p><strong>iOS设计模式</strong> — 你可能已经听过这个术语，但是你知道这意味着什么吗？尽管大多数开发人员可能都认为设计模式非常重要，关于这个主题的文章并不多，我们开发人员在编写代码时有时不会过多地关注设计模式。</p>
-<p>设计模式是软件设计中常见问题的可重用解决方案。它们的模板旨在帮助你编写易于理解和重用的代码。它们还可以帮助你创建低耦合度的代码，以便你能更改或替换代码中的组件而避免很多麻烦。</p>
-<p>如果你对设计模式不熟悉，那么我有个好消息要告诉你！首先，由于 Cocoa 的架构方式以及它鼓励你使用的最佳实践，你已经使用过了大量的 iOS 设计模式。其次，本教程将快速帮助你理解 Cocoa 中常用的所有重要（还有不那么重要）的 iOS 设计模式。</p>
-          <div class="read-more">
-            <a href="/2018/12/03/iOS开发中的设计模式上.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/09/29/iOS高级编程ARC笔记.html">iOS高级编程ARC笔记</a>
+          iOS高级编程ARC笔记
         
       </h1>
 
@@ -286,14 +187,17 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARC原理"><span class="toc-text">ARC原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用ARC必须遵守的规则："><span class="toc-text">使用ARC必须遵守的规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性关键字与所有权修饰符"><span class="toc-text">属性关键字与所有权修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现原理"><span class="toc-text">实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#alloc"><span class="toc-text">alloc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#retainCount"><span class="toc-text">retainCount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#retain"><span class="toc-text">retain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#release"><span class="toc-text">release</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#autorelease-实现"><span class="toc-text">autorelease 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strong内部实现："><span class="toc-text">__strong内部实现：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#weak-实现"><span class="toc-text">__weak 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#autorelease-的实现"><span class="toc-text">autorelease 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#释放"><span class="toc-text">释放</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嵌套"><span class="toc-text">嵌套</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h2 id="ARC原理"><a href="#ARC原理" class="headerlink" title="ARC原理"></a>ARC原理</h2><p>ARC 在编译期插入生命周期的代码，内存管理的方式和MRC一样。<br>编译器会在合适的地方插入 retain release autorelease delloc 代码来管理对象的生命周期</p>
+        <h2 id="ARC原理"><a href="#ARC原理" class="headerlink" title="ARC原理"></a>ARC原理</h2><p>ARC 在编译期插入生命周期的代码，内存管理的方式和MRC一样。<br>编译器会在合适的地方插入 retain release autorelease delloc 代码来管理对象的生命周期</p>
 <h2 id="使用ARC必须遵守的规则："><a href="#使用ARC必须遵守的规则：" class="headerlink" title="使用ARC必须遵守的规则："></a>使用ARC必须遵守的规则：</h2><ol>
 <li>不能使用 retain/release/retainCount/autorelease</li>
 <li>不能使用 NSAllocateObject/NSDeallocateObject</li>
@@ -422,254 +326,59 @@
 <h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><p>知道了上面的原理，嵌套的AutoreleasePool就非常简单了，pop的时候总会释放到上次push的位置为止，多层的pool就是多个哨兵对象而已，就像剥洋葱一样，每次一层，互不影响。</p>
 <p>##参考<br><a href="https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank" rel="external">官方资料</a><br>其他参考资料：iOS 内存管理高级编程<br><a href="https://knightsj.github.io/2018/02/03/《Objective-C%20高级编程》干货三部曲（一）：引用计数篇/" target="_blank" rel="external">Objective-C 高级编程</a><br><a href="https://www.jianshu.com/p/6cf682f90fa2" target="_blank" rel="external">可能是史上最全面的内存管理文章</a><br><a href="https://www.jianshu.com/p/0ad9957e3716" target="_blank" rel="external">可能碰到的iOS笔试面试题（6）–内存管理</a></p>
 
-        
       
     </div>
 
     
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/08/15/关于单例的一个小思考.html">关于单例的一个小思考</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-15
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
       
-        
-        
 
-        
-          <h3 id="单例的生命周期"><a href="#单例的生命周期" class="headerlink" title="单例的生命周期"></a>单例的生命周期</h3><p>iOS app 中单例一经创建，全局共享单例对象，单例的生命周期跟随app生命周期，那它的原理是什么呢？ </p>
-<p>答：先看单例写法：</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//全局的变量,指的就是Singleton这个对象,静态全局变量，始终指向实例化出的对象<span class="keyword"></span></div><div class="line">static id instance;</div><div class="line">   </div><div class="line">+ (instancetype)shareInstance&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">        </div><div class="line">        //创建类</div><div class="line">       <span class="built_in"> instance </span>= [[self alloc]init];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//创建alloc init 时候创建,会调用allocWithZone ,保证创建出来这个对象是唯一的</div><div class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">       </div><div class="line">        //返回自己</div><div class="line">       <span class="built_in"> instance </span>= [super allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//防止外界拷贝造成多个实例</div><div class="line">- (id)copyWithZone:(NSZone *)zone&#123;</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>首先使用 static 修饰符，声明了单例对象，这就意味着这个单例对象是在程序的数据区进行存储的，而数据区会跟随 app打开申请 app关闭释放。实现了单例生命周期跟随app的生命周期，这也解释了为什么每次打开app(非后台状态)单例对象就会重新初始化，造成单例上次保存的数据丢失。</p>
-<h4 id="那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><a href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？" class="headerlink" title="那单例对象生命周期是否应该由 MRC/ARC 控制呢？"></a>那单例对象生命周期是否应该由 MRC/ARC 控制呢？</h4><p>答案也是否定的，因为无论 ARC 还是 MRC 都是管理用来管理堆上对象的生命周期的，而数据区的单例释放与否是由系统控制的，因此不应受他们控制，需要注意的是，在使用 MRC 时，单例调用 retain 确实会引起计数增加，而调用 release 则会直接崩溃，为了避免单例收到引用计数的干扰造成意想不到的后果，在 MRC 下需要覆盖retain autorelease retainCount release 这几个方法。重写这几个方法是为了单例能在MRC中使用。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - MRC中需要覆盖的方法, ARC与MRC的整合</span></div><div class="line"><span class="meta">#if !__has_feature(objc_arc)</span></div><div class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span> &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">id</span>)autorelease &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount &#123;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">UINT_MAX</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
 
-        
+
       
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/11/关于 Masonry 的一些思考（下）.html">关于 Masonry 的一些思考（下）</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-11
-        </span>
-        
-      </div>
-    </header>
-
-    
     
 
-    <div class="post-content">
-      
+    
+      <footer class="post-footer">
         
-        
-          
-        
-
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇文章是笔者对上篇文章《关于 Masonry 的一些思考》的一些自己的解答，哪里有理解不到位的地方，请尽情拍砖。如果想先看无答案版，请前往上篇文章 《<a href="https://juejin.im/post/5b07dcbff265da0dcd0b61f7" target="_blank" rel="external">看完 <code>Masonry</code> 源码后的几点思考？</a>》。</p>
-          <div class="read-more">
-            <a href="/2018/06/11/关于 Masonry 的一些思考（下）.html" class="read-more-link">阅读更多</a>
+          <div class="post-tags">
+            
+              <a href="/tags/单例/">单例</a>
+            
           </div>
         
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
         
-          <a class="post-link" href="/2018/05/25/ 看完 Masonry 源码后的几点思考？.html">看完 Masonry 源码后的几点思考？</a>
         
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-25
-        </span>
-        
-      </div>
-    </header>
-
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/12/03/iOS开发中的设计模式上.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">iOS 开发中的设计模式上</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
     
     
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>   最近花了两周的时间读了 <code>Masonry</code> 源码，被它优雅的语法深深打动。它把 <code>Apple</code> 原生 <code>AutoLayout</code> 冗长,繁琐的约束语法真是封装得简洁优雅到了极致。每一次看，都能看到不一样的东西，在这里也强烈推荐各位小伙伴阅读它的源码。我把我在看源码期间想到的问题，收获，总结到了下面几个问题中，您看能答出来多少呢？欢迎在下方评论。</p>
-<ol>
-<li><code>Masonry</code> 都做了些什么？</li>
-</ol>
-<p>2.下面代码会发生循环引用吗，为什么？</p>
-          <div class="read-more">
-            <a href="/2018/05/25/ 看完 Masonry 源码后的几点思考？.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html">如何判断某经纬度是否在地图不规则区域内</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-14
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在 LBS 开发中，可能经常要碰到这样的问题，如何判断一个指定的经纬度点是否落在一个多边形区域内？比如在地图上画了一个多边形区域，然后给出一个经纬度点，怎样判断这个点是否在这个多边形范围之内？</p>
-          <div class="read-more">
-            <a href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/03/17/Swift-网络单元测试完全手册.html">Swift 网络单元测试完全手册</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-03-17
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p><img src="/images/blog04/01.png" alt="image">  </p>
-<p>不得不承认，对于 iOS 开发写测试并不是很普遍(至少和后端写测试程度相比)。我过去是个独立开发者而且最初也没经过原生“测试驱动”的开发培训，因此我花费了大量的时间来学习如何编写测试用例，如何写出可测试的代码。这也是我写这篇文章的初衷，我想把自己用 Swift 写测试时摸索到的心得分享给大家，希望我的见解能够帮助大家节省学习时间，少走些弯路。</p>
-          <div class="read-more">
-            <a href="/2018/03/17/Swift-网络单元测试完全手册.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+      <a class="next" href="/2018/08/15/关于单例的一个小思考.html">
+        <span class="next-text nav-default">关于单例的一个小思考</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
+      </footer>
+    
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>  
       </main>
@@ -697,6 +406,8 @@
     </div>
 
     
+  
+
 
 
     
