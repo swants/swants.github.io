@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="我们就像活脱脱的唐吉可德:抱着让旁人忍不住发笑的梦想， 不断地被生活一次次惨烈打击， 仍毫不畏惧一次次出发， 依旧不肯放弃对拯救世界的偏执。"/>
+  <meta name="description" content="关于单例的一个小思考"/>
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://swants.cn/page/2/"/>
+<link rel="canonical" href="https://swants.cn/2017/08/15/关于单例的一个小思考.html"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
@@ -75,7 +75,7 @@
 
 
 
-    <title> 塞万提斯 </title>
+    <title> 关于单例的一个小思考 - 塞万提斯 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -168,57 +168,12 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <section id="posts" class="posts">
-    
-      
+  
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/08/27/Swift-Struct-References.html">Swift Struct References</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-08-27
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>最近我打算为 Swift 的最新的 keypaths 找一个好的使用场景，这篇文章介绍了我意外获得的一个使用示例。这是我刚研究出来的，但还没实际应用在生产代码上的成果。也就是说，我只是觉得这个成果非常酷并想把它展示出来。</p>
-          <div class="read-more">
-            <a href="/2017/08/27/Swift-Struct-References.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/15/关于单例的一个小思考.html">关于单例的一个小思考</a>
+          关于单例的一个小思考
         
       </h1>
 
@@ -232,262 +187,76 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例的生命周期"><span class="toc-text">单例的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><span class="toc-text">那单例对象生命周期是否应该由 MRC/ARC 控制呢？</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
     <div class="post-content">
       
-        
-        
-
-        
-          <h3 id="单例的生命周期"><a href="#单例的生命周期" class="headerlink" title="单例的生命周期"></a>单例的生命周期</h3><p>iOS app 中单例一经创建，全局共享单例对象，单例的生命周期跟随app生命周期，那它的原理是什么呢？ </p>
+        <h3 id="单例的生命周期"><a href="#单例的生命周期" class="headerlink" title="单例的生命周期"></a>单例的生命周期</h3><p>iOS app 中单例一经创建，全局共享单例对象，单例的生命周期跟随app生命周期，那它的原理是什么呢？ </p>
 <p>答：先看单例写法：</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//全局的变量,指的就是Singleton这个对象,静态全局变量，始终指向实例化出的对象<span class="keyword"></span></div><div class="line">static id instance;</div><div class="line">   </div><div class="line">+ (instancetype)shareInstance&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">        </div><div class="line">        //创建类</div><div class="line">       <span class="built_in"> instance </span>= [[self alloc]init];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//创建alloc init 时候创建,会调用allocWithZone ,保证创建出来这个对象是唯一的</div><div class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">       </div><div class="line">        //返回自己</div><div class="line">       <span class="built_in"> instance </span>= [super allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//防止外界拷贝造成多个实例</div><div class="line">- (id)copyWithZone:(NSZone *)zone&#123;</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>首先使用 static 修饰符，声明了单例对象，这就意味着这个单例对象是在程序的数据区进行存储的，而数据区会跟随 app打开申请 app关闭释放。实现了单例生命周期跟随app的生命周期，这也解释了为什么每次打开app(非后台状态)单例对象就会重新初始化，造成单例上次保存的数据丢失。</p>
 <h4 id="那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><a href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？" class="headerlink" title="那单例对象生命周期是否应该由 MRC/ARC 控制呢？"></a>那单例对象生命周期是否应该由 MRC/ARC 控制呢？</h4><p>答案也是否定的，因为无论 ARC 还是 MRC 都是管理用来管理堆上对象的生命周期的，而数据区的单例释放与否是由系统控制的，因此不应受他们控制，需要注意的是，在使用 MRC 时，单例调用 retain 确实会引起计数增加，而调用 release 则会直接崩溃，为了避免单例收到引用计数的干扰造成意想不到的后果，在 MRC 下需要覆盖retain autorelease retainCount release 这几个方法。重写这几个方法是为了单例能在MRC中使用。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - MRC中需要覆盖的方法, ARC与MRC的整合</span></div><div class="line"><span class="meta">#if !__has_feature(objc_arc)</span></div><div class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span> &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">id</span>)autorelease &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount &#123;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">UINT_MAX</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
 
-        
       
     </div>
 
     
-
-    
-
-  </article>
-
-    
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/14/Swift-中的通用数据源.html">Swift 中的通用数据源</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-08-14
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
       
-        
-        
-          
-        
 
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-          <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
-          <div class="read-more">
-            <a href="/2017/08/14/Swift-中的通用数据源.html" class="read-more-link">阅读更多</a>
+          <div class="post-tags">
+            
+              <a href="/tags/单例/">单例</a>
+            
           </div>
         
-      
-    </div>
-
+        
+        
+  <nav class="post-nav">
     
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？.html">开发者眼中 iOS 11 都更新了什么？</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-07-07
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>苹果在 2017 年全球开发者大会上公布了 iOS 11 , 其加入许多强大的功能，如 <code>Core ML</code>,<code>ARKit</code>,<code>Vision</code>,<code>PDFKit</code>,<code>MusicKit</code> 拖放等等。 我尝试着把主要变化在接下来的文章里总结了出来，并在可行的地方提供代码，这样你就可以直接上手。</p>
-          <div class="read-more">
-            <a href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/06/15/避免使用第三方UI库.html">避免使用第三方UI库</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-15
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <strong>我们应该避免使用 第三方UI依赖库吗?</strong></p>
-          <div class="read-more">
-            <a href="/2017/06/15/避免使用第三方UI库.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/05/11/iOS-APP-崩溃日志分析.html">iOS APP 崩溃日志分析</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-11
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在日常开发中,我们难免遇到崩溃.如果是在开发过程中，我们可以直接通过 Xcode 来找到问题所在。如果是在测试的时候崩溃，我们也可以轻易的通过测试机导出 crash 进行问题定位。  可是一旦当产品上线之后，这一切就变得不那么容易了。庆幸的是市场上已经出现了一些比较好的第三方 crash 统计服务比如 bugly。 可以让我轻松了解到crash时的堆栈信息。 但是bugly也有符号化不到位的情况， 比如:  </p>
-          <div class="read-more">
-            <a href="/2017/05/11/iOS-APP-崩溃日志分析.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2016/10/04/CALayer-入门指引.html">CALayer 入门指引</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2016-10-04
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
-          <div class="read-more">
-            <a href="/2016/10/04/CALayer-入门指引.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
-      <a class="prev" href="/">
+      <a class="prev" href="/2017/08/27/Swift-Struct-References.html">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text">上一页</span>
+        <span class="prev-text nav-default">Swift Struct References</span>
+        <span class="prev-text nav-mobile">上一篇</span>
       </a>
     
     
+      <a class="next" href="/2017/08/14/Swift-中的通用数据源.html">
+        <span class="next-text nav-default">Swift 中的通用数据源</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
   </nav>
+
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>  
       </main>
@@ -515,6 +284,8 @@
     </div>
 
     
+  
+
 
 
     
