@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="iOS 开发中的设计模式下"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/12/17/iOS开发中的设计模式下.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> iOS 开发中的设计模式下 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          iOS 开发中的设计模式下
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-17
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#入门"><span class="toc-text">入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配器模式"><span class="toc-text">适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用适配器模式"><span class="toc-text">如何使用适配器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#观察者模式"><span class="toc-text">观察者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#通知"><span class="toc-text">通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用通知"><span class="toc-text">如何使用通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#键值监听（KVO）"><span class="toc-text">键值监听（KVO）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用键值监听"><span class="toc-text">如何使用键值监听</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备忘录模式"><span class="toc-text">备忘录模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用备忘录模式"><span class="toc-text">如何使用备忘录模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#归档和序列化"><span class="toc-text">归档和序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用归档和序列化"><span class="toc-text">如何使用归档和序列化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来该干嘛？"><span class="toc-text">接下来该干嘛？</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。</p>
+<blockquote>
+<p><strong>更新说明</strong>：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem 发布。</p>
+</blockquote>
+<p>欢迎回到 iOS 设计模式的入门教程第二部分！在 <a href="https://juejin.im/post/5c05d4ee5188250ab14e62d6" target="_blank" rel="external">第一部分</a> 中，你已经了解了 Cocoa 中的一些基本模式，比如 MVC、单例和装饰模式。</p>
+<p>在最后一部分中，你将了解 iOS 和 OS X 开发中出现的其他基本设计模式：适配器、观察者和备忘录。让我们现在就开始吧！</p>
+<a id="more"></a>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>你可以下载 <a href="https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip" target="_blank" rel="external">第一部分最结尾处的项目</a> 来开始。</p>
+<p>这是你在第一部分结尾处留下的音乐库应用程序：</p>
+<p><img src="/images/blog07/01.png" alt="image"> </p>
+<p>该应用程序的原计划包括了屏幕顶部用来在专辑之间切换的 scrollView。但是与其编写一个只有单个用途的 scrollView，为何不让它变得可以给其他任何 view 复用呢？</p>
+<p>要使此 scrollView 可复用，跟其内容有关的所有决策都应留给其他两个对象：它的数据源和代理。为了使用 scrollView，应该给它声明数据源和代理实现的方法，这就类似于 <code>UITableView</code> 的代理方法工作方式。当我们接下来一边讨论下一个设计模式时，你也将一边着手实现它。</p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>适配器允许和具有不兼容接口的类一起工作，它将自身包裹在一个对象内，并公开一个标准接口来与该对象进行交互。</p>
+<p>如果你熟悉适配器模式，那么你会注意到 Apple 以一种稍微不同的方式实现它，那就是协议。你可能熟悉 <code>UITableViewDelegate</code>，<code>UIScrollViewDelegate</code>，<code>NSCoding</code> 和 <code>NSCopying</code> 等协议。例如使用 <code>NSCopying</code> 协议，任何类都可以提供一个标准的 <code>copy</code> 方法。</p>
+<h2 id="如何使用适配器模式"><a href="#如何使用适配器模式" class="headerlink" title="如何使用适配器模式"></a>如何使用适配器模式</h2><p>之前提到的 scrollView 如下图所示：</p>
+<p><img src="/images/blog07/02.png" alt="image"> </p>
+<p>我们现在来实现它吧，右击项目导航栏中的 View 组，选择 <strong>New File &gt; iOS &gt; Cocoa Touch Class</strong>，然后单击 <strong>Next</strong>，将类名设置为 <code>HorizontalScrollerView</code> 并继承自 <code>UIView</code>。</p>
+<p>打开 <strong>HorizontalScrollerView.swift</strong> 并在 <code>HorizontalScroller</code> 类声明的 <strong>上方</strong> 插入以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">HorizontalScrollerViewDataSource</span>: <span class="title">class</span> </span>&#123;</div><div class="line">  <span class="comment">// 询问数据源它想要在 scrollView 中显示多少个 view</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">numberOfViews</span><span class="params">(<span class="keyword">in</span> horizontalScrollerView: HorizontalScrollerView)</span></span> -&gt; <span class="type">Int</span></div><div class="line">  <span class="comment">// 请求数据源返回应该出现在第 index 个的 view</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">horizontalScrollerView</span><span class="params">(<span class="number">_</span> horizontalScrollerView: HorizontalScrollerView, viewAt index: Int)</span></span> -&gt; <span class="type">UIView</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这定义了一个名为 <code>HorizontalScrollerViewDataSource</code> 的协议，它执行两个操作：请求在 scrollView 内显示 view 的个数以及应为特定索引显示的 view。</p>
+<p>在此协议定义的下方再添加另一个名为 <code>HorizontalScrollerViewDelegate</code> 的协议。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">HorizontalScrollerViewDelegate</span>: <span class="title">class</span> </span>&#123;</div><div class="line">  <span class="comment">// 通知代理第 index 个 view 已经被选择</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">horizontalScrollerView</span><span class="params">(<span class="number">_</span> horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这将使 scrollView 通知某个其他对象它内部的一个 view 已经被选中。</p>
+<p><strong>注意：</strong>将关注区域划分为不同的协议会使代码看起来更加清晰。通过这种方式你可以决定遵循特定的协议，并避免使用 <code>@objc</code> 来声明可选的协议方法。</p>
+<p>在 <strong>HorizontalScrollerView.swift</strong> 中，将以下代码添加到 <code>HorizontalScrollerView</code> 类的定义里：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">weak</span> <span class="keyword">var</span> dataSource: <span class="type">HorizontalScrollerViewDataSource</span>?</div><div class="line"><span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">HorizontalScrollerViewDelegate</span>?</div></pre></td></tr></table></figure>
+<p>代理和数据源都是可选项，因此你不一定要给他们赋值，但你在此处设置的任何对象都必须遵循相应的协议。</p>
+<p>在类里继续添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">ViewConstants</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">Padding</span>: <span class="type">CGFloat</span> = <span class="number">10</span></div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">Dimensions</span>: <span class="type">CGFloat</span> = <span class="number">100</span></div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">Offset</span>: <span class="type">CGFloat</span> = <span class="number">100</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> scroller = <span class="type">UIScrollView</span>()</div><div class="line"></div><div class="line"><span class="comment">// 3</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> contentViews = [<span class="type">UIView</span>]()</div></pre></td></tr></table></figure>
+<p>每条注释的详解如下：</p>
+<ol>
+<li>定义一个私有的 <code>enum</code> 来使代码布局在设计时更易修改。scrollView 的内的 view 尺寸为 100 x 100，padding 为 10</li>
+<li>创建包含多个 view 的 scrollView</li>
+<li>创建一个包含所有专辑封面的数组</li>
+</ol>
+<p>接下来你需要实现初始化器。添加以下方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</div><div class="line">  <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</div><div class="line">  initializeScrollView()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">  <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</div><div class="line">  initializeScrollView()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">initializeScrollView</span><span class="params">()</span></span> &#123;</div><div class="line">  <span class="comment">// 1</span></div><div class="line">  addSubview(scroller)</div><div class="line"></div><div class="line">  <span class="comment">// 2</span></div><div class="line">  scroller.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line"></div><div class="line">  <span class="comment">// 3</span></div><div class="line">  <span class="type">NSLayoutConstraint</span>.activate([</div><div class="line">    scroller.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.leadingAnchor),</div><div class="line">    scroller.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.trailingAnchor),</div><div class="line">    scroller.topAnchor.constraint(equalTo: <span class="keyword">self</span>.topAnchor),</div><div class="line">    scroller.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.bottomAnchor)</div><div class="line">  ])</div><div class="line"></div><div class="line">  <span class="comment">// 4</span></div><div class="line">  <span class="keyword">let</span> tapRecognizer = <span class="type">UITapGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(scrollerTapped(gesture:)))</div><div class="line">  scroller.addGestureRecognizer(tapRecognizer)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这项工作是在 <code>initializeScrollView()</code> 中完成的。以下是详细分析：</p>
+<ol>
+<li>添加子视图 <code>UIScrollView</code> 实例</li>
+<li>关闭 autoresizingMask，这样你就可以使用自定义约束了</li>
+<li>将约束应用于 scrollView，你希望 scrollView 完全填充 <code>HorizontalScrollerView</code></li>
+<li>创建 tap 手势。它会检测 scrollView 上的触摸事件并检查是否已经点击了专辑封面。如果是，它将通知 <code>HorizontalScrollerView</code> 的代理。在这里会有一个编译错误，因为 scrollerTapped(gesture:) 方法尚未实现，你接下来就要实现它了。</li>
+</ol>
+<p>现在添加下面的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">scrollToView</span><span class="params">(at index: Int, animated: Bool = <span class="literal">true</span>)</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> centralView = contentViews[index]</div><div class="line">  <span class="keyword">let</span> targetCenter = centralView.center</div><div class="line">  <span class="keyword">let</span> targetOffsetX = targetCenter.x - (scroller.bounds.width / <span class="number">2</span>)</div><div class="line">  scroller.setContentOffset(<span class="type">CGPoint</span>(x: targetOffsetX, y: <span class="number">0</span>), animated: animated)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此方法检索特定索引的 view 并使其居中。它将由以下方法调用（你也需要将此方法添加到类中）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">scrollerTapped</span><span class="params">(gesture: UITapGestureRecognizer)</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> location = gesture.location(<span class="keyword">in</span>: scroller)</div><div class="line">  <span class="keyword">guard</span></div><div class="line">    <span class="keyword">let</span> index = contentViews.index(<span class="keyword">where</span>: &#123; $<span class="number">0</span>.frame.<span class="built_in">contains</span>(location)&#125;)</div><div class="line">    <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line"></div><div class="line">  delegate?.horizontalScrollerView(<span class="keyword">self</span>, didSelectViewAt: index)</div><div class="line">  scrollToView(at: index)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此方法在 scrollView 中寻找点击的位置，如果存在的话它会查找包含该位置的第一个 contentView 的索引。</p>
+<p>如果点击了 contentView，则通知代理并将此 view 滚动到中心位置。</p>
+<p>接下来添加以下内容以从滚动器访问专辑封面：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">view</span><span class="params">(at index :Int)</span></span> -&gt; <span class="type">UIView</span> &#123;</div><div class="line">  <span class="keyword">return</span> contentViews[index]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>view(at:)</code> 只返回特定索引处的 view，稍后你将使用此方法突出显示你已点击的专辑封面。</p>
+<p>现在添加以下代码来刷新 scrollView：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">reload</span><span class="params">()</span></span> &#123;</div><div class="line">  <span class="comment">// 1. 检查是否有数据源，如果没有则返回。</span></div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> dataSource = dataSource <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 2. 删除所有旧的 contentView</span></div><div class="line">  contentViews.forEach &#123; $<span class="number">0</span>.removeFromSuperview() &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 3. xValue 是 scrollView 内每个 view 的起点 x 坐标</span></div><div class="line">  <span class="keyword">var</span> xValue = <span class="type">ViewConstants</span>.<span class="type">Offset</span></div><div class="line">  <span class="comment">// 4. 获取并添加新的 View</span></div><div class="line">  contentViews = (<span class="number">0</span>..&lt;dataSource.numberOfViews(<span class="keyword">in</span>: <span class="keyword">self</span>)).<span class="built_in">map</span> &#123;</div><div class="line">    index <span class="keyword">in</span></div><div class="line">    <span class="comment">// 5. 在正确的位置添加 View</span></div><div class="line">    xValue += <span class="type">ViewConstants</span>.<span class="type">Padding</span></div><div class="line">    <span class="keyword">let</span> view = dataSource.horizontalScrollerView(<span class="keyword">self</span>, viewAt: index)</div><div class="line">    view.frame = <span class="type">CGRect</span>(x: xValue, y: <span class="type">ViewConstants</span>.<span class="type">Padding</span>, width: <span class="type">ViewConstants</span>.<span class="type">Dimensions</span>, height: <span class="type">ViewConstants</span>.<span class="type">Dimensions</span>)</div><div class="line">    scroller.addSubview(view)</div><div class="line">    xValue += <span class="type">ViewConstants</span>.<span class="type">Dimensions</span> + <span class="type">ViewConstants</span>.<span class="type">Padding</span></div><div class="line">    <span class="keyword">return</span> view</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 6</span></div><div class="line">  scroller.contentSize = <span class="type">CGSize</span>(width: xValue + <span class="type">ViewConstants</span>.<span class="type">Offset</span>, height: frame.size.height)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>UITableView</code> 中的 <code>reload</code> 方法会在 <code>reloadData</code> 之后建模，它将重新加载用于构造 scrollView 的所有数据。</p>
+<p>每条注释对应的详解如下：</p>
+<ol>
+<li>在执行任何 reload 之前检查数据源是否存在。</li>
+<li>由于你要清除专辑封面，因此你还需要移除所有存在的 view。</li>
+<li>所有 view 都从给定的偏移量开始定位。目前它是 100，但可以通过更改文件顶部的常量 <code>ViewConstants.Offset</code> 来轻松地做出调整。</li>
+<li>向数据源请求 view 的个数，然后使用它来创建新的 contentView 数组。</li>
+<li><code>HorizontalScrollerView</code> 一次向一个 view 请求其数据源，并使用先前定义的填充将它们水平依次布局。</li>
+<li>所有 view 布局好之后，设置 scrollView 的偏移量来允许用户滚动浏览所有专辑封面。</li>
+</ol>
+<p>当你的数据发生改变时调用 <code>reload</code> 方法。</p>
+<p><code>HorizontalScrollerView</code> 需要实现的最后一个功能是确保你正在查看的专辑始终位于 scrollView 的中心。为此，当用户用手指拖动 scrollView 时，你需要执行一些计算。</p>
+<p>下面添加以下方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">centerCurrentView</span><span class="params">()</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> centerRect = <span class="type">CGRect</span>(</div><div class="line">    origin: <span class="type">CGPoint</span>(x: scroller.bounds.midX - <span class="type">ViewConstants</span>.<span class="type">Padding</span>, y: <span class="number">0</span>),</div><div class="line">    size: <span class="type">CGSize</span>(width: <span class="type">ViewConstants</span>.<span class="type">Padding</span>, height: bounds.height)</div><div class="line">  )</div><div class="line"></div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> selectedIndex = contentViews.index(<span class="keyword">where</span>: &#123; $<span class="number">0</span>.frame.intersects(centerRect) &#125;)</div><div class="line">    <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">  <span class="keyword">let</span> centralView = contentViews[selectedIndex]</div><div class="line">  <span class="keyword">let</span> targetCenter = centralView.center</div><div class="line">  <span class="keyword">let</span> targetOffsetX = targetCenter.x - (scroller.bounds.width / <span class="number">2</span>)</div><div class="line"></div><div class="line">  scroller.setContentOffset(<span class="type">CGPoint</span>(x: targetOffsetX, y: <span class="number">0</span>), animated: <span class="literal">true</span>)</div><div class="line">  delegate?.horizontalScrollerView(<span class="keyword">self</span>, didSelectViewAt: selectedIndex)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码考虑了 scrollView 的当前偏移量以及 view 的尺寸和填充以便计算当前view 与中心的距离。最后一行很重要：一旦 view 居中，就通知代理所选的 view 已变更。</p>
+<p>要检测用户是否在 scrollView 内完成了拖动，你需要实现一些 <code>UIScrollViewDelegate</code> 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 <strong>下面</strong> 添加！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">HorizontalScrollerView</span>: <span class="title">UIScrollViewDelegate</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidEndDragging</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView, willDecelerate decelerate: Bool)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> !decelerate &#123;</div><div class="line">      centerCurrentView()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidEndDecelerating</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView)</span></span> &#123;</div><div class="line">    centerCurrentView()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>scrollViewDidEndDragging(_:willDecelerate:)</code> 在用户完成拖拽时通知代理，如果 scrollView 尚未完全停止，则 <code>decelerate</code> 为 true。当滚动结束时，系统调用<code>scrollViewDidEndDecelerating(_:)</code>。在这两种情况下，你都应该调用新方法使当前视图居中，因为当用户拖动滚动视图后当前视图可能已更改。</p>
+<p>最后不要忘记设置代理，将以下代码添加到 <code>initializeScrollView()</code> 的最开头：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scroller.delegate = <span class="keyword">self</span></div></pre></td></tr></table></figure>
+<p>你的 <code>HorizontalScrollerView</code> 已准备就绪！看一下你刚刚编写的代码，你会看到没有任何地方有出现 <code>Album</code> 或 <code>AlbumView</code> 类。这非常棒，因为这意味着新的 scrollView 真正实现了解耦并且可复用。</p>
+<p>编译项目确保可以正常通过编译。</p>
+<p>现在 <code>HorizontalScrollerView</code> 已经完成，是时候在你的应用程序中使用它了。首先打开 <strong>Main.storyboard</strong>。单击顶部的灰色矩形视图，然后单击 <strong>Identity Inspector</strong>。将类名更改为 <code>HorizontalScrollerView</code>，如下图所示：</p>
+<p><img src="/images/blog07/03.png" alt="image"> </p>
+<p>接下来打开 <strong>Assistant Editor</strong> 并从灰色矩形 view 拖线到 <strong>ViewController.swift</strong> 来创建一个 IBOutlet，并命名为 <strong>horizontalScrollerView</strong>，如下图所示：</p>
+<p><img src="/images/blog07/04.png" alt="image"> </p>
+<p>接下来打开 <strong>ViewController.swift</strong>，是时候开始实现一些 <code>HorizontalScrollerViewDelegate</code> 方法了！</p>
+<p>把下面的拓展添加到该文件的最底部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">HorizontalScrollerViewDelegate</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">horizontalScrollerView</span><span class="params">(** horizontalScrollerView: HorizontalScrollerView, didSelectViewAt index: Int)</span></span> &#123;</div><div class="line">    <span class="comment">// 1</span></div><div class="line">    <span class="keyword">let</span> previousAlbumView = horizontalScrollerView.view(at: currentAlbumIndex) <span class="keyword">as</span>! <span class="type">AlbumView</span></div><div class="line">    previousAlbumView.highlightAlbum(<span class="literal">false</span>)</div><div class="line">    <span class="comment">// 2</span></div><div class="line">    currentAlbumIndex = index</div><div class="line">    <span class="comment">// 3</span></div><div class="line">    <span class="keyword">let</span> albumView = horizontalScrollerView.view(at: currentAlbumIndex) <span class="keyword">as</span>! <span class="type">AlbumView</span></div><div class="line">    albumView.highlightAlbum(<span class="literal">true</span>)</div><div class="line">    <span class="comment">// 4</span></div><div class="line">    showDataForAlbum(at: index)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是在调用此代理方法时发生的事情：</p>
+<ol>
+<li>首先你取到之前选择的专辑，然后取消选择专辑封面</li>
+<li>存储刚刚点击的当前专辑封面的索引</li>
+<li>取得当前所选的专辑封面并显示高亮状态</li>
+<li>在 tableView 中显示新专辑的数据</li>
+</ol>
+<p>接下来，是时候实现 <code>HorizontalScrollerViewDataSource</code> 了。在当前文件末尾添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">HorizontalScrollerViewDataSource</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">numberOfViews</span><span class="params">(<span class="keyword">in</span> horizontalScrollerView: HorizontalScrollerView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> allAlbums.<span class="built_in">count</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">horizontalScrollerView</span><span class="params">(<span class="number">_</span> horizontalScrollerView: HorizontalScrollerView, viewAt index: Int)</span></span> -&gt; <span class="type">UIView</span> &#123;</div><div class="line">    <span class="keyword">let</span> album = allAlbums[index]</div><div class="line">    <span class="keyword">let</span> albumView = <span class="type">AlbumView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">100</span>, height: <span class="number">100</span>), coverUrl: album.coverUrl)</div><div class="line">    <span class="keyword">if</span> currentAlbumIndex == index &#123;</div><div class="line">      albumView.highlightAlbum(<span class="literal">true</span>)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      albumView.highlightAlbum(<span class="literal">false</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> albumView</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正如你所看到的，<code>numberOfViews(in:)</code> 是返回 scrollView 中 view 的个数的协议方法。由于 scrollView 将显示所有专辑数据的封面，因此 count 就是专辑记录的数量。在 <code>horizontalScrollerView(_:viewAt:)</code> 里你创建一个新的 <code>AlbumView</code>，如果它是所选的专辑，则高亮显示它，再将它传递给 <code>HorizontalScrollerView</code>。</p>
+<p>基本完成了！只用三个简短的方法就能显示出一个漂亮的 scrollView。你现在需要设置数据源和代理。在 <code>viewDidLoad</code> 中的 <code>showDataForAlbum(at:)</code> 之前添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">horizontalScrollerView.dataSource = <span class="keyword">self</span></div><div class="line">horizontalScrollerView.delegate = <span class="keyword">self</span></div><div class="line">horizontalScrollerView.reload()</div></pre></td></tr></table></figure>
+<p>编译并运行你的项目，就可以看到漂亮的水平滚动视图：</p>
+<p><img src="/images/blog07/05.png" alt="image"> </p>
+<p>呃，等一下！水平滚动视图已就位，但专辑的封面在哪里呢？</p>
+<p>噢，对了，你还没有实现下载封面的代码。为此，你需要添加下载图像的方法，而且你对服务器的全部访问请求都要通过一个所有新方法必经的一层 <code>LibraryAPI</code>。但是，首先要考虑以下几点：</p>
+<ol>
+<li><code>AlbumView</code> 不应直接与 <code>LibraryAPI</code> 产生联系，你不会希望将 view 里的逻辑与网络请求混合在一起的。</li>
+<li>出于同样的原因，<code>LibraryAPI</code> 也不应该知道 <code>AlbumView</code> 的存在。</li>
+<li>当封面被下载完成，<code>LibraryAPI</code> 需要通知 <code>AlbumView</code> 来显示专辑。</li>
+</ol>
+<p>是不是感觉听起来好像很难的样子？不要绝望，你将学习如何使用 <strong>观察者</strong> 模式来做到这点！</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>在观察者模式中，一个对象通知其他对象任何状态的更改，但是通知的涉及对象不需要相互关联，我们鼓励这种解耦的设计方式。这种模式最常用于在一个对象的属性发生更改时通知其他相关对象。</p>
+<p>通常的实现是需要观察者监听另一个对象的状态。当状态发生改变时，所有观察对象都会被通知此次更改。</p>
+<p>如果你坚持 MVC 的概念（也确实需要坚持），你需要允许 Model 对象与 View 对象进行通信，但是它们之间没有直接引用，这就是观察者模式的用武之地。</p>
+<p>Cocoa 以两种方式实现了观察者模式：<strong>通知</strong> 和 <strong>键值监听（KVO）</strong>。</p>
+<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p>不要与推送通知或本地通知混淆，观察者模式的通知基于订阅和发布模型，该模型允许对象（发布者）将消息发送到其他对象（订阅者或监听者），而且发布者永远不需要了解有关订阅者的任何信息。</p>
+<p>Apple 会大量使用通知。例如，当显示或隐藏键盘时，系统分别发送 <code>UIKeyboardWillShow</code> 和 <code>UIKeyboardWillHide</code> 通知。当你的应用程序转入后台运行时，系统会发送一个 <code>UIApplicationDidEnterBackground</code> 通知。</p>
+<h3 id="如何使用通知"><a href="#如何使用通知" class="headerlink" title="如何使用通知"></a>如何使用通知</h3><p>右击 <strong>RWBlueLibrary</strong> 并选择 <strong>New Group</strong>，然后命名为 <strong>Extension</strong>。再次右击该组，然后选择<strong>New File &gt; iOS &gt; Swift File</strong>，并将文件名设置为 <strong>NotificationExtension.swift</strong>。</p>
+<p>把下面的代码拷贝到该文件中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Notification</span>.<span class="title">Name</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">BLDownloadImage</span> = <span class="type">Notification</span>.<span class="type">Name</span>(<span class="string">"BLDownloadImageNotification"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你正在使用自定义通知扩展的 <code>Notification.Name</code>，从现在开始，新的通知可以像系统通知一样用 <code>.BLDownloadImage</code> 访问。</p>
+<p>打开 <strong>AlbumView.swift</strong> 并将以下代码插入到 <code>init(frame:coverUrl:)</code> 方法的最后：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.post(name: .<span class="type">BLDownloadImage</span>, object: <span class="keyword">self</span>, userInfo: [<span class="string">"imageView"</span>: coverImageView, <span class="string">"coverUrl"</span> : coverUrl])</div></pre></td></tr></table></figure>
+<p>该行代码通过 <code>NotificationCenter</code> 的单例发送通知，通知信息包含要填充的 <code>UIImageView</code> 和要下载的专辑图像的 URL，这些是执行封面下载任务所需的所有信息。</p>
+<p>将以下代码添加到 <strong>LibraryAPI.swift</strong>中的 <code>init</code> 方法来作为当前为空的初始化方法的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>, selector: #selector(downloadImage(with:)), name: .<span class="type">BLDownloadImage</span>, object: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
+<p>这是通知这个等式的另一边–观察者，每次 <code>AlbumView</code> 发送 <code>BLDownloadImage</code> 通知时，由于 <code>LibraryAPI</code> 已注册成为该通知的观察者，系统会通知 <code>LibraryAPI</code>，然后 <code>LibraryAPI</code> 响应并调用 <code>downloadImage(with:)</code>。</p>
+<p>在实现 <code>downloadImage(with:)</code> 之前，还有一件事要做。在本地保存下载的封面可能是个好主意，这样应用程序就不需要一遍又一遍地下载相同的封面了。</p>
+<p>打开 <strong>PersistencyManager.swift</strong>，把 <code>import Foundation</code> 换成下面的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div></pre></td></tr></table></figure>
+<p>此次 import 很重要，因为你将处理 <code>UI</code> 对象，比如 <code>UIImage</code>。</p>
+<p>把这个计算属性添加到该类的最后：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> cache: <span class="type">URL</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">FileManager</span>.<span class="keyword">default</span>.urls(<span class="keyword">for</span>: .cachesDirectory, <span class="keyword">in</span>: .userDomainMask)[<span class="number">0</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此变量返回缓存目录的 URL，它是一个存储了你可以随时重新下载的文件的好地方。</p>
+<p>现在添加以下两个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveImage</span><span class="params">(<span class="number">_</span> image: UIImage, filename: String)</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> url = cache.appendingPathComponent(filename)</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> data = <span class="type">UIImagePNGRepresentation</span>(image) <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">try</span>? data.write(to: url)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImage</span><span class="params">(with filename: String)</span></span> -&gt; <span class="type">UIImage</span>? &#123;</div><div class="line">  <span class="keyword">let</span> url = cache.appendingPathComponent(filename)</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> data = <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: url) <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="type">UIImage</span>(data: data)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码非常简单，下载的图像将保存在 Cache 目录中，如果在 Cache 目录中找不到匹配的文件，<code>getImage(with:)</code> 将返回 <code>nil</code>。</p>
+<p>现在打开 <strong>LibraryAPI.swift</strong> 并且将 <code>import Foundation</code> 改为 <code>import UIKit</code>。</p>
+<p>在类的最后添加以下方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">downloadImage</span><span class="params">(with notification: Notification)</span></span> &#123;</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> userInfo = notification.userInfo,</div><div class="line">    <span class="keyword">let</span> imageView = userInfo[<span class="string">"imageView"</span>] <span class="keyword">as</span>? <span class="type">UIImageView</span>,</div><div class="line">    <span class="keyword">let</span> coverUrl = userInfo[<span class="string">"coverUrl"</span>] <span class="keyword">as</span>? <span class="type">String</span>,</div><div class="line">    <span class="keyword">let</span> filename = <span class="type">URL</span>(string: coverUrl)?.lastPathComponent <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> <span class="keyword">let</span> savedImage = persistencyManager.getImage(with: filename) &#123;</div><div class="line">    imageView.image = savedImage</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="type">DispatchQueue</span>.global().async &#123;</div><div class="line">    <span class="keyword">let</span> downloadedImage = <span class="keyword">self</span>.httpClient.downloadImage(coverUrl) ?? <span class="type">UIImage</span>()</div><div class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">      imageView.image = downloadedImage</div><div class="line">      <span class="keyword">self</span>.persistencyManager.saveImage(downloadedImage, filename: filename)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是上面两个方法的详解：</p>
+<ol>
+<li><code>downloadImage</code> 是通过通知触发调用的，因此该方法接收通知对象作为参数。从通知传递来的对象取出 <code>UIImageView</code> 和 image 的 URL。</li>
+<li>如果先前已下载过，则从 <code>PersistencyManager</code> 中检索 image。</li>
+<li>如果尚未下载图像，则使用 <code>HTTPClient</code> 检索。</li>
+<li>下载完成后，在 imageView 中显示图像，并使用 <code>PersistencyManager</code> 将其保存在本地。</li>
+</ol>
+<p>再一次的，你使用外观模式隐藏了从其他类下载图像这一复杂的过程。通知发送者并不关心图像是来自网络下载还是来自本地的存储。</p>
+<p>编译并运行你的应用程序，现在能看到 collectionView 中漂亮的封面：</p>
+<p><img src="/images/blog07/06.png" alt="image"> </p>
+<p>停止你的应用并再次运行它。请注意加载封面没有延迟，这是因为它们已在本地保存了。你甚至可以断开与互联网的连接，应用程序仍将完美运行。然而这里有一个奇怪的地方，旋转加载的动画永远不会停止！这是怎么回事？</p>
+<p>你在下载图像时开始了旋转动画，但是在下载图像后，你并没有实现停止加载动画的逻辑。你 <strong>本应该</strong> 在每次下载图像时发送通知，但是下面你将使用键值监听（KVO）来执行此操作。</p>
+<h3 id="键值监听（KVO）"><a href="#键值监听（KVO）" class="headerlink" title="键值监听（KVO）"></a>键值监听（KVO）</h3><p>在 KVO 中，对象可以监听一个特定属性的任何更改，要么是自己的属性，要么就是另一个对象的。如果你有兴趣，可以阅读 <a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html" target="_blank" rel="external">KVO 开发文档</a> 中的更多关信息。</p>
+<h3 id="如何使用键值监听"><a href="#如何使用键值监听" class="headerlink" title="如何使用键值监听"></a>如何使用键值监听</h3><p>如上所述，键值监听机制允许对象观察属性的变化。在你的案例中，你可以使用键值监听来监听显示图片的 <code>UIImageView</code> 里 <code>image</code> 属性的更改。</p>
+<p>打开 <strong>AlbumView.swift</strong> 并在 <code>private var indicatorView: UIActivityIndicatorView!</code> 的声明下面添加以下属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> valueObservation: <span class="type">NSKeyValueObservation</span>!</div></pre></td></tr></table></figure>
+<p>在添加封面的 imageView 做为子视图之前，将以下代码添加到<code>commonInit</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">valueObservation = coverImageView.observe(\.image, options: [.new]) &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] observed, change <span class="keyword">in</span></div><div class="line">  <span class="keyword">if</span> change.newValue <span class="keyword">is</span> <span class="type">UIImage</span> &#123;</div><div class="line">      <span class="keyword">self</span>.indicatorView.stopAnimating()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码将 imageView 做为封面图片的 <code>image</code> 属性的观察者。<code>\.image</code> 是一个启用此功能的 keyPath 表达式。</p>
+<p>在 Swift 4 中，keyPath 表达式具有以下形式：</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\&lt;<span class="class"><span class="keyword">type</span>&gt;.&lt;property&gt;.&lt;subproperty&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>type</strong> 通常可以由编译器推断，但至少需要提供一个 <strong>property</strong>。在某些情况下，使用属性的属性可能是有意义的。在你现在的情况下，我们已指定属性名称 <code>image</code>，而省略了类型名称 <code>UIImageView</code>。</p>
+<p>尾随闭包指定了在每次观察到的属性更改时执行的闭包。在上面的代码中，当 <code>image</code> 属性更改时，你要停止加载的旋转动画。这样做了之后，当图片加载完成，旋转动画就会停止。</p>
+<p>编译并运行你的项目，加载中的旋转动画将会消失：</p>
+<p><img src="/images/blog07/07.png" alt="image"> </p>
+<p><strong>注意：</strong> 要始终记得在它们被销毁时删除你的观察者，否则当对象试图向这些不存在的观察者发送消息时，你的应用程序将崩溃！在这种情况下，当专辑视图被移除，<code>valueObservation</code> 将被销毁，因此监听将会停止。</p>
+<p>如果你稍微使用一下你的应用然后就终止它，你会注意到你的应用状态并未保存。应用程序启动时，你查看的最后一张专辑将不是默认专辑。</p>
+<p>要更正此问题，你可以使用之前列表中接下来的一个模式：<strong>备忘录</strong>。</p>
+<h2 id="备忘录模式"><a href="#备忘录模式" class="headerlink" title="备忘录模式"></a>备忘录模式</h2><p>备忘录模式捕获并使对象的内部状态暴露出来。换句话讲，它可以在某处保存你的东西，稍后在不违反封装的原则下恢复此对外暴露的状态。也就是说，私有数据仍然是私有的。</p>
+<h2 id="如何使用备忘录模式"><a href="#如何使用备忘录模式" class="headerlink" title="如何使用备忘录模式"></a>如何使用备忘录模式</h2><p>iOS 使用备忘录模式作为 <strong>状态恢复</strong> 的一部分。你可以通过阅读我们的 <a href="https://www.raywenderlich.com/117471/state-restoration-tutorial" target="_blank" rel="external">教程</a> 来了解更多信息，但实质上它会存储并重新应用你的应用程序状态，以便用户回到上次操作的状态。</p>
+<p>要在应用程序中激活状态恢复，请打开 <strong>Main.storyboard</strong>，选择 <strong>Navigation Controller</strong>，然后在 <strong>Identity Inspector</strong> 中找到 <strong>Restoration ID</strong> 字段并输入 <strong>NavigationController</strong>。</p>
+<p>选择 <strong>Pop Music</strong> scene 并在刚才的位置输入 <strong>ViewController</strong>。这些 ID 会告诉系统，当应用重新启动时，你想要恢复这些 viewController 的状态。</p>
+<p>在 <strong>AppDelegate.swift</strong> 中添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, shouldSaveApplicationState coder: NSCoder)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, shouldRestoreApplicationState coder: NSCoder)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下的代码会为你的应用程序打开状态作为一个整体来还原。现在，将以下代码添加到 <strong>ViewController.swift</strong> 中的 <code>Constants</code> 枚举中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">let</span> <span class="type">IndexRestorationKey</span> = <span class="string">"currentAlbumIndex"</span></div></pre></td></tr></table></figure>
+<p>这个静态常量将用于保存和恢复当前专辑的索引，现在添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">encodeRestorableState</span><span class="params">(with coder: NSCoder)</span></span> &#123;</div><div class="line">  coder.encode(currentAlbumIndex, forKey: <span class="type">Constants</span>.<span class="type">IndexRestorationKey</span>)</div><div class="line">  <span class="keyword">super</span>.encodeRestorableState(with: coder)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">decodeRestorableState</span><span class="params">(with coder: NSCoder)</span></span> &#123;</div><div class="line">  <span class="keyword">super</span>.decodeRestorableState(with: coder)</div><div class="line">  currentAlbumIndex = coder.decodeInteger(forKey: <span class="type">Constants</span>.<span class="type">IndexRestorationKey</span>)</div><div class="line">  showDataForAlbum(at: currentAlbumIndex)</div><div class="line">  horizontalScrollerView.reload()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你将在这里保存索引（该操作在应用程序进入后台时进行）并恢复它（该操作在应用程序启动时加载完成 controller 中的 view 后进行）。还原索引后，更新 tableView 和 scrollView 以显示更新之后的选中状态。还有一件事要做，那就是你需要将 scrollView 滚动到正确的位置。如果你在此处滚动 scrollView，这样是行不通的，因为 view 尚未布局完毕。下面请在正确的地方添加代码让 scrollView 滚动到对应的 view：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidAppear</span><span class="params">(<span class="number">_</span> animated: Bool)</span></span> &#123;</div><div class="line">  <span class="keyword">super</span>.viewDidAppear(animated)</div><div class="line">  horizontalScrollerView.scrollToView(at: currentAlbumIndex, animated: <span class="literal">false</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译并运行你的应用程序，点击其中一个专辑，然后按一下 Home 键使应用程序进入后台（如果你在模拟器上运行，则也可以按下 <strong>Command+Shift+H</strong>），再从 Xcode 上停止运行你的应用程序并重新启动，看一下之前选择的专辑是否到了中间的位置：</p>
+<p><img src="/images/blog07/08.png" alt="image"> </p>
+<p>请看一下 <code>PersistencyManager</code> 中的 <code>init</code> 方法，你会注意到每次创建 <code>PersistencyManager</code> 时都会对专辑数据进行硬编码并重新创建。但其实更好的解决方案是一次性创建好专辑列表并将其存储在文件中。那你该如何将 <code>Album</code> 的数据保存到文件中呢？</p>
+<p>方案之一是遍历 <code>Album</code> 的属性并将它们保存到 plist 文件，然后在需要时重新创建 <code>Album</code> 实例，但这并不是最佳的，因为它要求你根据每个类中的数据或属性编写特定代码，如果你以后创建了具有不同属性的 <code>Movie</code> 类，则保存和加载该数据都将需要重写新的代码。</p>
+<p>此外，你将无法为每个类实例保存私有变量，因为外部类并不难访问它们，这就是为什么 Apple 要创建 <strong>归档和序列化</strong> 机制。</p>
+<h3 id="归档和序列化"><a href="#归档和序列化" class="headerlink" title="归档和序列化"></a>归档和序列化</h3><p>Apple 的备忘录模式的一个专门实现方法是通过归档和序列化。在 Swift 4 之前，为了序列化和保存你的自定义类型，你必须经过许多步骤。对于 <code>类</code> 来说，你需要继承自 <code>NSObject</code> 并遵行 <code>NSCoding</code> 协议。</p>
+<p>但是像 <code>结构体</code> 和 <code>枚举</code> 这样的值类型就需要一个可以扩展 <code>NSObject</code> 并遵行 <code>NSCoding</code> 的子对象了。</p>
+<p>Swift 4 为 <code>类</code>，<code>结构体</code> 和 <code>枚举</code> 这三种类型解决了这个问题：<a href="https://github.com/apple/swift-evolution/blob/master/proposals/0166-swift-archival-serialization.md" target="_blank" rel="external">[SE-0166]</a>。</p>
+<h3 id="如何使用归档和序列化"><a href="#如何使用归档和序列化" class="headerlink" title="如何使用归档和序列化"></a>如何使用归档和序列化</h3><p>打开 <strong>Album.swift</strong> 并让 <code>Album</code> 遵行 <code>Codable</code>。这个协议可以让 Swift 中的类同时遵行 <code>Encodable</code> 和 <code>Decodable</code>。如果所有属性都是可 <code>Codable</code> 的，则协议的实现由编译器自动生成。</p>
+<p>你的代码现在看起来会像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Album</span>: <span class="title">Codable</span> </span>&#123;</div><div class="line">  <span class="keyword">let</span> title : <span class="type">String</span></div><div class="line">  <span class="keyword">let</span> artist : <span class="type">String</span></div><div class="line">  <span class="keyword">let</span> genre : <span class="type">String</span></div><div class="line">  <span class="keyword">let</span> coverUrl : <span class="type">String</span></div><div class="line">  <span class="keyword">let</span> year : <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要对对象进行编码，你需要使用 encoder。打开 <strong>PersistencyManager.swift</strong> 并添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> documents: <span class="type">URL</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">FileManager</span>.<span class="keyword">default</span>.urls(<span class="keyword">for</span>: .documentDirectory, <span class="keyword">in</span>: .userDomainMask)[<span class="number">0</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">Filenames</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">Albums</span> = <span class="string">"albums.json"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveAlbums</span><span class="params">()</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> url = documents.appendingPathComponent(<span class="type">Filenames</span>.<span class="type">Albums</span>)</div><div class="line">  <span class="keyword">let</span> encoder = <span class="type">JSONEncoder</span>()</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> encodedData = <span class="keyword">try</span>? encoder.encode(albums) <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">try</span>? encodedData.write(to: url)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>就像使用 <code>caches</code> 一样，你将在此定义一个 URL 用来保存文件目录，它是一个存储文件名路径的常量，然后就是将你的专辑数据写入文件的方法，事实上你并不用编写很多的代码！</p>
+<p>该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 <a href="https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip" target="_blank" rel="external">此JSON文件</a> 并将其添加到你的项目中。</p>
+<p>现在用以下代码替换 <strong>PersistencyManager.swift</strong> 中的 <code>init</code> 方法体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> savedURL = documents.appendingPathComponent(<span class="type">Filenames</span>.<span class="type">Albums</span>)</div><div class="line"><span class="keyword">var</span> data = <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: savedURL)</div><div class="line"><span class="keyword">if</span> data == <span class="literal">nil</span>, <span class="keyword">let</span> bundleURL = <span class="type">Bundle</span>.main.url(forResource: <span class="type">Filenames</span>.<span class="type">Albums</span>, withExtension: <span class="literal">nil</span>) &#123;</div><div class="line">  data = <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: bundleURL)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> albumData = data,</div><div class="line">  <span class="keyword">let</span> decodedAlbums = <span class="keyword">try</span>? <span class="type">JSONDecoder</span>().decode([<span class="type">Album</span>].<span class="keyword">self</span>, from: albumData) &#123;</div><div class="line">  albums = decodedAlbums</div><div class="line">  saveAlbums()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在你正在从 documents 目录下的文件中加载专辑数据（如果存在的话）。如果它不存在，则从先前添加的启动文件中加载它，然后就立即保存，那么下次启动时它将会位于文档目录中。<code>JSONDecoder</code> 非常智能，你只需告诉它你希望文件包含的类型，它就会为你完成剩下的所有工作！</p>
+<p>你可能还希望每次应用进入后台时保存专辑数据，我将把这一部分作为一个挑战让你亲自弄明白其中的原理，你在这两个教程中学到的一些模式还有技术将会派上用场！</p>
+<h2 id="接下来该干嘛？"><a href="#接下来该干嘛？" class="headerlink" title="接下来该干嘛？"></a>接下来该干嘛？</h2><p>你可以 <a href="https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part2-Final.zip" target="_blank" rel="external">在此</a> 下载最终项目。</p>
+<p>在本教程中你了解了如何利用 iOS 设计模式的强大功能来以很直接的方式执行复杂的任务。你已经学习了很多 iOS 设计模式和概念：单例，MVC，代理，协议，外观，观察者和备忘录。</p>
+<p>你的最终代码将会是耦合度低、可重用并且易读的。如果其他开发者阅读你的代码，他们将能够很轻松地了解每行代码的功能以及每个类在你的应用中的作用。</p>
+<p>其中的关键点是不要为你了使用设计模式而使用它。然而在考虑如何解决特定问题时，请留意设计模式，尤其是在设计应用程序的早期阶段。它们将使作为开发者的你生活变得更加轻松，代码同时也会更好！</p>
+<p>关于该文章主题的一本经典书籍是 <a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/" target="_blank" rel="external">Design Patterns: Elements of Reusable Object-Oriented Software</a>。有关代码示例，请查看 GitHub 上一个非常棒的项目 <a href="https://github.com/ochococo/Design-Patterns-In-Swift" target="_blank" rel="external">Design Patterns: Elements of Reusable Object-Oriented Software</a> 来取更多在 Swift 中编程中的设计模式。</p>
+<p>最后请务必查看 <a href="http://www.raywenderlich.com/86053/intermediate-design-patterns-in-swift" target="_blank" rel="external">Swift 设计模式进阶</a> 和我们的视频课程 <a href="https://videos.raywenderlich.com/courses/72-ios-design-patterns/lessons/1" target="_blank" rel="external">iOS Design Patterns</a> 来了解更多设计模式！</p>
+<blockquote>
+<p>如果发现译文存在错误或其他需要改进的地方，欢迎到 <a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a> 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 <strong>本文永久链接</strong> 即为本文在 GitHub 上的 MarkDown 链接。</p>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
+<li>译者：    <a href="https://github.com/iWeslie" target="_blank" rel="external">iWeslie</a></li>
+<li>校对者：  <a href="https://github.com/swants" target="_blank" rel="external">swants</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/设计模式/">设计模式</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/03/iOS开发中的设计模式上.html">
+        <span class="next-text nav-default">iOS 开发中的设计模式上</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

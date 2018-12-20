@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="iOS 开发中的设计模式上"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/12/03/iOS开发中的设计模式上.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> iOS 开发中的设计模式上 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          iOS 开发中的设计模式上
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-03
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#入门"><span class="toc-text">入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC-–-设计模式之王"><span class="toc-text">MVC – 设计模式之王</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用-MVC-设计模式"><span class="toc-text">如何使用 MVC 设计模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式"><span class="toc-text">单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你应该注意什么？"><span class="toc-text">你应该注意什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用单例模式"><span class="toc-text">如何使用单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#外观模式"><span class="toc-text">外观模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用外观模式"><span class="toc-text">如何使用外观模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装饰模式"><span class="toc-text">装饰模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展"><span class="toc-text">拓展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用拓展"><span class="toc-text">如何使用拓展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代理"><span class="toc-text">代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何使用代理模式"><span class="toc-text">如何使用代理模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-text">写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来该干嘛？"><span class="toc-text">接下来该干嘛？</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>在这个由两部分组成的教程中，你将了解构建 iOS 应用程序的常见设计模式，以及如何在自己的应用程序中应用这些模式。</p>
+<blockquote>
+<p><strong>更新说明</strong>：本教程已由译者针对 iOS 12，Xcode 10 和 Swift 4.2 进行了更新。原帖由教程团队成员 Eli Ganem发布。</p>
+</blockquote>
+<p><strong>iOS设计模式</strong> — 你可能已经听过这个术语，但是你知道这意味着什么吗？尽管大多数开发人员可能都认为设计模式非常重要，关于这个主题的文章并不多，我们开发人员在编写代码时有时不会过多地关注设计模式。</p>
+<p>设计模式是软件设计中常见问题的可重用解决方案。它们的模板旨在帮助你编写易于理解和重用的代码。它们还可以帮助你创建低耦合度的代码，以便你能更改或替换代码中的组件而避免很多麻烦。</p>
+<p>如果你对设计模式不熟悉，那么我有个好消息要告诉你！首先，由于 Cocoa 的架构方式以及它鼓励你使用的最佳实践，你已经使用过了大量的 iOS 设计模式。其次，本教程将快速帮助你理解 Cocoa 中常用的所有重要（还有不那么重要）的 iOS 设计模式。</p>
+<a id="more"></a>
+<p>在这个由两部分组成的教程中，你将创建一个音乐应用程序，用于显示你的专辑及其相关信息。</p>
+<p>在开发此应用程序的过程中，你将熟悉最常见的 Cocoa 设计模式：</p>
+<ul>
+<li><strong>创建型</strong>：单例。</li>
+<li><strong>结构型</strong>：MVC、装饰、适配器和外观。</li>
+<li><strong>行为型</strong>：观察者和备忘录。</li>
+</ul>
+<p>不要误以为这是一篇关于理论的文章，你将在音乐应用中使用大多数这些设计模式。在本教程结束时，你的应用将如下所示：</p>
+<p><img src="/images/blog06/01.png" alt="image">  </p>
+<p>让我们开始吧！</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>下载 <a href="https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Starter.zip" target="_blank" rel="external">入门项目</a>，解压缩 ZIP 文件的内容，并在 Xcode 中打开 <em>RWBlueLibrary.xcodeproj</em>。</p>
+<p>请注意项目中的以下内容：</p>
+<ol>
+<li>在 storyboard 里，<code>ViewController</code> 有三个 <code>IBOutlet</code> 连接了 TableView，还有撤消和删除按钮按钮。</li>
+<li>Storyboard 有 3 个组件，为方便起见我们设置了约束。顶部组件是用来显示专辑封面的。专辑封面下方是一个 TableView，其中列出了与专辑封面相关的信息。 最后，工具栏有两个按钮，一个用于撤消操作，另一个用于删除你选择的专辑。Storyboard 如下所示：</li>
+</ol>
+<p><img src="/images/blog06/02.png" alt="image">  </p>
+<ol>
+<li>有一个没有实现的初始 HTTP 客户端类（<code>HTTPClient</code>），供你稍后填写。</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：你知道吗，只要你创建新的 Xcode 项目，就已经充满了设计模式了嘛？模型-视图-控制器，代理，协议，单例 — 这些设计模式都是现成的！</p>
+</blockquote>
+<h2 id="MVC-–-设计模式之王"><a href="#MVC-–-设计模式之王" class="headerlink" title="MVC – 设计模式之王"></a>MVC – 设计模式之王</h2><p><img src="/images/blog06/03.png" alt="image">  </p>
+<p>模型 - 视图 - 控制器（MVC）是 Cocoa 的构建模块之一，它无疑是所有设计模式中最常用的。它将应用内对象按照各自常用角色进行分类，并提倡将代码基于角色进行解耦。</p>
+<p>这三个角色是：</p>
+<ul>
+<li><strong>模型（Model）</strong>：Model 是你的应用中持有并定义如何操作数据的对象。例如，在你的应用程序中，模型是 <code>Album</code> 结构体，你可以在 <strong>Album.swift</strong> 中找到它。大多数应用程序将具有多个类型作为其模型的一部分。</li>
+<li><strong>视图（View）</strong>：View 是用来展示 model 的数据并管理可与用户交互的控件的对象，基本上可以说是所有 <code>UIView</code> 派生的对象。 在你的应用程序中，视图是 <code>AlbumView</code>，你可以在 <em>AlbumView.swift</em> 中找到它。</li>
+<li><strong>控制器（Controller）</strong>：控制器是协调所有工作的中介。它访问模型中的数据并将其与视图一起显示，监听事件并根据需要操作数据。你能猜出哪个类是你的控制器吗？没错，就是 <code>ViewController</code>。</li>
+</ul>
+<p>你的 App 要想规范地使用 MVC 设计模式，就意味着你 App 中每个对象都可以划分为这三个角色其中的某一个。</p>
+<p>通过控制器（Controller）可以最好地描述视图（View）到模型（Model）之间的通信，如下图所示：</p>
+<p><img src="/images/blog06/04.png" alt="image">  </p>
+<p>模型通知控制器任何数据更改，反过来，控制器更新视图中的数据。然后，视图可以向控制器通知用户执行的操作，控制器将在必要时更新模型或检索任何请求的数据。</p>
+<p>你可能想知道为什么你不能抛弃控制器，并在同一个类中实现视图和模型，因为这看起来会容易得多。</p>
+<p>这一切都将归结为代码分离和可重用性。理想情况下，视图应与模型完全分离。如果视图不依赖于模型的特定实现，那么可以使用不同的模型重用它来呈现其他一些数据。</p>
+<p>例如，如果将来你还想将电影或书籍添加到库中，你仍然可以使用相同的 <code>AlbumView</code> 来显示电影和书籍对象。此外，如果你想创建一个与专辑有关的新项目，你可以简单地重用你的 <code>Album</code> 结构体，因为它不依赖于任何视图。这就是MVC的力量！</p>
+<h2 id="如何使用-MVC-设计模式"><a href="#如何使用-MVC-设计模式" class="headerlink" title="如何使用 MVC 设计模式"></a>如何使用 MVC 设计模式</h2><p>首先，你需要确保项目中的每个类都是Controller、Model 或 View，不要在一个类中组合两个角色的功能。</p>
+<p>其次，为了确保你符合这种工作方法，你应该创建三个文件夹来保存你的代码，每个角色一个。</p>
+<p>点击 <strong>File\New\Group（或者按 Command + Option + N）</strong>并把改组名为 Model。重复相同的过程以创建 View 和 Controller 组。</p>
+<p>现在将 <em>Album.swift</em> 拖拽到 Model 组。将 <em>AlbumView.swift</em> 拖拽到 View 组，最后将 <em>ViewController.swift</em> 拖拽到 Controller 组。</p>
+<p>此时项目结构应如下所示：</p>
+<p><img src="/images/blog06/05.png" alt="image">  </p>
+<p>如果没有所有这些文件夹，你的项目看起来会好很多。显然，你可以拥有其他组和类，但应用程序的核心将包含在这三个类别中。</p>
+<p>现在你的组件已组织完毕，你需要从某个位置获取相册数据。你将创建一个 API 类，在整个代码中使用它来管理数据，这提供了讨论下一个设计模式的机会 — 单例（Singleton）。</p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例设计模式确保给定类只会存在一个实例，并且该实例有一个全局的访问点。它通常使用延迟加载来在第一次需要时创建单个实例。</p>
+<blockquote>
+<p><strong>注意</strong>：Apple 使用了很多这个方法。例如：<code>UserDefaults.standard</code>、<code>UIApplication.shared</code>、<code>UIScreen.main</code> 和 <code>FileManager.default</code> 都返回一个单例对象。</p>
+</blockquote>
+<p>你可能想知道为什么你关心的是一个类有不只一个实例。代码和内存不是都很廉价吗？</p>
+<p>在某些情况下，只有一个实例的类才有意义。例如，你的应用程序只有一个实例，设备也只有一个主屏幕，因此你只需要一个实例。再者，采用全局配置处理程序类，他更容易实现对单个共享资源（例如配置文件）的线程安全访问，而不是让许多类可能同时修改配置文件。</p>
+<h2 id="你应该注意什么？"><a href="#你应该注意什么？" class="headerlink" title="你应该注意什么？"></a>你应该注意什么？</h2><blockquote>
+<p><strong>注意事项</strong>：这种模式有被初学者和有经验的开发着滥用（或误用）的历史，因此我们将 Joshua Greene 的 <a href="https://store.raywenderlich.com/products/design-patterns-by-tutorials" target="_blank" rel="external">Design Patterns by Tutorials</a> 一书中的一段简述摘录至此，其中解释了使用这种模式的一些需要注意的事项。</p>
+</blockquote>
+<p>单例模式很容易被滥用。</p>
+<p>如果你遇到一种想要使用单例的情况，请首先考虑是否还有其他的方法来完成你的任务。</p>
+<p>例如，如果你只是尝试将信息从一个视图控制器传递到另一个视图控制器，则不适合使用单例。但是你可以考虑通过初始化程序或属性传递该模型。</p>
+<p>如果你确定你确实需要一个单例，那么考虑拓展单例是否会更有意义。</p>
+<p>有多个实例会导致问题吗？自定义实例会有用吗？你的答案将决定你是否更好地使用真正的单例或其拓展。</p>
+<p>用单例时遇到问题的最常见的原因是测试。如果你将状态存储在像单例这样的全局对象中，则测试顺序可能很重要，并且模拟它们会很烦人。这两个原因都会使测试成为一种痛苦。</p>
+<p>最后，要注意“代码异味”，它表明你的用例根本不适合使用单例。例如，如果你经常需要许多自定义实例，那么你的用例可能会更好地作为常规对象。</p>
+<p><img src="/images/blog06/06.png" alt="image">  </p>
+<h2 id="如何使用单例模式"><a href="#如何使用单例模式" class="headerlink" title="如何使用单例模式"></a>如何使用单例模式</h2><p>为了确保你的单例只有一个实例，你必须让其他任何人都无法创建实例。Swift 允许你通过将初始化方法标记为私有来完成此操作，然后你可以为共享实例添加静态属性，该属性在类中初始化。</p>
+<p>你将通过创建一个单例来管理所有专辑数据从而实现此模式。</p>
+<p>你会注意到项目中有一个名为 <em>API</em> 的组，这是你将所有将为你的应用程序提供服务的类的地方。右键单击该组并选择 <em>New File</em>，在该组中创建一个新文件，选择 <em>iOS &gt; Swift File</em>。将文件名设置为 <em>LibraryAPI.swift</em>，然后单击 <em>Create</em>。</p>
+<p>现在打开 <em>LibraryAPI.swift</em> 并插入代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">LibraryAPI</span> </span>&#123;</div><div class="line">  <span class="comment">// 1</span></div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">LibraryAPI</span>()</div><div class="line">  <span class="comment">// 2</span></div><div class="line">  <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是详细分析：</p>
+<ol>
+<li>其中 <code>shared</code> 声明的常量使得其他对象可以访问到单例对象 <code>LibraryAPI</code>。</li>
+<li>私有的初始化方法防止从外部创建 <code>LibraryAPI</code> 的新实例。</li>
+</ol>
+<p>你现在有一个单例对象作为管理专辑的入口。接下来创建一个类来持久化库里的数据。</p>
+<p>现在在 <em>API</em> 组里创建一个新文件。 选择 <em>iOS &gt; Swift File</em>。将类名设置为 <em>PersistencyManager.swift</em>，然后单击 <em>Create</em>。</p>
+<p>打开 <em>PersistencyManager.swift</em> 并添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">PersistencyManager</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在括号里面添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> albums = [<span class="type">Album</span>]()</div></pre></td></tr></table></figure>
+<p>在这里，你声明一个私有属性来保存专辑数据。该数组将是可变的，因此你可以轻松添加和删除专辑。</p>
+<p>现在将以下初始化方法添加到类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">init</span>() &#123;</div><div class="line">  <span class="comment">//Dummy list of albums</span></div><div class="line">  <span class="keyword">let</span> album1 = <span class="type">Album</span>(title: <span class="string">"Best of Bowie"</span>,</div><div class="line">                     artist: <span class="string">"David Bowie"</span>,</div><div class="line">                     genre: <span class="string">"Pop"</span>,</div><div class="line">                     coverUrl: <span class="string">"https://s3.amazonaws.com/CoverProject/album/album_david_bowie_best_of_bowie.png"</span>,</div><div class="line">                     year: <span class="string">"1992"</span>)</div><div class="line"></div><div class="line">  <span class="keyword">let</span> album2 = <span class="type">Album</span>(title: <span class="string">"It's My Life"</span>,</div><div class="line">                     artist: <span class="string">"No Doubt"</span>,</div><div class="line">                     genre: <span class="string">"Pop"</span>,</div><div class="line">                     coverUrl: <span class="string">"https://s3.amazonaws.com/CoverProject/album/album_no_doubt_its_my_life_bathwater.png"</span>,</div><div class="line">                     year: <span class="string">"2003"</span>)</div><div class="line"></div><div class="line">  <span class="keyword">let</span> album3 = <span class="type">Album</span>(title: <span class="string">"Nothing Like The Sun"</span>,</div><div class="line">                     artist: <span class="string">"Sting"</span>,</div><div class="line">                     genre: <span class="string">"Pop"</span>,</div><div class="line">                     coverUrl: <span class="string">"https://s3.amazonaws.com/CoverProject/album/album_sting_nothing_like_the_sun.png"</span>,</div><div class="line">                     year: <span class="string">"1999"</span>)</div><div class="line"></div><div class="line">  <span class="keyword">let</span> album4 = <span class="type">Album</span>(title: <span class="string">"Staring at the Sun"</span>,</div><div class="line">                     artist: <span class="string">"U2"</span>,</div><div class="line">                     genre: <span class="string">"Pop"</span>,</div><div class="line">                     coverUrl: <span class="string">"https://s3.amazonaws.com/CoverProject/album/album_u2_staring_at_the_sun.png"</span>,</div><div class="line">                     year: <span class="string">"2000"</span>)</div><div class="line"></div><div class="line">  <span class="keyword">let</span> album5 = <span class="type">Album</span>(title: <span class="string">"American Pie"</span>,</div><div class="line">                     artist: <span class="string">"Madonna"</span>,</div><div class="line">                     genre: <span class="string">"Pop"</span>,</div><div class="line">                     coverUrl: <span class="string">"https://s3.amazonaws.com/CoverProject/album/album_madonna_american_pie.png"</span>,</div><div class="line">                     year: <span class="string">"2000"</span>)</div><div class="line"></div><div class="line">  albums = [album1, album2, album3, album4, album5]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在初始化程序中，你将使用五个示例专辑填充数组。如果上述专辑不符合你的喜好，可以随便使用你喜欢的音乐替换它们。</p>
+<p>现在将以下函数添加到类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getAlbums</span><span class="params">()</span></span> -&gt; [<span class="type">Album</span>] &#123;</div><div class="line">  <span class="keyword">return</span> albums</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addAlbum</span><span class="params">(<span class="number">_</span> album: Album, at index: Int)</span></span> &#123;</div><div class="line">  <span class="keyword">if</span> albums.<span class="built_in">count</span> &gt;= index &#123;</div><div class="line">    albums.insert(album, at: index)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    albums.append(album)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteAlbum</span><span class="params">(at index: Int)</span></span> &#123;</div><div class="line">  albums.remove(at: index)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这些方法允许你获取，添加和删除专辑。</p>
+<p>编译你的项目，确保所有内容能正确地通过编译。</p>
+<p>此时，你可能想知道 <code>PersistencyManager</code> 类的位置，因为它不是单例。你将在下一节中看到 <code>LibraryAPI</code> 和 <code>PersistencyManager</code> 之间的关系，你将在其中查看 <strong>外观（Facade）</strong> 设计模式。</p>
+<h2 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h2><p><img src="/images/blog06/07.png" alt="image"><br>外观设计模式为复杂子系统提供了单一界面。你只需公开一个简单的统一 API，而不是将用户暴露给一组类及其 API。</p>
+<p>下图说明了这个概念：</p>
+<p><img src="/images/blog06/08.png" alt="image">  </p>
+<p>API 的用户完全不知道它其中的复杂性。这种模式在大量使用比较复杂或难理解的类时是比较理想的。</p>
+<p>外观模式将使用系统接口的代码与你隐藏的类的实现进行解耦，它还减少了外部代码对子系统内部工作的依赖性。 如果外观下的类可能会更改，那这仍然很有用，因为外观类可以在幕后发生更改时保留相同的 API。</p>
+<p>举个例子，如果你想要替换后端服务，那么你不必更改使用 API 的代码，只需更改外观类中的代码即可。</p>
+<h2 id="如何使用外观模式"><a href="#如何使用外观模式" class="headerlink" title="如何使用外观模式"></a>如何使用外观模式</h2><p>目前，你拥有 <code>PersistencyManager</code> 在本地保存专辑数据，并使用 <code>HTTPClient</code> 来处理远程通信。项目中的其他类不应该涉及这个逻辑，因为它们将隐藏在 <code>LibraryAPI</code> 的外观后面。</p>
+<p>要实现此模式，只有 <code>LibraryAPI</code> 应该包含 <code>PersistencyManager</code> 和 <code>HTTPClient</code> 的实例。其次，<code>LibraryAPI</code> 将公开一个简单的 API 来访问这些服务。</p>
+<p>设计如下所示：</p>
+<p><img src="/images/blog06/09.png" alt="image">  </p>
+<p><code>LibraryAPI</code> 将暴露给其他代码，但会隐藏应用程序其余部分的 <code>HTTPClient</code> 和 <code>PersistencyManager</code> 复杂性。</p>
+<p>打开 <em>LibraryAPI.swift</em> 并将以下常量属性添加到类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> persistencyManager = <span class="type">PersistencyManager</span>()</div><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> httpClient = <span class="type">HTTPClient</span>()</div><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> isOnline = <span class="literal">false</span></div></pre></td></tr></table></figure>
+<p><code>isOnline</code> 决定了是否应使用对专辑列表所做的任何更改来更新服务器，例如添加或删除专辑。实际上 HTTP 客户端并不是与真实服务器工作，仅用于演示外观模式的用法，因此 <code>isOnline</code> 将始终为 <code>false</code>。</p>
+<p>接下来，将以下三个方法添加到 <em>LibraryAPI.swift</em>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getAlbums</span><span class="params">()</span></span> -&gt; [<span class="type">Album</span>] &#123;</div><div class="line">  <span class="keyword">return</span> persistencyManager.getAlbums()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addAlbum</span><span class="params">(<span class="number">_</span> album: Album, at index: Int)</span></span> &#123;</div><div class="line">  persistencyManager.addAlbum(album, at: index)</div><div class="line">  <span class="keyword">if</span> isOnline &#123;</div><div class="line">    httpClient.postRequest(<span class="string">"/api/addAlbum"</span>, body: album.description)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteAlbum</span><span class="params">(at index: Int)</span></span> &#123;</div><div class="line">  persistencyManager.deleteAlbum(at: index)</div><div class="line">  <span class="keyword">if</span> isOnline &#123;</div><div class="line">    httpClient.postRequest(<span class="string">"/api/deleteAlbum"</span>, body: <span class="string">"<span class="subst">\(index)</span>"</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们来看看 <code>addAlbum(_:at:)</code>。该类首先在本地更新数据，然后如果网络有连接，则更新远程服务器。这是外观模式的核心优势，当你要编写 <code>Album</code> 之外的某个类添加一个新专辑时，它不知道，也不需要知道类背后的复杂性。</p>
+<blockquote>
+<p><strong>注意</strong>：在为子系统中的类设计外观时，请记住，除非你正在构建单独的模块并使用访问控制，否则不会阻止客户端直接访问这些“隐藏”的类。不要吝啬访问控制的代码，也不要假设所有客户端都必须使用那些与外观使用它们方法相同的类。</p>
+</blockquote>
+<p>编译并运行你的应用程序。你将看到两个空视图和一个工具栏。顶部的 View 将用于显示你的专辑封面，底部 View 将用于显示与该专辑相关的信息列表。</p>
+<p><img src="/images/blog06/10.png" alt="image">  </p>
+<p>你需要一些东西能在屏幕上显示专辑的数据，这是你下一个设计模式的完美实践：<strong>装饰（Decorator）</strong>。</p>
+<h2 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h2><p>装饰模式动态地向对象添加行为和职责而无需修改其中代码。它是子类化的替代方法，通过用另一个对象包装它来修改类的行为。</p>
+<p>在 Swift 中，这种模式有两种非常常见的实现：<strong>扩展</strong>和<strong>代理</strong>。</p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>添加扩展是一种非常强大的机制，允许你向现有类，结构体或枚举类型添加新功能，而无需子类化。你可以扩展你无法访问的代码并增强他们的功能也非常棒。这意味着你可以将自己的方法添加到 Cocoa 类，如 <code>UIView</code> 和 <code>UIImage</code>。</p>
+<p>Swift 扩展与装饰模式的经典定义略有不同，因为扩展不包含它扩展的类的实例。</p>
+<h3 id="如何使用拓展"><a href="#如何使用拓展" class="headerlink" title="如何使用拓展"></a>如何使用拓展</h3><p>想象一下，你希望在 TableView 中显示 <code>Album</code> 实例的情况：</p>
+<p><img src="/images/blog06/11.png" alt="image"> </p>
+<p>专辑的标题来自哪里？<code>Album</code> 是一个模型，因此它不关心你将如何呈现数据。你需要一些外部代码才能将此功能添加到 <code>Album</code> 结构体中。</p>
+<p>你将创建 <code>Album</code> 结构体的扩展，它将定义一个返回可以在 <code>UITableView</code> 中容易使用的数据结构的新方法。</p>
+<p>打开 <strong>Album.swift</strong> 并在文件末尾添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typealias</span> <span class="type">AlbumData</span> = (title: <span class="type">String</span>, value: <span class="type">String</span>)</div></pre></td></tr></table></figure>
+<p>此类型定义了一个元组，其中包含表视图显示一行数据所需的所有信息。现在添加以下扩展名以访问此信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Album</span> </span>&#123;</div><div class="line">  <span class="keyword">var</span> tableRepresentation: [<span class="type">AlbumData</span>] &#123;</div><div class="line">    <span class="keyword">return</span> [</div><div class="line">      (<span class="string">"Artist"</span>, artist),</div><div class="line">      (<span class="string">"Album"</span>, title),</div><div class="line">      (<span class="string">"Genre"</span>, genre),</div><div class="line">      (<span class="string">"Year"</span>, year)</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>AlbumData</code> 数组将更容易在 TableView 中显示。</p>
+<blockquote>
+<p><strong>注意</strong>：类完全可以覆盖父类的方法，但是对于扩展则不能。扩展中的方法或属性不能与原始类中的方法或属性同名。</p>
+</blockquote>
+<p>考虑一下这个模式有多强大：</p>
+<ul>
+<li>你可以直接在 <code>Album</code> 中使用属性。</li>
+<li>你已添加到 <code>Album</code> 结构体并且不用修改它。</li>
+<li>此次简单的操作将允许你返回一个类似 <code>UITableView</code> 的 <code>Album</code>。</li>
+</ul>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>外观设计模式的另一个实现是代理，它是一种让一个对象代表或协同另外一个对象工作的机制。<code>UITableView</code> 很贪婪，它有两个代理类型属性，一个叫做数据源，另一个叫代理。它们做的事情略有不同，例如 TableView 将询问其数据源在特定部分中应该有多少行，但它会询问其代理在行被点击时要执行的操作。</p>
+<p>你不能指望 <code>UITableView</code> 知道你希望在每个 section 中有多少行，因为这是特定于应用程序的。因此，计算每个 section 中的行数的任务会被传递到数据源。这允许 <code>UITableView</code> 的类独立于它显示的数据。</p>
+<p>以下是你创建新 <code>UITableView</code> 时所发生的事情的伪解释：</p>
+<p><strong>Table</strong>：我在这儿！我想做的就是显示 cell。嘿，我有几个 section 呢？<br><strong>Data source</strong>：一个！<br><strong>Table</strong>：好的，好的，很简单！第一个 section 中有多少个 cell 呢？<br><strong>Data source</strong>：四个！<br><strong>Table</strong>：谢谢！现在，请耐心点，这可能会有点重复。我可以在第 0 个 section 第 0 行获得 cell 吗？<br><strong>Data source</strong>：可以，去吧！<br><strong>Table</strong>：现在第 0 个 section，第 1 行呢？</p>
+<p>未完待续…</p>
+<p><code>UITableView</code> 对象完成显示表视图的工作。但是最终它需要一些它没有的信息。然后它转向其代理和数据源，并发送一条消息，要求提供其他信息。</p>
+<p>将一个对象子类化并重写必要的方法似乎更容易，但考虑一下你只能基于单个类进行子类化。如果你希望一个对象成为两个或更多其他对象的代理，你就无法通过子类化实现此目的。</p>
+<blockquote>
+<p><strong>注意</strong>：这是一个重要的模式。Apple 在大多数 UIKit 类中使用这种方法： <code>UITableView</code>， <code>UITextView</code>， <code>UITextField</code>， <code>UIWebView</code>， <code>UICollectionView</code>， <code>UIPickerView</code>， <code>UIGestureRecognizer</code>， <code>UIScrollView</code>。 这个清单还将不断更新。</p>
+</blockquote>
+<h3 id="如何使用代理模式"><a href="#如何使用代理模式" class="headerlink" title="如何使用代理模式"></a>如何使用代理模式</h3><p>打开 <strong>ViewController.swift</strong> 并把这些私有的属性添加到类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> currentAlbumIndex = <span class="number">0</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> currentAlbumData: [<span class="type">AlbumData</span>]?</div><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> allAlbums = [<span class="type">Album</span>]()</div></pre></td></tr></table></figure>
+<p>从 Swift 4 开始，标记为 <code>private</code> 的变量可以在类型和所述类型的任何扩展之间共享相同的访问控制范围。如果你想浏览 Swift 4 引入的新功能，请查看 <a href="https://www.raywenderlich.com/163857/whats-new-swift-4" target="_blank" rel="external">What’s New in Swift 4</a>。</p>
+<p>你将使 <code>ViewController</code> 成为 TableView 的数据源。在类定义的右大括号之后，将此扩展添加到 <em>ViewController.swift</em> 的末尾：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译器会发出警告，因为 <code>UITableViewDataSource</code> 有一些必需的函数。在扩展中添加以下代码让警告消失：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> albumData = currentAlbumData <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> albumData.<span class="built_in">count</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">  <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"Cell"</span>, <span class="keyword">for</span>: indexPath)</div><div class="line">  <span class="keyword">if</span> <span class="keyword">let</span> albumData = currentAlbumData &#123;</div><div class="line">    <span class="keyword">let</span> row = indexPath.row</div><div class="line">    cell.textLabel?.text = albumData[row].title</div><div class="line">    cell.detailTextLabel?.text = albumData[row].value</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>tableView(_:numberOfRowsInSection:)</code> 返回要在 tableView 中显示的行数，该行数与专辑“装饰”表示中的项目数相匹配。</p>
+<p><code>tableView(_:cellForRowAtIndexPath:)</code> 创建并返回一个带有 title 和 value 的 cell。</p>
+<blockquote>
+<p><strong>注意</strong>：你实际上可以将方法添加到主类声明或扩展中，编译器并不关心数据源方法实际上存在于 <code>UITableViewDataSource</code> 扩展中。对于阅读代码的人来说，这种组织确实有助于提高可读性。</p>
+</blockquote>
+<p>接下来，使用以下代码替换 <code>viewDidLoad()</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">  <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">  <span class="comment">//1</span></div><div class="line">  allAlbums = <span class="type">LibraryAPI</span>.shared.getAlbums()</div><div class="line"></div><div class="line">  <span class="comment">//2</span></div><div class="line">  tableView.dataSource = <span class="keyword">self</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是上述代码的解析：</p>
+<ol>
+<li>通过 API 获取所有专辑的列表。请记住，我们的计划是直接使用 <code>LibraryAPI</code> 的外观而不是直接用 <code>PersistencyManager</code>！</li>
+<li>这是你设置 <code>UITableView</code> 的地方。你声明 ViewController 是 <code>UITableView</code> 数据源，因此，<code>UITableView</code> 所需的所有信息都将由 ViewController 提供。请注意，如果在 storyboard 中创建了 TableView，你实际上可以在那里设置代理和数据源。</li>
+</ol>
+<p>现在，将以下方法添加到 ViewController 里：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">showDataForAlbum</span><span class="params">(at index: Int)</span></span> &#123;</div><div class="line"></div><div class="line">  <span class="comment">// defensive code: make sure the requested index is lower than the amount of albums</span></div><div class="line">  <span class="keyword">if</span> index &lt; allAlbums.<span class="built_in">count</span> &amp;&amp; index &gt; -<span class="number">1</span> &#123;</div><div class="line">    <span class="comment">// fetch the album</span></div><div class="line">    <span class="keyword">let</span> album = allAlbums[index]</div><div class="line">    <span class="comment">// save the albums data to present it later in the tableview</span></div><div class="line">    currentAlbumData = album.tableRepresentation</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    currentAlbumData = <span class="literal">nil</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">// we have the data we need, let's refresh our tableview</span></div><div class="line">  tableView.reloadData()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>showDataForAlbum(at:)</code> 从专辑数组中获取所需的专辑数据。当你想要刷新数据时，你只需要在 <code>UITableView</code> 里调用 <code>reloadData</code>。这会导致 TableView 再次调用其数据源方法，例如重新加载 TableView 中应显示的 section 个数，每个 section 中的行数以及每个 cell 的外观等等。</p>
+<p>将以下行添加到 <code>viewDidLoad()</code> 的末尾：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">showDataForAlbum(at: currentAlbumIndex)</div></pre></td></tr></table></figure>
+<p>这会在应用启动时加载当前专辑。由于 <code>currentAlbumIndex</code> 设置为 <code>0</code>，因此显示该集合中的第一张专辑。</p>
+<p>编译并运行你的项目，你的应用启动后屏幕上应该会显示如下图：</p>
+<p><img src="/images/blog06/12.png" alt="image">  </p>
+<p>TableView 设置数据源完成！</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>为了不使用硬编码值（例如字符串 <code>Cell</code>）污染代码，请查看 <code>ViewController</code>，并在类定义的左大括号之后添加以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">Constants</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">CellIdentifier</span> = <span class="string">"Cell"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，你将创建一个枚举充当常量的容器。</p>
+<blockquote>
+<p><strong>注意</strong>：使用不带 case 的枚举的优点是它不会被意外地实例化并只作为一个纯命名空间。</p>
+</blockquote>
+<p>现在只需用 <code>Constants.CellIdentifier</code> 替换 <code>&quot;Cell&quot;</code>。</p>
+<h2 id="接下来该干嘛？"><a href="#接下来该干嘛？" class="headerlink" title="接下来该干嘛？"></a>接下来该干嘛？</h2><p>到目前为止，事情看起来进展很顺利！你知道了 MVC 模式，还有单例，外观和装饰模式。你可以看到 Apple 在 Cocoa 中如何使用它们以及如何将模式应用于你自己的代码。</p>
+<p>如果你想要查看或比较，那请看 <a href="https://koenig-media.raywenderlich.com/uploads/2017/07/RWBlueLibrary-Part1-Final.zip" target="_blank" rel="external">最终项目</a>。</p>
+<p>库存里还有很多：<a href="https://github.com/xitu/gold-miner/blob/master/TODO1/design-patterns-on-ios-using-swift-part-2-2.md" target="_blank" rel="external">本教程的第二部分</a>还有适配器，观察者和备忘录模式。如果这还不够，我们会有一个后续教程，在你重构一个简单的 iOS 游戏时会涉及更多的设计模式。</p>
+<hr>
+<blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a></li>
+<li>译者：    <a href="https://github.com/iWeslie" target="_blank" rel="external">iWeslie</a></li>
+<li>校对者：  <a href="https://github.com/swants" target="_blank" rel="external">swants</a>, <a href="https://github.com/Chunk49" target="_blank" rel="external">Chunk49</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/设计模式/">设计模式</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/12/17/iOS开发中的设计模式下.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">iOS 开发中的设计模式下</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/06/11/关于 Masonry 的一些思考（下）.html">
+        <span class="next-text nav-default">关于 Masonry 的一些思考（下）</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
