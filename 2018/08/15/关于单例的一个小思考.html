@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="关于单例的一个小思考"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/08/15/关于单例的一个小思考.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 关于单例的一个小思考 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          关于单例的一个小思考
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-08-15
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例的生命周期"><span class="toc-text">单例的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><span class="toc-text">那单例对象生命周期是否应该由 MRC/ARC 控制呢？</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="单例的生命周期"><a href="#单例的生命周期" class="headerlink" title="单例的生命周期"></a>单例的生命周期</h3><p>iOS app 中单例一经创建，全局共享单例对象，单例的生命周期跟随app生命周期，那它的原理是什么呢？ </p>
+<p>答：先看单例写法：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//全局的变量,指的就是Singleton这个对象,静态全局变量，始终指向实例化出的对象<span class="keyword"></span></div><div class="line">static id instance;</div><div class="line">   </div><div class="line">+ (instancetype)shareInstance&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">        </div><div class="line">        //创建类</div><div class="line">       <span class="built_in"> instance </span>= [[self alloc]init];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//创建alloc init 时候创建,会调用allocWithZone ,保证创建出来这个对象是唯一的</div><div class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">       </div><div class="line">        //返回自己</div><div class="line">       <span class="built_in"> instance </span>= [super allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//防止外界拷贝造成多个实例</div><div class="line">- (id)copyWithZone:(NSZone *)zone&#123;</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先使用 static 修饰符，声明了单例对象，这就意味着这个单例对象是在程序的数据区进行存储的，而数据区会跟随 app打开申请 app关闭释放。实现了单例生命周期跟随app的生命周期，这也解释了为什么每次打开app(非后台状态)单例对象就会重新初始化，造成单例上次保存的数据丢失。</p>
+<h4 id="那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><a href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？" class="headerlink" title="那单例对象生命周期是否应该由 MRC/ARC 控制呢？"></a>那单例对象生命周期是否应该由 MRC/ARC 控制呢？</h4><p>答案也是否定的，因为无论 ARC 还是 MRC 都是管理用来管理堆上对象的生命周期的，而数据区的单例释放与否是由系统控制的，因此不应受他们控制，需要注意的是，在使用 MRC 时，单例调用 retain 确实会引起计数增加，而调用 release 则会直接崩溃，为了避免单例收到引用计数的干扰造成意想不到的后果，在 MRC 下需要覆盖retain autorelease retainCount release 这几个方法。重写这几个方法是为了单例能在MRC中使用。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - MRC中需要覆盖的方法, ARC与MRC的整合</span></div><div class="line"><span class="meta">#if !__has_feature(objc_arc)</span></div><div class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span> &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">id</span>)autorelease &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount &#123;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">UINT_MAX</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/单例/">单例</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/12/03/iOS开发中的设计模式上.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">iOS 开发中的设计模式上</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/06/11/关于 Masonry 的一些思考（下）.html">
+        <span class="next-text nav-default">关于 Masonry 的一些思考（下）</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
