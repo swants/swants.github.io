@@ -175,6 +175,50 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/12/29/菜鸡是如何度过2018年的.html">菜鸡是如何度过2018年的</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-29
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>​   感觉昨天才刚写完 2017 总结，今天就要着手 2018 的年终总结了，心丧~，人到中年，才深深体会到逝者如斯夫的真正含义。 ^.^!</p>
+<p>  2018 发生了很多，我也成长了很多，这一年无论在工作上还是生活上都走过了一些人生的重要的节点，明显感觉到现在和之前的自己有了很大的进步。就如题目，2018 年对自己的总结定位还是十分贴切的。</p>
+          <div class="read-more">
+            <a href="/2018/12/29/菜鸡是如何度过2018年的.html" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/12/17/iOS开发中的设计模式下.html">iOS 开发中的设计模式下</a>
         
       </h1>
@@ -291,6 +335,8 @@
       
         
         
+          
+        
 
         
           <h2 id="ARC原理"><a href="#ARC原理" class="headerlink" title="ARC原理"></a>ARC原理</h2><p>ARC 在编译期插入生命周期的代码，内存管理的方式和MRC一样。<br>编译器会在合适的地方插入 retain release autorelease delloc 代码来管理对象的生命周期</p>
@@ -304,124 +350,9 @@
 <li>对象型变量不能作为C语言结构体的成员</li>
 <li>显式转换id和void*</li>
 </ol>
-<p>Apple文档：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- You cannot explicitly invoke dealloc, or implement or invoke retain, <span class="keyword">release</span>, retainCount, <span class="keyword">or</span> autorelease.</div><div class="line">The prohibition extends <span class="keyword">to</span> <span class="keyword">using</span> @selector(retain), @selector(<span class="keyword">release</span>), <span class="keyword">and</span> so on.</div><div class="line"></div><div class="line">You may implement a dealloc method <span class="keyword">if</span> you need <span class="keyword">to</span> manage resources other <span class="keyword">than</span> releasing <span class="keyword">instance</span> variables. You <span class="keyword">do</span> <span class="keyword">not</span> have <span class="keyword">to</span> (indeed you cannot) <span class="keyword">release</span> <span class="keyword">instance</span> <span class="keyword">variables</span>, but you may need <span class="keyword">to</span> invoke [systemClassInstance setDelegate:nil] <span class="keyword">on</span> <span class="keyword">system</span> classes <span class="keyword">and</span> other code that isn’t <span class="keyword">compiled</span> <span class="keyword">using</span> ARC.</div><div class="line"></div><div class="line">Custom dealloc methods <span class="keyword">in</span> ARC <span class="keyword">do</span> <span class="keyword">not</span> require a <span class="keyword">call</span> <span class="keyword">to</span> [super dealloc] (it actually results <span class="keyword">in</span> a compiler <span class="keyword">error</span>). The chaining <span class="keyword">to</span> super <span class="keyword">is</span> automated <span class="keyword">and</span> <span class="keyword">enforced</span> <span class="keyword">by</span> the compiler.</div><div class="line"></div><div class="line">You can still <span class="keyword">use</span> CFRetain, CFRelease, <span class="keyword">and</span> other related functions <span class="keyword">with</span> Core Foundation-<span class="keyword">style</span> objects (see Managing Toll-Free Bridging).</div><div class="line"></div><div class="line">- You cannot <span class="keyword">use</span> NSAllocateObject <span class="keyword">or</span> NSDeallocateObject.</div><div class="line">You <span class="keyword">create</span> objects <span class="keyword">using</span> alloc; the runtime takes care of deallocating objects.</div><div class="line"></div><div class="line">- You cannot <span class="keyword">use</span> <span class="keyword">object</span> pointers <span class="keyword">in</span> C structures.</div><div class="line">Rather <span class="keyword">than</span> <span class="keyword">using</span> a <span class="keyword">struct</span>, you can <span class="keyword">create</span> an Objective-C <span class="keyword">class</span> <span class="keyword">to</span> manage the <span class="keyword">data</span> instead.</div><div class="line"></div><div class="line">- There <span class="keyword">is</span> <span class="keyword">no</span> casual casting <span class="keyword">between</span> <span class="keyword">id</span> <span class="keyword">and</span> <span class="built_in">void</span> *.</div><div class="line">You must <span class="keyword">use</span> special casts that tell the compiler about <span class="keyword">object</span> lifetime. You need <span class="keyword">to</span> <span class="keyword">do</span> this <span class="keyword">to</span> <span class="keyword">cast</span> <span class="keyword">between</span> Objective-C objects <span class="keyword">and</span> Core Foundation types that you pass <span class="keyword">as</span> <span class="keyword">function</span> arguments. <span class="keyword">For</span> more details, see Managing Toll-Free Bridging.</div><div class="line"></div><div class="line">- You cannot <span class="keyword">use</span> NSAutoreleasePool objects.</div><div class="line">ARC provides @autoreleasepool blocks instead. These have an advantage <span class="keyword">of</span> being more efficient <span class="keyword">than</span> NSAutoreleasePool.</div><div class="line"></div><div class="line">- You cannot <span class="keyword">use</span> <span class="keyword">memory</span> zones.</div><div class="line">There <span class="keyword">is</span> <span class="keyword">no</span> need <span class="keyword">to</span> <span class="keyword">use</span> NSZone <span class="keyword">any</span> more—they <span class="keyword">are</span> ignored <span class="keyword">by</span> the modern Objective-C runtime anyway.</div><div class="line"></div><div class="line"><span class="keyword">To</span> <span class="keyword">allow</span> interoperation <span class="keyword">with</span> <span class="keyword">manual</span> retain-<span class="keyword">release</span> code, ARC imposes a <span class="keyword">constraint</span> <span class="keyword">on</span> method naming:</div><div class="line"></div><div class="line">- You cannot give an accessor a <span class="keyword">name</span> that begins <span class="keyword">with</span> new. This <span class="keyword">in</span> turn means that you can’t, <span class="keyword">for</span> example, <span class="keyword">declare</span> a property whose <span class="keyword">name</span> begins <span class="keyword">with</span> <span class="keyword">new</span> unless you specify a different getter:</div></pre></td></tr></table></figure></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Won't work:</span></div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *newTitle;</div><div class="line"> </div><div class="line"><span class="comment">// Works:</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">getter</span>=theNewTitle) <span class="built_in">NSString</span> *newTitle;</div></pre></td></tr></table></figure>
-<h2 id="属性关键字与所有权修饰符"><a href="#属性关键字与所有权修饰符" class="headerlink" title="属性关键字与所有权修饰符"></a>属性关键字与所有权修饰符</h2><p>ARC 引入了几种生命周期修饰符和 weak 引用，<strong>unsafe_unretained </strong>strong <strong>autoreleasing </strong>weak<br>生命周期修饰符是ARC 引入的新特性，代码中属性 局部变量 全局变量 参数否会用到，属性关键字最终也是映射到这几种所有权修饰符上</p>
-<table>
-<thead>
-<tr>
-<th>属性关键字</th>
-<th>所有权修饰符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>assign</td>
-<td>__unsafe_unretained</td>
-</tr>
-<tr>
-<td>copy</td>
-<td>__strong</td>
-</tr>
-<tr>
-<td>retain</td>
-<td>__strong</td>
-</tr>
-<tr>
-<td>strong</td>
-<td>__strong</td>
-</tr>
-<tr>
-<td>__unsafe_unretained</td>
-<td>__unsafe_unretained</td>
-</tr>
-<tr>
-<td>weak</td>
-<td>__weak</td>
-</tr>
-</tbody>
-</table>
-<p>关于他们的官方介绍：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">__strong <span class="keyword">is</span> <span class="keyword">the</span> default. An object remains “alive” <span class="keyword">as</span> long <span class="keyword">as</span> there <span class="keyword">is</span> a strong pointer <span class="keyword">to</span> <span class="keyword">it</span>.</div><div class="line">__weak specifies <span class="keyword">a reference</span> <span class="keyword">that</span> <span class="keyword">does</span> <span class="keyword">not</span> keep <span class="keyword">the</span> referenced object alive. A weak <span class="keyword">reference</span> <span class="keyword">is</span> <span class="keyword">set</span> <span class="keyword">to</span> nil when there are no strong references <span class="keyword">to</span> <span class="keyword">the</span> object.</div><div class="line">__unsafe_unretained specifies <span class="keyword">a reference</span> <span class="keyword">that</span> <span class="keyword">does</span> <span class="keyword">not</span> keep <span class="keyword">the</span> referenced object alive <span class="keyword">and</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">set</span> <span class="keyword">to</span> nil when there are no strong references <span class="keyword">to</span> <span class="keyword">the</span> object. If <span class="keyword">the</span> object <span class="keyword">it</span> references <span class="keyword">is</span> deallocated, <span class="keyword">the</span> pointer <span class="keyword">is</span> left dangling.</div><div class="line">__autoreleasing <span class="keyword">is</span> used <span class="keyword">to</span> denote arguments <span class="keyword">that</span> are passed <span class="keyword">by</span> <span class="keyword">reference</span> (<span class="built_in">id</span> *) <span class="keyword">and</span> are autoreleased <span class="keyword">on</span> <span class="literal">return</span>.</div></pre></td></tr></table></figure></p>
-<p>所有权修饰符的规范写法：<code>ClassName * qualifier variableName;</code></p>
-<p>outlets 应该使用 weak，官方解释：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">outlets should be weak, except <span class="keyword">for</span> those <span class="built_in">from</span> File’s Owner <span class="built_in">to</span> top-level objects <span class="keyword">in</span> <span class="keyword">a</span> nib <span class="built_in">file</span> (<span class="keyword">or</span> <span class="keyword">a</span> storyboard scene) which should be strong.</div><div class="line"></div><div class="line">Full details are given <span class="keyword">in</span> Nib Files <span class="keyword">in</span> Resource Programming Guide.</div></pre></td></tr></table></figure></p>
-<p>ARC 下使用 strong/weak/autoreleasing 修饰变量，变量会隐式初始化为 nil</p>
-<p>不支持weak弱引用的类：NSATSTypesetter, NSColorSpace, NSFont, NSMenuView, NSParagraphStyle, NSSimpleHorizontalTypesetter, and NSTextView.<br>在ARC下 不能使用weak变量指向 NSHashTable, NSMapTable, or NSPointerArray</p>
-<p>内存管理思想：<br>自己生成的对象自己持有   alloc new copy mutableCopy<br>非自己生成的对象，自己也能持有<br>不再需要自己持有的对象时释放对象<br>非自己持有的对象无法释放</p>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="alloc"><a href="#alloc" class="headerlink" title="alloc"></a>alloc</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">+alloc</div><div class="line">+allocWithZone:</div><div class="line">class_createInstance<span class="comment">//生成实例</span></div><div class="line"><span class="built_in">calloc</span><span class="comment">//分配内存块</span></div></pre></td></tr></table></figure>
-<h3 id="retainCount"><a href="#retainCount" class="headerlink" title="retainCount"></a>retainCount</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__CF<span class="keyword">do</span>ExternRefOperation</div><div class="line">CFBasicHashGetCountOfKey</div></pre></td></tr></table></figure>
-<h3 id="retain"><a href="#retain" class="headerlink" title="retain"></a>retain</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__CF<span class="keyword">do</span>ExternRefOperation</div><div class="line">CFBasicHashAddValue</div></pre></td></tr></table></figure>
-<h3 id="release"><a href="#release" class="headerlink" title="release"></a>release</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__CF<span class="keyword">do</span>ExternRefOperation</div><div class="line">CFBasicHashRemoveValue</div></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">猜想实现</div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="built_in">NSUInteger</span>)____CFDoExternRefOperation(OPERATION_retainCount,<span class="keyword">self</span>);</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="keyword">id</span>)____CFDoExternRefOperation(OPERATION_retain,<span class="keyword">self</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//这里返回值应该是id，原书这里应该是错了</span></div><div class="line">- (<span class="keyword">id</span>)release</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="keyword">id</span>)____CFDoExternRefOperation(OPERATION_release,<span class="keyword">self</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> __CFDoExternRefOperation(uintptr_t op, id obj) &#123;</div><div class="line">    CFBasicHashRef table = 取得对象的散列表(obj);</div><div class="line">    <span class="keyword">int</span> <span class="keyword">count</span>;</div><div class="line"> </div><div class="line">    <span class="keyword">switch</span> (op) &#123;</div><div class="line">    <span class="keyword">case</span> OPERATION_retainCount:</div><div class="line">        <span class="keyword">count</span> = CFBasicHashGetCountOfKey(table, obj);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">count</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> OPERATION_retain:</div><div class="line">        <span class="keyword">count</span> = CFBasicHashAddValue(table, obj);</div><div class="line">        <span class="keyword">return</span> obj;</div><div class="line">    </div><div class="line">    <span class="keyword">case</span> OPERATION_release:</div><div class="line">        <span class="keyword">count</span> = CFBasicHashRemoveValue(table, obj);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span> == <span class="keyword">count</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="autorelease-实现"><a href="#autorelease-实现" class="headerlink" title="autorelease 实现"></a>autorelease 实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">objc4/NSObject.mm AutoreleasePoolPage</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AutoreleasePoolPage</span></span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> *<span class="title">push</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//生成或者持有 NSAutoreleasePool 类对象</span></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">(<span class="keyword">void</span> *token)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//废弃 NSAutoreleasePool 类对象</span></div><div class="line">        releaseAll();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> id <span class="title">autorelease</span><span class="params">(id obj)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//相当于 NSAutoreleasePool 类的 addObject 类方法</span></div><div class="line">        AutoreleasePoolPage *page = 取得正在使用的 AutoreleasePoolPage 实例;</div><div class="line">       autoreleaesPoolPage-&gt;add(obj)</div><div class="line">    &#125;</div><div class="line">    <span class="function">id *<span class="title">add</span><span class="params">(id obj)</span></span></div><div class="line">    &#123;   </div><div class="line">        <span class="comment">//将对象追加到内部数组中</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">releaseAll</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">//调用内部数组中对象的 release 方法</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//压栈</span></div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">objc_autoreleasePoolPush</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (UseGC) <span class="keyword">return</span> nil;</div><div class="line">    <span class="keyword">return</span> AutoreleasePoolPage::push();</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//出栈</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_autoreleasePoolPop</span><span class="params">(<span class="keyword">void</span> *ctxt)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (UseGC) <span class="keyword">return</span>;</div><div class="line">    AutoreleasePoolPage::pop(ctxt);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>###苹果是如何实现autoreleasepool的？<br>autoreleasepool以一个队列数组的形式实现,主要通过下列三个函数完成.<br>• objc_autoreleasepoolPush（压入）<br>• objc_autoreleasepoolPop（弹出）<br>• objc_autorelease（释放内部）</p>
-<h3 id="strong内部实现："><a href="#strong内部实现：" class="headerlink" title="__strong内部实现："></a>__strong内部实现：</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="keyword">id</span> __<span class="keyword">strong</span> obj = [<span class="built_in">NSObject</span> alloc] init];<span class="comment">//obj持有对象</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>等同于：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> __<span class="keyword">strong</span> obj = [<span class="built_in">NSObject</span> alloc] init];<span class="comment">//obj持有对象</span></div><div class="line">[obj release];</div></pre></td></tr></table></figure>
-<p>使用命名规则以外的构造方法<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    id __strong<span class="built_in"> array </span>= [NSMutableArray array];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>等同于：</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">id obj = [NSMutableArray array];</div><div class="line">//obj 对 autoreleasePool 内的<span class="built_in"> array </span>对象引用加一</div><div class="line"></div><div class="line">[obj release];</div><div class="line"></div><div class="line"></div><div class="line">+ (id)array</div><div class="line">&#123;</div><div class="line">  <span class="built_in"> return </span>[[[NSMutableArray alloc] init] autorelease];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>ARC下，runtime有一套对autorelease返回值的优化策略。<br>=&gt; </p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"><span class="keyword">id</span> tmp = objc_retainAutoreleasedReturnValue([<span class="built_in">NSArray</span> array]); <span class="comment">// 代替我们调用retain</span></div><div class="line"><span class="keyword">id</span> obj = tmp;</div><div class="line">objc_storeStrong(&amp;obj,<span class="literal">nil</span>); <span class="comment">// 相当于代替我们调用了release</span></div><div class="line">&#125;</div><div class="line">+ (<span class="keyword">id</span>)array</div><div class="line">&#123;</div><div class="line"> <span class="keyword">id</span> tmp = [<span class="built_in">NSArray</span> array];</div><div class="line">   <span class="keyword">return</span> objc_autoreleaseReturnValue(tmp); <span class="comment">// 代替我们调用autorelease</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>实际代码中，苹果会进行优化 </p>
-<blockquote>
-<p>objc_retainAutoreleasedReturnValue的作用：持有对象，将对象注册到autoreleasepool并返回<br>objc_autoreleaseReturnValue:返回注册到autoreleasepool的对象</p>
-</blockquote>
-<h3 id="weak-实现"><a href="#weak-实现" class="headerlink" title="__weak 实现"></a>__weak 实现</h3><p>weak 不影响引用计数，可以打破循环引用<br>特点：<br>● 若使用__weak修饰符的变量引用对象被废弃时，则将nil赋值给该变量</p>
-<p>● 使用附有__weak修饰符的变量，就是使用注册到autoreleasepool的对象。</p>
-<blockquote>
-<p> weak 变量加入 autoreleasePool 的原因：__weak修饰符支持有对象的弱引用，在访问引用对象的过程中，该对象可能被释放。而如果将该对象加入到autoreleasepool中，在pool被释放之前，tmp对该对象的引用都是有效的。</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> obj = [Obj new];</div><div class="line">&#123;</div><div class="line">    <span class="keyword">id</span> __<span class="keyword">weak</span> weakObj = obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译器模拟代码：<br><figure class="highlight pony"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">id obj = [<span class="type">Obj</span> <span class="function"><span class="keyword">new</span>];</span></div><div class="line">&#123;</div><div class="line">    <span class="title">id</span> <span class="title">weakObject</span>;</div><div class="line">    <span class="comment">//初始化 weak 指针</span></div><div class="line">    <span class="title">objc_initWeak</span>(&amp;weakObject,obj);</div><div class="line">      /* <span class="title">objc_initWeak</span> 方法做了什么</div><div class="line">       &#123;</div><div class="line">        <span class="title">weakObject</span> = 0;</div><div class="line">        <span class="title">objc_storeWeak</span>(&amp;weakObj,obj);</div><div class="line">       &#125;</div><div class="line">      */</div><div class="line">    <span class="comment">//取出附有__weak修饰符变量所引用的对象并 retain</span></div><div class="line">    <span class="title">id</span> <span class="title">temp</span> = <span class="title">objc_loadWeakRetained</span>(&amp;weakObject);</div><div class="line">    <span class="comment">//将对象注册到autorelease中</span></div><div class="line">    <span class="title">object_autorelease</span>(temp);</div><div class="line">    </div><div class="line">    <span class="title">objc_destroyWeak</span>(&amp;weakObject);</div><div class="line">    /* <span class="title">objc_destroyWeak</span> 方法做了什么</div><div class="line">       &#123;</div><div class="line">        <span class="title">objc_storeWeak</span>(&amp;obj,<span class="number">0</span>);</div><div class="line">       &#125;</div><div class="line">      */</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>实际上，objc_storeWeak函数会把第二个参数的对象的地址作为key，并将第一个参数（<strong>weak关键字修饰的指针的地址）作为值，注册到weak表中。如果第二个参数为0（说明weak 变量超出了作用域），直接让 weakObject 变量置为 nil，</strong>weak关键字的核心思想！如果 obj release 释放 则通过 dealloc 调用的 objc_clear_deallocating 函数。</p>
-</blockquote>
-<p><strong>释放对象时，废弃对象的同时，程序的动作是怎样的呢？对象通过objc_release释放。</strong></p>
-<ol>
-<li><p>objc_release</p>
-</li>
-<li><p>因为引用计数为0所以执行dealloc</p>
-</li>
-<li><p>_objc_rootDealloc</p>
-</li>
-<li><p>object_dispose</p>
-</li>
-<li><p>objc_destructInstance</p>
-</li>
-<li><p>objc_clear_deallocating</p>
-</li>
-</ol>
-<p>而，调用objc_clear_deallocating的动作如下：</p>
-<ol>
-<li><p>从weak表中获取废弃对象的地址为键值的记录。</p>
-</li>
-<li><p>将包含在记录中的所有附有__weak修饰符变量的地址，赋值为nil</p>
-</li>
-<li><p>从weak表中删除记录</p>
-</li>
-<li><p>从引用计数表中删除废弃对象的地址作为键值的记录</p>
-</li>
-</ol>
-<h3 id="autorelease-的实现"><a href="#autorelease-的实现" class="headerlink" title="autorelease 的实现"></a>autorelease 的实现</h3><p>ARC 下 @autoreleasepool{} 的实现 </p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">id pool = objc_autoreleasePoolPush<span class="comment">()</span>;</div><div class="line"><span class="comment">// &#123;&#125;中的代码</span></div><div class="line">objc_autoreleasePoolPop<span class="comment">(pool)</span>;</div><div class="line"></div><div class="line"><span class="comment">// pool 指当前 autoreleasepool 哨兵对象的地址</span></div></pre></td></tr></table></figure>
-<p>objc_autoreleasePoolPush 与 objc_autoreleasePoolPop 都是对 AutoreleasePoolPage 的封装。</p>
-<p>AutoreleasepoolPage c++ 类</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">magic_t</span> <span class="keyword">const</span> magic;</div><div class="line">id * next; <span class="comment">//新对象将被加入的地址</span></div><div class="line"><span class="keyword">pthread_t</span> <span class="keyword">const</span> thread; <span class="comment">//当前线程</span></div><div class="line">AutoreleasePoolPage * <span class="keyword">const</span> parent; <span class="comment">//指向上一个 page</span></div><div class="line">AutoreleasePoolPage *child; <span class="comment">//指向下一个 page</span></div><div class="line"><span class="keyword">uint32_t</span> <span class="keyword">const</span> depth;</div><div class="line"><span class="keyword">uint32_t</span> hiwat;</div></pre></td></tr></table></figure>
-<ul>
-<li>AutoreleasePool并没有单独的结构，而是由若干个AutoreleasePoolPage以双向链表的形式组合而成（分别对应结构中的parent指针和child指针）</li>
-<li>AutoreleasePool是按线程一一对应的（结构中的thread指针指向当前线程）</li>
-<li>AutoreleasePoolPage每个对象会开辟4096字节内存（也就是虚拟内存一页的大小），除了上面的实例变量所占空间，剩下的空间全部用来储存autorelease对象的地址</li>
-<li>上面的id *next指针作为游标指向栈顶最新add进来的autorelease对象的下一个位置</li>
-<li>一个AutoreleasePoolPage的空间被占满时，会新建一个AutoreleasePoolPage对象，连接链表，后来的autorelease对象在新的page加入</li>
-</ul>
-<p>当前page页加入的autorelease对象后满了（也就是next指针指向了end），这时就要执行建立下一页page对象，与这一页链表连接完成后，新page的next指针被初始化在栈底（begin的位置），然后继续向栈顶添加新对象。</p>
-<p>所以，向一个对象发送- autorelease消息，就是将这个对象加入到当前AutoreleasePoolPage的栈顶next指针指向的位置</p>
-<h4 id="释放"><a href="#释放" class="headerlink" title="释放"></a>释放</h4><p>每当进行一次objc_autoreleasePoolPush调用时，runtime向当前的AutoreleasePoolPage中add进一个哨兵对象，值为0（也就是个nil）<br>objc_autoreleasePoolPush 的返回值正是这个哨兵对象的地址，被objc_autoreleasePoolPop(哨兵对象)作为入参，于是：</p>
-<p>根据传入的哨兵对象地址找到哨兵对象所处的page<br>在当前page中，将晚于哨兵对象插入的所有autorelease对象都发送一次- release消息，并向回移动next指针到正确位置<br>补充2：从最新加入的对象一直向前清理，可以向前跨越若干个page，直到哨兵所在的page</p>
-<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><p>知道了上面的原理，嵌套的AutoreleasePool就非常简单了，pop的时候总会释放到上次push的位置为止，多层的pool就是多个哨兵对象而已，就像剥洋葱一样，每次一层，互不影响。</p>
-<p>##参考<br><a href="https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank" rel="external">官方资料</a><br>其他参考资料：iOS 内存管理高级编程<br><a href="https://knightsj.github.io/2018/02/03/《Objective-C%20高级编程》干货三部曲（一）：引用计数篇/" target="_blank" rel="external">Objective-C 高级编程</a><br><a href="https://www.jianshu.com/p/6cf682f90fa2" target="_blank" rel="external">可能是史上最全面的内存管理文章</a><br><a href="https://www.jianshu.com/p/0ad9957e3716" target="_blank" rel="external">可能碰到的iOS笔试面试题（6）–内存管理</a></p>
-
+          <div class="read-more">
+            <a href="/2018/09/29/iOS高级编程ARC笔记.html" class="read-more-link">阅读更多</a>
+          </div>
         
       
     </div>
@@ -598,50 +529,6 @@
           <p>在 LBS 开发中，可能经常要碰到这样的问题，如何判断一个指定的经纬度点是否落在一个多边形区域内？比如在地图上画了一个多边形区域，然后给出一个经纬度点，怎样判断这个点是否在这个多边形范围之内？</p>
           <div class="read-more">
             <a href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/03/17/Swift-网络单元测试完全手册.html">Swift 网络单元测试完全手册</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-03-17
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p><img src="/images/blog04/01.png" alt="image">  </p>
-<p>不得不承认，对于 iOS 开发写测试并不是很普遍(至少和后端写测试程度相比)。我过去是个独立开发者而且最初也没经过原生“测试驱动”的开发培训，因此我花费了大量的时间来学习如何编写测试用例，如何写出可测试的代码。这也是我写这篇文章的初衷，我想把自己用 Swift 写测试时摸索到的心得分享给大家，希望我的见解能够帮助大家节省学习时间，少走些弯路。</p>
-          <div class="read-more">
-            <a href="/2018/03/17/Swift-网络单元测试完全手册.html" class="read-more-link">阅读更多</a>
           </div>
         
       
