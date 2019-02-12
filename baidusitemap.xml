@@ -4,6 +4,40 @@
 
     
   <url>
+    <loc>https://swants.cn/2019/02/12/%E4%BD%BF%E7%94%A8%20NSProxy%20%E4%BB%A3%E7%90%86%E8%A7%A3%E5%86%B3%20NSTimer%20%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F.html</loc>
+    <lastmod>2019-02-12T11:41:21.255Z</lastmod>
+    <data>
+        <display>
+        <title>使用 NSProxy 代理解决 NSTimer 内存泄漏</title>
+        <pubTime>2019-02-12T12:03:30.000Z</pubTime>
+        
+        <tag>内存泄漏</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://swants.cn/2018/08/15/%E5%85%B3%E4%BA%8E%E5%8D%95%E4%BE%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%80%9D%E8%80%83.html</loc>
+    <lastmod>2019-02-12T11:05:10.403Z</lastmod>
+    <data>
+        <display>
+        <title>关于单例的一个小思考</title>
+        <pubTime>2018-08-15T14:23:17.000Z</pubTime>
+        
+        <tag>单例</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://swants.cn/2018/12/29/%E8%8F%9C%E9%B8%A1%E6%98%AF%E5%A6%82%E4%BD%95%E5%BA%A6%E8%BF%872018%E5%B9%B4%E7%9A%84.html</loc>
     <lastmod>2018-12-29T12:53:13.824Z</lastmod>
     <data>
@@ -27,23 +61,6 @@
         <pubTime>2018-09-29T15:23:17.000Z</pubTime>
         
         <tag>ARC</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://swants.cn/2018/08/15/%E5%85%B3%E4%BA%8E%E5%8D%95%E4%BE%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%80%9D%E8%80%83.html</loc>
-    <lastmod>2018-12-20T14:29:29.236Z</lastmod>
-    <data>
-        <display>
-        <title>关于单例的一个小思考</title>
-        <pubTime>2018-08-15T14:23:17.000Z</pubTime>
-        
-        <tag>单例</tag>
          
          
            

@@ -175,6 +175,54 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/02/12/使用 NSProxy 代理解决 NSTimer 内存泄漏.html">使用 NSProxy 代理解决 NSTimer 内存泄漏</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-12
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="NSProxy-是什么"><a href="#NSProxy-是什么" class="headerlink" title="NSProxy 是什么?"></a>NSProxy 是什么?</h2><p><code>NSProxy</code> 是一个抽象根类。换句话说，</p>
+<ol>
+<li>它没有父类； </li>
+<li>它是一个抽象类，没有具体实现。 </li>
+</ol>
+<p>因此它常常作为其他对象或尚不存在对象的代理，定义对象的 API。</p>
+          <div class="read-more">
+            <a href="/2019/02/12/使用 NSProxy 代理解决 NSTimer 内存泄漏.html" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/12/29/菜鸡是如何度过2018年的.html">菜鸡是如何度过2018年的</a>
         
       </h1>
@@ -388,15 +436,14 @@
       
         
         
+          
+        
 
         
           <h3 id="单例的生命周期"><a href="#单例的生命周期" class="headerlink" title="单例的生命周期"></a>单例的生命周期</h3><p>iOS app 中单例一经创建，全局共享单例对象，单例的生命周期跟随app生命周期，那它的原理是什么呢？ </p>
-<p>答：先看单例写法：</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//全局的变量,指的就是Singleton这个对象,静态全局变量，始终指向实例化出的对象<span class="keyword"></span></div><div class="line">static id instance;</div><div class="line">   </div><div class="line">+ (instancetype)shareInstance&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">        </div><div class="line">        //创建类</div><div class="line">       <span class="built_in"> instance </span>= [[self alloc]init];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//创建alloc init 时候创建,会调用allocWithZone ,保证创建出来这个对象是唯一的</div><div class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone&#123;</div><div class="line">    </div><div class="line">   <span class="keyword"> static</span> dispatch_once_t onceToken;</div><div class="line">    dispatch_once(&amp;onceToken,^&#123;</div><div class="line">       </div><div class="line">        //返回自己</div><div class="line">       <span class="built_in"> instance </span>= [super allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//防止外界拷贝造成多个实例</div><div class="line">- (id)copyWithZone:(NSZone *)zone&#123;</div><div class="line">   <span class="built_in"> return </span>instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>首先使用 static 修饰符，声明了单例对象，这就意味着这个单例对象是在程序的数据区进行存储的，而数据区会跟随 app打开申请 app关闭释放。实现了单例生命周期跟随app的生命周期，这也解释了为什么每次打开app(非后台状态)单例对象就会重新初始化，造成单例上次保存的数据丢失。</p>
-<h4 id="那单例对象生命周期是否应该由-MRC-ARC-控制呢？"><a href="#那单例对象生命周期是否应该由-MRC-ARC-控制呢？" class="headerlink" title="那单例对象生命周期是否应该由 MRC/ARC 控制呢？"></a>那单例对象生命周期是否应该由 MRC/ARC 控制呢？</h4><p>答案也是否定的，因为无论 ARC 还是 MRC 都是管理用来管理堆上对象的生命周期的，而数据区的单例释放与否是由系统控制的，因此不应受他们控制，需要注意的是，在使用 MRC 时，单例调用 retain 确实会引起计数增加，而调用 release 则会直接崩溃，为了避免单例收到引用计数的干扰造成意想不到的后果，在 MRC 下需要覆盖retain autorelease retainCount release 这几个方法。重写这几个方法是为了单例能在MRC中使用。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - MRC中需要覆盖的方法, ARC与MRC的整合</span></div><div class="line"><span class="meta">#if !__has_feature(objc_arc)</span></div><div class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span> &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">id</span>)autorelease &#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release &#123;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="built_in">NSUInteger</span>)retainCount &#123;</div><div class="line">	<span class="keyword">return</span> <span class="built_in">UINT_MAX</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
-
+          <div class="read-more">
+            <a href="/2018/08/15/关于单例的一个小思考.html" class="read-more-link">阅读更多</a>
+          </div>
         
       
     </div>
@@ -498,49 +545,6 @@
   </article>
 
     
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html">如何判断某经纬度是否在地图不规则区域内</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-05-14
-        </span>
-        
-      </div>
-    </header>
-
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>在 LBS 开发中，可能经常要碰到这样的问题，如何判断一个指定的经纬度点是否落在一个多边形区域内？比如在地图上画了一个多边形区域，然后给出一个经纬度点，怎样判断这个点是否在这个多边形范围之内？</p>
-          <div class="read-more">
-            <a href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
   </section>
 
   
@@ -571,7 +575,7 @@
      
       2015 - 
     
-    2018
+    2019
 
   
 </div>

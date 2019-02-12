@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="使用 NSProxy 代理解决 NSTimer 内存泄漏"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2019/02/12/使用 NSProxy 代理解决 NSTimer 内存泄漏.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 使用 NSProxy 代理解决 NSTimer 内存泄漏 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          使用 NSProxy 代理解决 NSTimer 内存泄漏
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-12
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSProxy-是什么"><span class="toc-text">NSProxy 是什么?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-NSProxy-的简单介绍"><span class="toc-text">关于 NSProxy 的简单介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSProxy-为什么可以解决-NSTimer-循环引用"><span class="toc-text">NSProxy 为什么可以解决 NSTimer 循环引用?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决的其它正确姿势："><span class="toc-text">解决的其它正确姿势：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的解决方式："><span class="toc-text">错误的解决方式：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Proxy-怎么用"><span class="toc-text">Proxy 怎么用?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-text">参考文档</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="NSProxy-是什么"><a href="#NSProxy-是什么" class="headerlink" title="NSProxy 是什么?"></a>NSProxy 是什么?</h2><p><code>NSProxy</code> 是一个抽象根类。换句话说，</p>
+<ol>
+<li>它没有父类； </li>
+<li>它是一个抽象类，没有具体实现。 </li>
+</ol>
+<p>因此它常常作为其他对象或尚不存在对象的代理，定义对象的 API。</p>
+<a id="more"></a>
+<h3 id="关于-NSProxy-的简单介绍"><a href="#关于-NSProxy-的简单介绍" class="headerlink" title="关于 NSProxy 的简单介绍"></a>关于 NSProxy 的简单介绍</h3><p>通常，当 <code>proxy</code> 收到消息时，它会将消息转发给实际的处理对象，或加载/转换为实际的消息处理对象进行处理。<code>NSProxy</code> 的子类可以用于实现透明的消息转发（例如 <code>NSDistantObject</code>），或者用于延迟资源消耗较大对象的创建时机。</p>
+<p><code>NSProxy</code> 实现了作为根类需要实现的基本方法（包括 NSObject 协议方法），同时作为抽象类，<code>proxy</code> 不能提供初始化方法，当收到未实现的消息时抛出异常。<code>proxy</code> 正确实现的子类，必须提供一个初始化或创建方法，并且重写 <code>forwardInvocation:</code> 和 <code>methodSignatureForSelector:</code> 方法来处理它本身未实现的消息。</p>
+<blockquote>
+<p><code>forwardInvocation:</code> 将给定的调用传递给 proxy 实际代理的对象</p>
+<p><code>methodSignatureForSelector:</code> 默认抛出 <code>NSInvalidArgumentException</code>，重写这个方法可以为 <code>proxy</code> 代理对象返回一个合适的 <code>NSMethodSignature</code> 对象，</p>
+</blockquote>
+<h2 id="NSProxy-为什么可以解决-NSTimer-循环引用"><a href="#NSProxy-为什么可以解决-NSTimer-循环引用" class="headerlink" title="NSProxy 为什么可以解决 NSTimer 循环引用?"></a>NSProxy 为什么可以解决 NSTimer 循环引用?</h2><p>循环引用情况分析：<code>VC -&gt; timer -&gt; VC(target), runloop -&gt; timer</code></p>
+<p>基于 NSProxy 消息转发的特性，让 NSProxy 子类弱持有 target，将收到的消息转发给实际的消息处理类，即 VC。</p>
+<p>此时的引用情况： <code>VC —&gt; timer —&gt; Proxy --&gt; VC(target)， runloop —&gt; timer</code></p>
+<p>循环引用此时便被打破了，这样做的 <strong>好处</strong> 是易拓展，低耦和，符合设计模式中的开闭原则和迪米特法则。因此 在一些开源框架中常常使用 <code>proxy</code> 持有一个弱引用的 <code>target</code>， 来打破 <code>NSTimer</code>、<code>CADisplayLink</code> 与 <code>target</code> 之间的循环引用。</p>
+<h3 id="解决的其它正确姿势："><a href="#解决的其它正确姿势：" class="headerlink" title="解决的其它正确姿势："></a>解决的其它正确姿势：</h3><p>iOS 10 之后 NSTimer 提供了 block 支持的API，而 iOS 10 之前循环引用的常见解决方式：</p>
+<ol>
+<li><p><code>VC</code> 弱引用 timer，在 <code>VC</code> 的 <code>viewWillDisappear:</code> 中调用 <code>invalidate</code> 废弃 <code>timer</code><br>引用情况为 <code>VC --&gt; timer —&gt; VC(target),  runloop —&gt; timer</code></p>
+</li>
+<li><p>添加 <code>NSTimer</code> 分类 结合 <code>Block</code> 调用定时方法，<code>VC</code> 的 <code>dealloc</code> 方法中调用 <code>invalidate</code><br><code>VC —&gt; timer —&gt; NSTimer(target 类方法执行 block), runloop —&gt; timer</code></p>
+</li>
+<li><p>使用中间类进行解耦，中间类弱引用 target并重写消息转发方法 <code>forwardInvocation</code> 让 <code>VC</code> 处理消息<br><code>VC —&gt; timer —&gt; MiddleClass(消息转发给 target 处理) --&gt; VC(target)， runloop —&gt; timer</code></p>
+<blockquote>
+<p>最后一点本质上和使用 NSProxy 相同，而使用 Proxy 代理的优点是：可以直接进行消息转发，和第三点相比跳过了消息派发和动态方法解析阶段，因此效率较高一些。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="错误的解决方式："><a href="#错误的解决方式：" class="headerlink" title="错误的解决方式："></a>错误的解决方式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__weak typeof(self) weakSelf = self;</div><div class="line">_timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:weakSelf selector:@selector(doSomthing) userInfo:nil repeats:YES];</div></pre></td></tr></table></figure>
+<p>即使 <code>weakSelf</code> 并将 <code>target</code> 指向 <code>weakSelf</code>， <code>timer</code> 还是会强引用 <code>self</code>。因为所有权修饰符无论是 <code>__weak</code> 还是 <code>__strong</code> ，在 <code>NSTimer</code> 中都会生成新的强引用指针重新指向，导致循环引用的。</p>
+<blockquote>
+<p>apple 文档：The timer maintains a strong reference to target until it (the timer) is invalidated.</p>
+</blockquote>
+<h2 id="Proxy-怎么用"><a href="#Proxy-怎么用" class="headerlink" title="Proxy 怎么用?"></a>Proxy 怎么用?</h2><p>YYImage 内 Proxy 比较规范的实现：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> A proxy used to hold a weak object.</div><div class="line"> It can be used to avoid retain cycles, such as the target in NSTimer or CADisplayLink.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">_YYImageWeakProxy</span> : <span class="title">NSProxy</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, <span class="keyword">readonly</span>) <span class="keyword">id</span> target;</div><div class="line">- (<span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target;</div><div class="line">+ (<span class="keyword">instancetype</span>)proxyWithTarget:(<span class="keyword">id</span>)target;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">_YYImageWeakProxy</span></span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target &#123;</div><div class="line">    _target = target;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line">+ (<span class="keyword">instancetype</span>)proxyWithTarget:(<span class="keyword">id</span>)target &#123;</div><div class="line">    <span class="keyword">return</span> [[_YYImageWeakProxy alloc] initWithTarget:target];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 将消息转发给实际处理类</span></div><div class="line">- (<span class="keyword">id</span>)forwardingTargetForSelector:(SEL)selector &#123;</div><div class="line">    <span class="keyword">return</span> _target;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 防止抛出异常</span></div><div class="line">- (<span class="keyword">void</span>)forwardInvocation:(<span class="built_in">NSInvocation</span> *)invocation &#123;</div><div class="line">    <span class="keyword">void</span> *null = <span class="literal">NULL</span>;</div><div class="line">    [invocation setReturnValue:&amp;null];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 这里默认返回init 方法的签名，目的是防止抛出异常</span></div><div class="line">- (<span class="built_in">NSMethodSignature</span> *)methodSignatureForSelector:(SEL)selector &#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSObject</span> instanceMethodSignatureForSelector:<span class="keyword">@selector</span>(init)];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Proxy 其它的一些自省方法，可不实现</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)respondsToSelector:(SEL)aSelector &#123;</div><div class="line">    <span class="keyword">return</span> [_target respondsToSelector:aSelector];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">BOOL</span>)isEqual:(<span class="keyword">id</span>)object &#123;</div><div class="line">    <span class="keyword">return</span> [_target isEqual:object];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSUInteger</span>)hash &#123;</div><div class="line">    <span class="keyword">return</span> [_target hash];</div><div class="line">&#125;</div><div class="line">- (Class)superclass &#123;</div><div class="line">    <span class="keyword">return</span> [_target superclass];</div><div class="line">&#125;</div><div class="line">- (Class)<span class="keyword">class</span> &#123;</div><div class="line">    <span class="keyword">return</span> [_target <span class="keyword">class</span>];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">BOOL</span>)isKindOfClass:(Class)aClass &#123;</div><div class="line">    <span class="keyword">return</span> [_target isKindOfClass:aClass];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">BOOL</span>)isMemberOfClass:(Class)aClass &#123;</div><div class="line">    <span class="keyword">return</span> [_target isMemberOfClass:aClass];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">BOOL</span>)conformsToProtocol:(Protocol *)aProtocol &#123;</div><div class="line">    <span class="keyword">return</span> [_target conformsToProtocol:aProtocol];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">BOOL</span>)isProxy &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)description &#123;</div><div class="line">    <span class="keyword">return</span> [_target description];</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)debugDescription &#123;</div><div class="line">    <span class="keyword">return</span> [_target debugDescription];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><p>NSTimer 文档: <a href="https://developer.apple.com/documentation/foundation/nstimer" target="_blank" rel="external">https://developer.apple.com/documentation/foundation/nstimer</a></p>
+</li>
+<li><p>NSProxy 文档: <a href="https://developer.apple.com/documentation/foundation/nsproxy" target="_blank" rel="external">https://developer.apple.com/documentation/foundation/nsproxy</a> </p>
+</li>
+<li><p>YYImage: <a href="https://github.com/ibireme/YYImage" target="_blank" rel="external">https://github.com/ibireme/YYImage</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/内存泄漏/">内存泄漏</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/29/菜鸡是如何度过2018年的.html">
+        <span class="next-text nav-default">菜鸡是如何度过2018年的</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
