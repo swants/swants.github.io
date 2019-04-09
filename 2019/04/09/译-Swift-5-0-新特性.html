@@ -190,14 +190,14 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Swift-5-0-新特性"><span class="toc-text">Swift 5.0 新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标准-Result-类型"><span class="toc-text">标准 Result 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raw-string"><span class="toc-text">Raw string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customizing-string-interpolation"><span class="toc-text">Customizing string interpolation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态可调用（dynamicCallable）类型"><span class="toc-text">动态可调用（dynamicCallable）类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向未来的枚举-case"><span class="toc-text">面向未来的枚举 case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try-嵌套可选的展平"><span class="toc-text">try? 嵌套可选的展平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer-整倍数自省"><span class="toc-text">Integer 整倍数自省</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-compactMapValues-转换和解包字典值"><span class="toc-text">使用 compactMapValues() 转换和解包字典值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#被移除的特性：计算序列中的匹配项"><span class="toc-text">被移除的特性：计算序列中的匹配项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来干嘛？"><span class="toc-text">接下来干嘛？</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#标准-Result-类型"><span class="toc-text">标准 Result 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raw-string"><span class="toc-text">Raw string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customizing-string-interpolation"><span class="toc-text">Customizing string interpolation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态可调用（dynamicCallable）类型"><span class="toc-text">动态可调用（dynamicCallable）类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向未来的枚举-case"><span class="toc-text">面向未来的枚举 case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try-嵌套可选的展平"><span class="toc-text">try? 嵌套可选的展平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer-整倍数自省"><span class="toc-text">Integer 整倍数自省</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-compactMapValues-转换和解包字典值"><span class="toc-text">使用 compactMapValues() 转换和解包字典值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#被移除的特性：计算序列中的匹配项"><span class="toc-text">被移除的特性：计算序列中的匹配项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来干嘛？"><span class="toc-text">接下来干嘛？</span></a></li></ol>
     </div>
   </div>
 
 
     <div class="post-content">
       
-        <h1 id="Swift-5-0-新特性"><a href="#Swift-5-0-新特性" class="headerlink" title="Swift 5.0 新特性"></a>Swift 5.0 新特性</h1><p><img src="https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg" alt=""></p>
+        <p><img src="https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg" alt=""></p>
 <p>Swift 5.0 是 Swift 的下一个主要的 release，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，<code>Result</code> 类型，检查整数倍数等等。</p>
 <ul>
 <li><strong>你可以亲自尝试一下</strong>：我创建了一个 <a href="https://github.com/twostraws/whats-new-in-swift-5-0" target="_blank" rel="external">Xcode Playground</a> 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。</li>
@@ -365,9 +365,6 @@
 <li><a href="https://www.hackingwithswift.com/swift4" target="_blank" rel="external">What’s new in Swift 4.0?</a></li>
 </ul>
 <p>但还有更多，苹果已经在 Swift.org 上宣布了 <a href="https://swift.org/blog/5-1-release-process/" target="_blank" rel="external">Swift 5.1发布流程</a>，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1 的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。</p>
-<blockquote>
-<p>如果发现译文存在错误或其他需要改进的地方，欢迎到 <a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a> 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 <strong>本文永久链接</strong> 即为本文在 GitHub 上的 MarkDown 链接。</p>
-</blockquote>
 <hr>
 <blockquote>
 <ul>
