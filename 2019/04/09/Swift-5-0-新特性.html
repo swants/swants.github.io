@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Swift 5.0 新特性"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2019/04/09/Swift-5-0-新特性.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> Swift 5.0 新特性 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Swift 5.0 新特性
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-04-09
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#标准-Result-类型"><span class="toc-text">标准 Result 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raw-string"><span class="toc-text">Raw string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customizing-string-interpolation"><span class="toc-text">Customizing string interpolation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态可调用（dynamicCallable）类型"><span class="toc-text">动态可调用（dynamicCallable）类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向未来的枚举-case"><span class="toc-text">面向未来的枚举 case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try-嵌套可选的展平"><span class="toc-text">try? 嵌套可选的展平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer-整倍数自省"><span class="toc-text">Integer 整倍数自省</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-compactMapValues-转换和解包字典值"><span class="toc-text">使用 compactMapValues() 转换和解包字典值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#被移除的特性：计算序列中的匹配项"><span class="toc-text">被移除的特性：计算序列中的匹配项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来干嘛？"><span class="toc-text">接下来干嘛？</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><img src="https://www.hackingwithswift.com/uploads/swift-evolution-5.jpg" alt=""></p>
+<p>Swift 5.0 是 Swift 的下一个主要的 release，随之而来的是 ABI 的稳定性，同时还实现了几个关键的新功能，包括 raw string，未来的枚举 case，<code>Result</code> 类型，检查整数倍数等等。</p>
+<ul>
+<li><strong>你可以亲自尝试一下</strong>：我创建了一个 <a href="https://github.com/twostraws/whats-new-in-swift-5-0" target="_blank" rel="external">Xcode Playground</a> 来展示 Swift 5.0 的新特性，里面有一些你可以参考的例子。</li>
+</ul>
+<a id="more"></a>
+<h3 id="标准-Result-类型"><a href="#标准-Result-类型" class="headerlink" title="标准 Result 类型"></a>标准 <code>Result</code> 类型</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=RBZFCp3kSLM" target="_blank" rel="external"><strong>YouTube 视频讲解</strong></a></li>
+</ul>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md" target="_blank" rel="external">SE-0235</a> 在标准库中引入了全新的 <code>Result</code> 类型，它让我们能够更加方便清晰地在复杂的代码中处理 error，例如异步 API。</p>
+<p>Swift 的 <code>Result</code> 类型是用枚举实现的，其中包含了 <code>success</code> 和 <code>failure</code>。它们两者都使用泛型，因此你可以为它们指定任意类型。但是 <code>failure</code> 必须遵循 Swift 的 <code>Error</code> 协议。</p>
+<p>为了进一步演示 <code>Result</code>，我们可以写一个网络请求函数来计算用户有多少未读消息。在此示例代码中，我们将只有一个可能的错误，即请求的字符串不是有效的 URL：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">NetworkError</span>: <span class="title">Error</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> badURL</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>fetch 函数将接受 URL 字符串作为其第一个参数，并将 completion 闭包作为其第二个参数。该 completion 闭包本身将接受一个 <code>Result</code>，其中 success 将存储一个整数，failure 将是某种 <code>NetworkError</code>。我们实际上并没有在这里连接到服务器，但使用 completion 闭包可以让我们模拟异步代码。</p>
+<p>代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchUnreadCount1</span><span class="params">(from urlString: String, completionHandler: @escaping <span class="params">(Result&lt;Int, NetworkError&gt;)</span></span></span> -&gt; <span class="type">Void</span>)  &#123;</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: urlString) <span class="keyword">else</span> &#123;</div><div class="line">        completionHandler(.failure(.badURL))</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 此处省略复杂的网络请求</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"Fetching <span class="subst">\(url.absoluteString)</span>..."</span>)</div><div class="line">    completionHandler(.success(<span class="number">5</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要调用此函数，我们需要检查 <code>Result</code> 中的值来看看我们的请求是成功还是失败，代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">fetchUnreadCount1(from: <span class="string">"https://www.hackingwithswift.com"</span>) &#123; result <span class="keyword">in</span></div><div class="line">    <span class="keyword">switch</span> result &#123;</div><div class="line">    <span class="keyword">case</span> .success(<span class="keyword">let</span> <span class="built_in">count</span>):</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(<span class="built_in">count</span>)</span> 个未读信息。"</span>)</div><div class="line">    <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</div><div class="line">        <span class="built_in">print</span>(error.localizedDescription)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在开始在自己的代码中使用 <code>Result</code> 之前，你还有三件事应该知道。</p>
+<p>首先，<code>Result</code> 有一个 <code>get()</code> 方法，如果存在则返回成功值，否则抛出错误。这允许你将 <code>Result</code> 转换为常规会抛出错误的函数调用，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">fetchUnreadCount1(from: <span class="string">"https://www.hackingwithswift.com"</span>) &#123; result <span class="keyword">in</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="built_in">count</span> = <span class="keyword">try</span>? result.<span class="keyword">get</span>() &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(<span class="built_in">count</span>)</span> 个未读信息。"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其次，<code>Result</code> 还有一个接受抛出错误闭包的初始化器：如果闭包返回一个成功的值，用于 <code>success</code> 的情况，否则抛出的错误则被传入 <code>failure</code>。</p>
+<p>举例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> result = <span class="type">Result</span> &#123; <span class="keyword">try</span> <span class="type">String</span>(contentsOfFile: someFile) &#125;</div></pre></td></tr></table></figure>
+<p>第三，你可以使用通用的 <code>Error</code> 协议而不是你创建的特定错误的枚举。实际上，Swift Evolution 提议说道“预计 Result 的大部分用法都会使用 <code>Swift.Error</code> 作为 <code>Error</code> 类型参数。”</p>
+<p>因此你要用 <code>Result &lt;Int，Error&gt;</code> 而非 <code>Result&lt;Int, NetworkError&gt;</code>。这虽然意味着你失去了可抛出错误类型的安全性，但你可以抛出各种不同的错误枚举，其实这取决于你的代码风格。</p>
+<h3 id="Raw-string"><a href="#Raw-string" class="headerlink" title="Raw string"></a>Raw string</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=e6tuUzmxyOU" target="_blank" rel="external"><strong>YouTube 视频讲解</strong></a></li>
+</ul>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md" target="_blank" rel="external">SE-0200</a> 添加了创建原始字符串（raw string）的功能，其中反斜杠和井号是被作为标点符号而不是转义字符或字符串终止符。这使得许多用法变得更容易，特别是正则表达式。</p>
+<p>要使用原始字符串，请在字符串前放置一个或多个 <code>#</code>，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> rain = #<span class="string">"西班牙"</span>下的<span class="string">"雨"</span>主要落在西班牙人的身上。<span class="string">"#</span></div></pre></td></tr></table></figure>
+<p>字符串开头和结尾的 <code>#</code> 成为字符串分隔符的一部分，因此 Swift 明白 “雨” 和 “西班牙” 两边独立引号应该被视为标点符号而不是终止符。</p>
+<p>原始字符串也允许你使用反斜杠：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> keypaths = #<span class="string">"诸如 \Person.name 之类的 Swift keyPath 包含对属性未调用的引用。"</span>#</div></pre></td></tr></table></figure>
+<p>这将反斜杠视为字符串中的文字字符而不是转义字符。不然则意味着字符串插值的工作方式不同：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> answer = <span class="number">42</span></div><div class="line"><span class="keyword">let</span> dontpanic = #<span class="string">"生命、宇宙及万事万物的终极答案都是 \#(answer)."</span>#</div></pre></td></tr></table></figure>
+<p>请注意我是如何使用 <code>\#(answer)</code> 来调用字符串插值的，一般 <code>\(answer)</code> 将被解释为 answer 字符串中的字符，所以当你想要在原始字符串中进行引用字符串插值时你必须添加额外的 <code>＃</code>。</p>
+<p>Swift 原始字符串的一个有趣特性是在开头和结尾使用井号，因为你一般不会一下使用多个井号。这里很难提供一个很好的例子，因为它真的应该非常罕见，但请考虑这个字符串：<strong>我的狗叫了一下 “汪”#好狗狗</strong>。因为在井号之前没有空格，Swift 看到 <code>&quot;#</code> 会立即把它作为字符串终止符。在这种情况下，我们需要将分隔符从 <code>#&quot;</code> 改为 <code>##&quot;</code>，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> str = ##<span class="string">"我的狗叫了一下 "</span>汪<span class="string">"#乖狗狗"</span>##</div></pre></td></tr></table></figure>
+<p>注意末尾的井号数必须与开头的一致。</p>
+<p>原始字符串与 Swift 的多行字符串系统完全兼容，只需使用 <code>#&quot;&quot;&quot;</code> 开始，然后以 <code>&quot;&quot;&quot;#</code> 结束，如下所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let multiline = #"""</div><div class="line">生命、</div><div class="line">宇宙,</div><div class="line">以及众生的答案都是 \#(answer).</div><div class="line">"""#</div></pre></td></tr></table></figure>
+<p>能在正则表达式中不再大量使用反斜杠足以证明这很有用。例如编写一个简单的正则表达式来查询关键路径，例如 <code>\Person.name</code>，看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> regex1 = <span class="string">"\\\\[A-Z]+[A-Za-z]+\\.[a-z]+"</span></div></pre></td></tr></table></figure>
+<p>多亏了原始字符串，我们可以只用原来一半的反斜杠就可以编写相同的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> regex2 = #<span class="string">"\\[A-Z]+[A-Za-z]+\.[a-z]+"</span>#</div></pre></td></tr></table></figure>
+<p>我们仍然需要 <strong>一些</strong> 反斜杠，因为正则表达式也使用它们。</p>
+<h3 id="Customizing-string-interpolation"><a href="#Customizing-string-interpolation" class="headerlink" title="Customizing string interpolation"></a>Customizing string interpolation</h3><p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0228-fix-expressiblebystringinterpolation.md" target="_blank" rel="external">SE-0228</a> 大幅改进了 Swift 的字符串插值系统，使其更高效、灵活，并创造了以前不可能实现的全新功能。</p>
+<p>在最基本的形式中，新的字符串插值系统让我们可以控制对象在字符串中的显示方式。Swift 具有有助于调试的结构体的默认行为，它打印结构体名称后跟其所有属性。但是如果你使用类的话就没有这种行为，或者想要格式化该输出以使其面向用户，那么你可以使用新的字符串插值系统。</p>
+<p>例如，如果我们有这样的结构体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> name: <span class="type">String</span></div><div class="line">    <span class="keyword">var</span> age: <span class="type">Int</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果我们想为它添加一个特殊的字符串插值，以便我们整齐地打印用户信息，我们将使用一个新的 <code>appendInterpolation()</code> 方法为 <code>String.StringInterpolation</code> 添加一个 extension。Swift 已经内置了几个，并且用户插值 <strong>类型</strong>，在这种情况下需要 <code>User</code> 来确定要调用哪个方法。</p>
+<p>在这种情况下，我们将添加一个实现，将用户的名称和年龄放入一个字符串中，然后调用其中一个内置的 <code>appendInterpolation()</code> 方法将其添加到我们的字符串中，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span>.<span class="title">StringInterpolation</span> </span>&#123;</div><div class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(<span class="number">_</span> value: User)</span></span> &#123;</div><div class="line">        appendInterpolation(<span class="string">"我叫<span class="subst">\(value.name)</span>，<span class="subst">\(value.age)</span>岁"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们可以创建一个用户并打印出他们的数据：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> user = <span class="type">User</span>(name: <span class="string">"Guybrush Threepwood"</span>, age: <span class="number">33</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"用户信息：<span class="subst">\(user)</span>"</span>)</div></pre></td></tr></table></figure>
+<p>这将打印 <strong>用户信息：我叫 Guybrush Threepwood，33 岁</strong>，而使用自定义字符串插值它将打印 <strong>用户信息：User(name: “Guybrush Threepwood”, age: 33)</strong> 。当然，该功能与仅实现<code>CustomStringConvertible</code> 协议没有什么不同，所以让我们继续使用更高级的用法。</p>
+<p>你的自定义插值方法可以根据需要使用任意数量的参数，标记的和未标记的。例如，我们可以使用各种样式添加插值来打印数字，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span>.<span class="title">StringInterpolation</span> </span>&#123;</div><div class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(<span class="number">_</span> number: Int, style: NumberFormatter.Style)</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> formatter = <span class="type">NumberFormatter</span>()</div><div class="line">        formatter.numberStyle = style</div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> result = formatter.string(from: number <span class="keyword">as</span> <span class="type">NSNumber</span>) &#123;</div><div class="line">            appendLiteral(result)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>NumberFormatter</code> 类有许多样式，包括货币形式（489.00 元），序数形式（第一，第十二）和朗读形式（五, 四十三）。 因此，我们可以创建一个随机数，并将其拼写成如下字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> number = <span class="type">Int</span>.random(<span class="keyword">in</span>: <span class="number">0</span>...<span class="number">100</span>)</div><div class="line"><span class="keyword">let</span> lucky = <span class="string">"这周的幸运数是 <span class="subst">\(number, style: .spellOut)</span>."</span></div><div class="line"><span class="built_in">print</span>(lucky)</div></pre></td></tr></table></figure>
+<p>你可以根据需要多次调用 <code>appendLiteral()</code>，如果需要的话甚至可以不调用。例如我们可以添加一个字符串插值来多次重复一个字符串，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span>.<span class="title">StringInterpolation</span> </span>&#123;</div><div class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(<span class="keyword">repeat</span> str: String, <span class="number">_</span> <span class="built_in">count</span>: Int)</span></span> &#123;</div><div class="line">        <span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">0</span> ..&lt; <span class="built_in">count</span> &#123;</div><div class="line">            appendLiteral(str)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"Baby shark <span class="subst">\(<span class="keyword">repeat</span>: "doo ", <span class="number">6</span>)</span>"</span>)</div></pre></td></tr></table></figure>
+<p>由于这些只是常规方法，你可以使用 Swift 的全部功能。例如，我们可能会添加一个将字符串数组连接在一起的插值，但如果该数组为空，则执行一个返回字符串的闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span>.<span class="title">StringInterpolation</span> </span>&#123;</div><div class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(<span class="number">_</span> values: [String], empty defaultValue: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) &#123;</div><div class="line">        <span class="keyword">if</span> values.<span class="built_in">count</span> == <span class="number">0</span> &#123;</div><div class="line">            appendLiteral(defaultValue())</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            appendLiteral(values.joined(separator: <span class="string">", "</span>))</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> names = [<span class="string">"Harry"</span>, <span class="string">"Ron"</span>, <span class="string">"Hermione"</span>]</div><div class="line"><span class="built_in">print</span>(<span class="string">"学生姓名：<span class="subst">\(names, empty: "空")</span>."</span>)</div></pre></td></tr></table></figure>
+<p>使用 <code>@autoclosure</code> 意味着我们可以使用简单值或调用复杂函数作为默认值，但除非 <code>values.count</code> 为零，否则不会做任何事。</p>
+<p>通过结合使用 <code>ExpressibleByStringLiteral</code> 和 <code>ExpressibleByStringInterpolation</code> 协议，我们现在可以使用字符串插值创建整个类型，如果我们添加 <code>CustomStringConvertible</code>，只要我们想要的话，甚至可以将这些类型打印为字符串。</p>
+<p>为了让它生效，我们需要满足一些特定的标准：</p>
+<ul>
+<li>我们创建的类型应该遵循 <code>ExpressibleByStringLiteral</code>，<code>ExpressibleByStringInterpolation</code> 和 <code>CustomStringConvertible</code>。只有在你想要自定义打印类型的方式时才需要遵循最后一个协议。</li>
+<li>在你的类型 <strong>内部</strong> 需要是一个名为 <code>StringInterpolation</code> 并遵循 <code>StringInterpolationProtocol</code> 的嵌套结构体。</li>
+<li>嵌套结构体需要有一个初始化器，它接受两个整数，告诉我们大概预期的数据量。</li>
+<li>它还需要实现一个 <code>appendLiteral()</code> 方法，以及一个或多个 <code>appendInterpolation()</code> 方法。</li>
+<li>你的主类型需要有两个初始化器，允许从字符串文字和字符串插值创建它。</li>
+</ul>
+<p>我们可以将所有这些放在一个可以从各种常见元素构造 HTML 的示例类型中。嵌套 <code>StringInterpolation</code> 结构体中的 “暂存器” 将是一个字符串：每次添加新的文字或插值时，我们都会将其追加到字符串的末尾。为了让你确切了解其中发生了什么，我在各种追加方法中添加了一些 <code>print()</code> 来打印。</p>
+<p>以下是代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HTMLComponent</span>: <span class="title">ExpressibleByStringLiteral</span>, <span class="title">ExpressibleByStringInterpolation</span>, <span class="title">CustomStringConvertible</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">StringInterpolation</span>: <span class="title">StringInterpolationProtocol</span> </span>&#123;</div><div class="line">        <span class="comment">// 以空字符串开始</span></div><div class="line">        <span class="keyword">var</span> output = <span class="string">""</span></div><div class="line"></div><div class="line">        <span class="comment">// 分配足够的空间来容纳双倍文字的文本</span></div><div class="line">        <span class="keyword">init</span>(literalCapacity: <span class="type">Int</span>, interpolationCount: <span class="type">Int</span>) &#123;</div><div class="line">            output.reserveCapacity(literalCapacity * <span class="number">2</span>)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 一段硬编码的文本，只需添加它就可以</span></div><div class="line">        <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendLiteral</span><span class="params">(<span class="number">_</span> literal: String)</span></span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"追加 ‘<span class="subst">\(literal)</span>’"</span>)</div><div class="line">            output.append(literal)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Twitter 用户名，将其添加为链接</span></div><div class="line">        <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(twitter: String)</span></span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"追加 ‘<span class="subst">\(twitter)</span>’"</span>)</div><div class="line">            output.append(<span class="string">"&lt;a href=\"https://twitter/<span class="subst">\(twitter)</span>\"&gt;@<span class="subst">\(twitter)</span>&lt;/a&gt;"</span>)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 电子邮件地址，使用 mailto 添加</span></div><div class="line">        <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span><span class="params">(email: String)</span></span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"追加 ‘<span class="subst">\(email)</span>’"</span>)</div><div class="line">            output.append(<span class="string">"&lt;a href=\"mailto:<span class="subst">\(email)</span>\"&gt;<span class="subst">\(email)</span>&lt;/a&gt;"</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 整个组件的完整文本</span></div><div class="line">    <span class="keyword">let</span> description: <span class="type">String</span></div><div class="line"></div><div class="line">    <span class="comment">// 从文字字符串创建实例</span></div><div class="line">    <span class="keyword">init</span>(stringLiteral value: <span class="type">String</span>) &#123;</div><div class="line">        description = value</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 从插值字符串创建实例</span></div><div class="line">    <span class="keyword">init</span>(stringInterpolation: <span class="type">StringInterpolation</span>) &#123;</div><div class="line">        description = stringInterpolation.output</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们现在可以使用字符串插值创建和使用 <code>HTMLComponent</code> 的实例，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> text: <span class="type">HTMLComponent</span> = <span class="string">"你应该在 Twitter 上关注我 <span class="subst">\(twitter: "twostraws")</span>，或者你可以发送电子邮件给我 <span class="subst">\(email: "paul@hackingwithswift.com")</span>。"</span></div><div class="line"><span class="built_in">print</span>(text)</div></pre></td></tr></table></figure>
+<p>多亏了分散在里面的 <code>print()</code>，你会看到字符串插值功能的准确作用：“追加 ‘你应该在 Twitter 上关注我’”，“追加 ’twostraws’”，“追加 ’，或者你可以发送电子邮件给我 ’”，“追加 ’paul@hackingwithswift.com’”，最后 “追加 ’。’”，每个部分触发一个方法调用，并添加到我们的字符串中。</p>
+<h3 id="动态可调用（dynamicCallable）类型"><a href="#动态可调用（dynamicCallable）类型" class="headerlink" title="动态可调用（dynamicCallable）类型"></a>动态可调用（dynamicCallable）类型</h3><p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md" target="_blank" rel="external">SE-0216</a> 为 Swift 添加了一个新的 <code>@dynamicCallable</code> 注解，它让一个类型能被直接调用。它是语法糖，而不是任何类型的编译器的魔法，它把以下这段代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> result = random(numberOfZeroes: <span class="number">3</span>)</div></pre></td></tr></table></figure>
+<p>转换为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> result = random.dynamicallyCall(withKeywordArguments: [<span class="string">"numberOfZeroes"</span>: <span class="number">3</span>])</div></pre></td></tr></table></figure>
+<p>之前有一篇关于 <a href="https://juejin.im/post/5bfd087be51d457a013940e8" target="_blank" rel="external">Swift 中的动态特性</a> 的文章里有提到了动态查找成员（@dynamicMemberLookup）。<code>@dynamicCallable</code> 是 <code>@dynamicMemberLookup</code> 的自然扩展，它能使 Swift 代码更容易与 Python 和 JavaScript 等动态语言一起工作。</p>
+<p>要将此功能添加到你自己的类型，你需要添加 <code>@dynamicCallable</code> 注解以及这些方法中的一个或两个：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dynamicallyCall</span><span class="params">(withArguments args: [Int])</span></span> -&gt; <span class="type">Double</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dynamicallyCall</span><span class="params">(withKeywordArguments args: KeyValuePairs&lt;String, Int&gt;)</span></span> -&gt; <span class="type">Double</span></div></pre></td></tr></table></figure>
+<p>第一个用于调用不带参数标签的类型（例如 <code>a(b, c)</code>），第二个用于你 <strong>提供标签</strong> 时（例如 <code>a(b: cat, c: dog)</code>）。</p>
+<p><code>@dynamicCallable</code> 对于其方法接受和返回的数据类型非常灵活，它使你可以从 Swift 的所有类型安全性中受益，同时具有一些高级用法。因此，对于第一种方法（无参数标签），你可以使用遵循了 <code>ExpressibleByArrayLiteral</code> 的任何东西，例如数组、数组切片和集合，对于第二种方法（使用参数标签），你可以使用遵循 <code>ExpressibleByDictionaryLiteral</code> 的任何东西。例如字典和键值对。</p>
+<p>除了接受各种输入外，你还可以为各种输出提供多个重载，可能返回一个字符串、整数等等。只要 Swift 能推出使用哪一个，你就可以混合搭配你想要的一切。</p>
+<p>我们来看一个例子。首先，这是一个 <code>RandomNumberGenerator</code> 结构体，它根据传入的输入生成介于 0 和某个最大值之间的数字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RandomNumberGenerator</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">generate</span><span class="params">(numberOfZeroes: Int)</span></span> -&gt; <span class="type">Double</span> &#123;</div><div class="line">        <span class="keyword">let</span> maximum = pow(<span class="number">10</span>, <span class="type">Double</span>(numberOfZeroes))</div><div class="line">        <span class="keyword">return</span> <span class="type">Double</span>.random(<span class="keyword">in</span>: <span class="number">0</span>...maximum)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要把它切换到 <code>@dynamicCallable</code>，我们会写这样的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@dynamicCallable</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RandomNumberGenerator</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dynamicallyCall</span><span class="params">(withKeywordArguments args: KeyValuePairs&lt;String, Int&gt;)</span></span> -&gt; <span class="type">Double</span> &#123;</div><div class="line">        <span class="keyword">let</span> numberOfZeroes = <span class="type">Double</span>(args.first?.value ?? <span class="number">0</span>)</div><div class="line">        <span class="keyword">let</span> maximum = pow(<span class="number">10</span>, numberOfZeroes)</div><div class="line">        <span class="keyword">return</span> <span class="type">Double</span>.random(<span class="keyword">in</span>: <span class="number">0</span>...maximum)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你可以传任意数量的参数甚至不传参数来调用该方法，因此我们小心读取第一个值并结合是否为 nil 的判断来确保存在合理的默认值。</p>
+<p>我们现在可以创建一个 <code>RandomNumberGenerator</code> 实例并像函数一样调用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> random = <span class="type">RandomNumberGenerator</span>()</div><div class="line"><span class="keyword">let</span> result = random(numberOfZeroes: <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>如果你曾经使用过 <code>dynamicallyCall(withArguments:)</code>，或者同时使用，因为你可以让它们都是单一类型，就可以写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@dynamicCallable</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RandomNumberGenerator</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dynamicallyCall</span><span class="params">(withArguments args: [Int])</span></span> -&gt; <span class="type">Double</span> &#123;</div><div class="line">        <span class="keyword">let</span> numberOfZeroes = <span class="type">Double</span>(args[<span class="number">0</span>])</div><div class="line">        <span class="keyword">let</span> maximum = pow(<span class="number">10</span>, numberOfZeroes)</div><div class="line">        <span class="keyword">return</span> <span class="type">Double</span>.random(<span class="keyword">in</span>: <span class="number">0</span>...maximum)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> random = <span class="type">RandomNumberGenerator</span>()</div><div class="line"><span class="keyword">let</span> result = random(<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>使用 <code>@dynamicCallable</code> 时需要注意一些重要的规则：</p>
+<ul>
+<li>你可以将其应用于结构体、枚举、类和协议。</li>
+<li>如果你实现了 <code>withKeywordArguments:</code> 并且没有实现 <code>withArguments:</code>，你的类型仍然可以在没有参数标签的情况下调用，你只需要为键获得空字符串。</li>
+<li>如果 <code>withKeywordArguments:</code> 或 <code>withArguments:</code> 的实现被标记为 throw，则调用该类型也将可抛出。</li>
+<li>你不能把 <code>@dynamicCallable</code> 添加到 extension 里，只可在类的主体里面添加。</li>
+<li>你仍然可以为你的类型添加其他方法和属性，并照常使用它们。</li>
+</ul>
+<p>也许更重要的是，不支持方法决议，这意味着我们必须直接调用类型（例如 <code>random(numberOfZeroes: 5)</code>）而不是调用类型上的特定方法（例如 <code>random.generate(numberOfZeroes: 5)</code>）。已经有一些关于使用方法签名添加后者的讨论，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">dynamicallyCallMethod</span><span class="params">(named: String, withKeywordArguments: KeyValuePairs&lt;String, Int&gt;)</span></span></div></pre></td></tr></table></figure>
+<p>如果那在未来的 Swift 版本中可能实现，它可能会为 test mock 创造出一些非常有趣的可能性。</p>
+<p>与此同时 <code>@dynamicCallable</code> 不太可能广受欢迎，但对于希望与 Python，JavaScript 和其他语言交互的少数人来说，它非常重要。</p>
+<h3 id="面向未来的枚举-case"><a href="#面向未来的枚举-case" class="headerlink" title="面向未来的枚举 case"></a>面向未来的枚举 case</h3><p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0192-non-exhaustive-enums.md" target="_blank" rel="external">SE-0192</a> 增加了在固定的枚举和可能将被改变的枚举间的区分度。</p>
+<p>Swift 的一个安全特性是它要求所有 switch 语句都是详尽的，它们必须覆盖所有情况。虽然这从安全角度来看效果很好，但是在将来添加新案例时会导致兼容性问题：系统框架可能会发送你未提供的不同内容，或者你依赖的代码可能会添加新案例并导致你的编译中断，因为你的 switch 不再详尽。</p>
+<p>使用 <code>@unknown</code> 注解，我们现在可以区分两个略有不同的场景：“这个默认情况应该针对所有其他情况运行，因为我不想单独处理它们” 和 “我想单独处理所有情况，但如果将来出现任何问题，请使用此而非报错。”</p>
+<p>以下是一个枚举示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PasswordError</span>: <span class="title">Error</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> short</div><div class="line">    <span class="keyword">case</span> obvious</div><div class="line">    <span class="keyword">case</span> simple</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以使用 <code>switch</code> 编写代码来处理每个案例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">showOld</span><span class="params">(error: PasswordError)</span></span> &#123;</div><div class="line">    <span class="keyword">switch</span> error &#123;</div><div class="line">    <span class="keyword">case</span> .short:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password was too short."</span>)</div><div class="line">    <span class="keyword">case</span> .obvious:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password was too obvious."</span>)</div><div class="line">    <span class="keyword">default</span>:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password was too simple."</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于短密码和弱强度密码，它使用两个 case，但将第三种情况将会到 default 中处理。</p>
+<p>现在如果将来我们在 enum 中添加了一个名为 <code>old</code> 的新 case，对于以前使用过的密码，我们的 <code>default</code> case 会被自动调用，即使它的消息没有意义。</p>
+<p>Swift 无法向我们发出有关此代码的警告，因为它在语法上没有问题，因此很容易错过这个错误。幸运的是，新的 <code>@unknown</code> 注解完美地修复了它，它只能用于 <code>default</code> 情况，并且设计为在将来出现新案例时可以运行。</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">showNew</span><span class="params">(error: PasswordError)</span></span> &#123;</div><div class="line">    <span class="keyword">switch</span> error &#123;</div><div class="line">    <span class="keyword">case</span> .short:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password was too short."</span>)</div><div class="line">    <span class="keyword">case</span> .obvious:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password was too obvious."</span>)</div><div class="line">    @unknown <span class="keyword">default</span>:</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Your password wasn't suitable."</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该代码现在将产生警告，因为 <code>switch</code> 块不再详尽，Swift 是希望我们明确处理每个 case 的。实际上这只是一个 <strong>警告</strong>，这使得这个属性很实用：如果一个框架在未来添加一个新 case，你将得到警告，但它不会让你的代码编译不通过。</p>
+<h3 id="try-嵌套可选的展平"><a href="#try-嵌套可选的展平" class="headerlink" title="try? 嵌套可选的展平"></a>try? 嵌套可选的展平</h3><p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0230-flatten-optional-try.md" target="_blank" rel="external">SE-0230</a> 修改 <code>try?</code> 的工作方式，以便嵌套的可选项被展平成为一个常规的选择。这使得它的工作方式与可选链和条件类型转换（if let）的工作方式相同，这两种方法都在早期的 Swift 版本中展平了可选项。</p>
+<p>这是一个演示变化的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> id: <span class="type">Int</span></div><div class="line"></div><div class="line">    <span class="keyword">init</span>?(id: <span class="type">Int</span>) &#123;</div><div class="line">        <span class="keyword">if</span> id &lt; <span class="number">1</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.id = id</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getMessages</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span> &#123;</div><div class="line">        <span class="comment">// 复杂的一段代码</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"No messages"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> user = <span class="type">User</span>(id: <span class="number">1</span>)</div><div class="line"><span class="keyword">let</span> messages = <span class="keyword">try</span>? user?.getMessages()</div></pre></td></tr></table></figure>
+<p><code>User</code> 结构体有一个可用的初始化器，因为我们想确保开发者创建具有有效 ID 的用户。<code>getMessages()</code> 方法理论上包含某种复杂的代码来获取用户的所有消息列表，因此它被标记为 <code>throws</code>，我已经让它返回一个固定的字符串，所以代码可编译通过。</p>
+<p>关键在于最后一行：因为用户是可选的而使用可选链，因为 <code>getMessages()</code> 可以抛出错误，它使用 <code>try?</code> 将 throw 方法转换为可选的，所以我们最终得到一个嵌套的可选。在 Swift 4.2 和更早版本中，这将使 <code>messages</code> 成为 <code>String??</code>，一个可选的可选字符串，但是在 Swift 5.0 和更高版本中 <code>try?</code> 如果对于已经是可选的类型，它们不会将值包装成可选类型，所以 <code>messages</code> 将只是一个 <code>String?</code>。</p>
+<p>此新行为与可选链和条件类型转换（if let）的现有行为相匹配。也就是说，如果你需要的话，可以在一行代码中使用可选链十几次，但最终不会有那么多个嵌套的可选。类似地，如果你使用 <code>as?</code> 的可选链，你仍然只有一个级别的可选性，而这通常是你想要的。</p>
+<h3 id="Integer-整倍数自省"><a href="#Integer-整倍数自省" class="headerlink" title="Integer 整倍数自省"></a>Integer 整倍数自省</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=iCRwqxON8Os" target="_blank" rel="external"><strong>YouTube 视频讲解</strong></a></li>
+</ul>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0225-binaryinteger-iseven-isodd-ismultiple.md" target="_blank" rel="external">SE-0225</a> 为整数添加 <code>isMultiple(of:)</code> 方法来允许我们以比使用取余数运算 <code>%</code> 更清晰的方式检查一个数是否是另一个数的倍数。</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> rowNumber = <span class="number">4</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> rowNumber.isMultiple(of: <span class="number">2</span>) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Even"</span>)</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Odd"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>没错，我们可以使用 <code>if rowNumber % 2 == 0</code> 实现相同的功能，但你不得不承认这样看起来不清晰，使用 <code>isMultiple(of:)</code> 意味着它可以在 Xcode 的代码自动补全中列出，这有助于你发现。</p>
+<h3 id="使用-compactMapValues-转换和解包字典值"><a href="#使用-compactMapValues-转换和解包字典值" class="headerlink" title="使用 compactMapValues() 转换和解包字典值"></a>使用 compactMapValues() 转换和解包字典值</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=Le32Tbkv2v0" target="_blank" rel="external"><strong>YouTube 视频讲解</strong></a></li>
+</ul>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0218-introduce-compact-map-values.md" target="_blank" rel="external">SE-0218</a> 为字典添加了一个新的 <code>compactMapValues()</code> 方法，它能够将数组中的 <code>compactMap()</code> 功能转换我需要的值，解包结果，然后丢弃任何 nil，与字典中的 <code>mapValues()</code> 方法一起使用能保持键的完整并只转换值。</p>
+<p>举个例子，这里是一个比赛数据的字典，以及他们完成的秒数。其中有一个人没有完成，标记为 “DNF”（未完成）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> times = [</div><div class="line">    <span class="string">"Hudson"</span>: <span class="string">"38"</span>,</div><div class="line">    <span class="string">"Clarke"</span>: <span class="string">"42"</span>,</div><div class="line">    <span class="string">"Robinson"</span>: <span class="string">"35"</span>,</div><div class="line">    <span class="string">"Hartis"</span>: <span class="string">"DNF"</span></div><div class="line">]</div></pre></td></tr></table></figure>
+<p>我们可以使用 <code>compactMapValues()</code> 创建一个名字和时间为整数的新字典，删除一个 DNF 的人：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> finishers1 = times.compactMapValues &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125;</div></pre></td></tr></table></figure>
+<p>或者你可以直接将 <code>Int</code> 初始化器传递给 <code>compactMapValues()</code>，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> finishers2 = times.compactMapValues(<span class="type">Int</span>.<span class="keyword">init</span>)</div></pre></td></tr></table></figure>
+<p>你还可以使用 <code>compactMapValues()</code> 来展开选项并丢弃 nil 值而不执行任何类型转换，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> people = [</div><div class="line">    <span class="string">"Paul"</span>: <span class="number">38</span>,</div><div class="line">    <span class="string">"Sophie"</span>: <span class="number">8</span>,</div><div class="line">    <span class="string">"Charlotte"</span>: <span class="number">5</span>,</div><div class="line">    <span class="string">"William"</span>: <span class="literal">nil</span></div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">let</span> knownAges = people.compactMapValues &#123; $<span class="number">0</span> &#125;</div></pre></td></tr></table></figure>
+<h3 id="被移除的特性：计算序列中的匹配项"><a href="#被移除的特性：计算序列中的匹配项" class="headerlink" title="被移除的特性：计算序列中的匹配项"></a>被移除的特性：计算序列中的匹配项</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=syPKtPb0y-Y" target="_blank" rel="external"><strong>YouTube 视频讲解</strong></a></li>
+</ul>
+<p><strong>这个 Swift 5.0 功能在 beta 版中被撤销，因为它导致了类型检查器的性能问题。希望它能够在 Swift 5.1 回归，或者用一个新名称来避免问题。</strong></p>
+<p><a href="https://github.com/apple/swift-evolution/blob/master/proposals/0220-count-where.md" target="_blank" rel="external">SE-0220</a> 引入了一个新的 <code>count(where:)</code> 方法，该方法执行 <code>filter()</code> 的等价方法并在一次传递中计数。这样可以节省立即丢弃的新阵列的创建，并为常见问题提供清晰简洁的解决方案。</p>
+<p>此示例创建一个测试结果数组，并计算大于或等于 85 的数的个数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> scores = [<span class="number">100</span>, <span class="number">80</span>, <span class="number">85</span>]</div><div class="line"><span class="keyword">let</span> passCount = scores.<span class="built_in">count</span> &#123; $<span class="number">0</span> &gt;= <span class="number">85</span> &#125;</div></pre></td></tr></table></figure>
+<p>这计算了数组中有多少名称以 “Terry” 开头：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> pythons = [<span class="string">"Eric Idle"</span>, <span class="string">"Graham Chapman"</span>, <span class="string">"John Cleese"</span>, <span class="string">"Michael Palin"</span>, <span class="string">"Terry Gilliam"</span>, <span class="string">"Terry Jones"</span>]</div><div class="line"><span class="keyword">let</span> terryCount = pythons.<span class="built_in">count</span> &#123; $<span class="number">0</span>.hasPrefix(<span class="string">"Terry"</span>) &#125;</div></pre></td></tr></table></figure>
+<p>所有遵循 <code>Sequence</code> 的类型都可以使用此方法，因此你也可以在集合和字典上使用它。</p>
+<h3 id="接下来干嘛？"><a href="#接下来干嘛？" class="headerlink" title="接下来干嘛？"></a>接下来干嘛？</h3><p>Swift 5.0 是 Swift 的最新版本，但之前的版本也包含了很多功能。你可以阅读以下文章：</p>
+<ul>
+<li><a href="https://www.hackingwithswift.com/articles/77/whats-new-in-swift-4-2" target="_blank" rel="external">What’s new in Swift 4.2?</a></li>
+<li><a href="https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1" target="_blank" rel="external">What’s new in Swift 4.1?</a></li>
+<li><a href="https://www.hackingwithswift.com/swift4" target="_blank" rel="external">What’s new in Swift 4.0?</a></li>
+</ul>
+<p>但还有更多，苹果已经在 Swift.org 上宣布了 <a href="https://swift.org/blog/5-1-release-process/" target="_blank" rel="external">Swift 5.1发布流程</a>，其中包括模块稳定性以及其他一些改进。在撰写本文时，5.1 的附加条款很少，但看起来我们会看到它在 WWDC 附近发布。</p>
+<hr>
+<blockquote>
+<ul>
+<li>译文出自：<a href="https://github.com/xitu/gold-miner" target="_blank" rel="external">掘金翻译计划</a><ul>
+<li>译者：    <a href="https://github.com/iWeslie" target="_blank" rel="external">iWeslie</a></li>
+<li>校对者： <a href="https://github.com/swants" target="_blank" rel="external">swants</a>,<a href="https://github.com/DevMcryYu" target="_blank" rel="external">DevMcryYu</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/02/12/使用 NSProxy 代理解决 NSTimer 内存泄漏.html">
+        <span class="next-text nav-default">使用 NSProxy 代理解决 NSTimer 内存泄漏</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

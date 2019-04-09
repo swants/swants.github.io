@@ -1,4 +1,4 @@
-https://swants.cn/2019/04/09/译-Swift-5-0-新特性.html
+https://swants.cn/2019/04/09/Swift-5-0-新特性.html
 https://swants.cn/2019/02/12/使用 NSProxy 代理解决 NSTimer 内存泄漏.html
 https://swants.cn/2018/12/29/菜鸡是如何度过2018年的.html
 https://swants.cn/2018/12/17/iOS开发中的设计模式下.html
