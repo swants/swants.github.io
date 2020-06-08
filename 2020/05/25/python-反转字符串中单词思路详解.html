@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="python 反转字符串中单词思路详解"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2020/05/25/python-反转字符串中单词思路详解.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> python 反转字符串中单词思路详解 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          python 反转字符串中单词思路详解
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-05-25
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解题思路"><span class="toc-text">解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、常规思路"><span class="toc-text">1、常规思路</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、利用两次切片，不需遍历"><span class="toc-text">2、利用两次切片，不需遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码-1"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分析-1"><span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、先反转字符串，再反转单词列表"><span class="toc-text">3、先反转字符串，再反转单词列表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码-2"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分析-2"><span class="toc-text">分析</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p> 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。</p>
+<p>示例 1:</p>
+<p>输入: “Let’s take LeetCode contest”<br>输出: “s’teL ekat edoCteeL tsetnoc”<br>注意：在字符串中，每个单词由单个空格分隔，并且字符串中不会有任何额外的空格。</p>
+<p>来源：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii" target="_blank" rel="external">https://leetcode-cn.com/problems/reverse-words-in-a-string-iii</a></p>
+<a id="more"></a>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>因为在 <code>Python</code> 中字符串是不可变，因此遍历字符串交换每个单词内字符位置的方法不太可行，但是利用 <code>Python</code> 切片的便利，可以写出更优雅的实现方式。</p>
+<h4 id="1、常规思路"><a href="#1、常规思路" class="headerlink" title="1、常规思路"></a>1、常规思路</h4><p>将字符串分割成单词列表 然后把每个单词反转切片</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s)</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">" "</span>.join(word[::<span class="number">-1</span>] <span class="keyword">for</span> word <span class="keyword">in</span> s.split(<span class="string">" "</span>))</div></pre></td></tr></table></figure>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
+<li><strong>时间复杂度</strong>： O(n) 。其中 n 是字符串的长度。</li>
+<li><strong>空间复杂度</strong>： O(1) 。</li>
+</ul>
+<h4 id="2、利用两次切片，不需遍历"><a href="#2、利用两次切片，不需遍历" class="headerlink" title="2、利用两次切片，不需遍历"></a>2、利用两次切片，不需遍历</h4><p>先反转单词列表 再反转字符串</p>
+<blockquote>
+<p>以字符串 <code>“I love drag queen”</code> 为例：</p>
+</blockquote>
+<p><strong>s.split(“ “)</strong> 将字符串分割成单词列表:</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="symbol">'I</span>', <span class="symbol">'love</span>', <span class="symbol">'drag</span>', <span class="symbol">'queen</span>']</div></pre></td></tr></table></figure>
+<p><strong>s.split(“ “)[::-1]</strong> 将单词列表反转:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="symbol">'queen</span>', <span class="symbol">'drag</span>', <span class="symbol">'love</span>', <span class="symbol">'I</span>']</div></pre></td></tr></table></figure></p>
+<p><strong>“ “.join(s.split(“ “)[::-1])</strong> 将单词列表转换为字符串，以空格分隔:<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"queen drag love I"</span></div></pre></td></tr></table></figure></p>
+<p><strong>“ “.join(s.split(“ “)[::-1])[::-1]</strong> 将字符串反转：<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">”<span class="keyword">I</span> evol gard neeuq“</div></pre></td></tr></table></figure></p>
+<h5 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s)</span>:</span></div><div class="line">        <span class="keyword">return</span> <span class="string">" "</span>.join(s.split(<span class="string">" "</span>)[::<span class="number">-1</span>])[::<span class="number">-1</span>]</div></pre></td></tr></table></figure>
+<h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><ul>
+<li><strong>时间复杂度</strong>： O(n) 。其中 n 是字符串的长度。</li>
+<li><strong>空间复杂度</strong>： O(1) 。</li>
+</ul>
+<p>或者，</p>
+<h4 id="3、先反转字符串，再反转单词列表"><a href="#3、先反转字符串，再反转单词列表" class="headerlink" title="3、先反转字符串，再反转单词列表"></a>3、先反转字符串，再反转单词列表</h4><p><strong>s[::-1]</strong> 反转字符串：<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">“neeuq gard evol <span class="keyword">I</span>”</div></pre></td></tr></table></figure></p>
+<p><strong>s[::-1].split(“ “)</strong> 将字符串分割成单词列表：<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="symbol">'neeuq</span>', <span class="symbol">'gard</span>', <span class="symbol">'evol</span>', <span class="symbol">'I</span>']</div></pre></td></tr></table></figure></p>
+<p><strong>s[::-1].split(“ “)[::-1]</strong> 将单词列表反转：<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="symbol">'I</span>', <span class="symbol">'evol</span>', <span class="symbol">'gard</span>', <span class="symbol">'neeuq</span>']</div></pre></td></tr></table></figure></p>
+<p><strong>“ “.join(s[::-1].split(“ “)[::-1])</strong> 将单词列表转换为字符串，以空格分隔:<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">“<span class="keyword">I</span> evol gard neeuq”</div></pre></td></tr></table></figure></p>
+<h5 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseWords</span><span class="params">(self, s)</span>:</span></div><div class="line">         <span class="keyword">return</span> <span class="string">" "</span>.join(s[::<span class="number">-1</span>].split(<span class="string">" "</span>)[::<span class="number">-1</span>])</div></pre></td></tr></table></figure>
+<h5 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h5><ul>
+<li><strong>时间复杂度</strong>：O(n)。其中 n 是字符串的长度。</li>
+<li><strong>空间复杂度</strong>：O(1)。</li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/05/27/官方题解的另一种思路.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">官方题解的另一种思路</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/05/07/利用集合差找出不在出发集的城市.html">
+        <span class="next-text nav-default">利用集合差找出不在出发集的城市</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2020
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

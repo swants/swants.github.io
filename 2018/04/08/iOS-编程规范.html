@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="iOS 编程规范"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2018/04/08/iOS-编程规范.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> iOS 编程规范 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          iOS 编程规范
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-08
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <ul>
+<li>通用规范<br>类、协议、枚举、结构体</li>
+</ul>
+<ol>
+<li>类、协议、枚举、结构体的命名首字母大写;</li>
+<li>类、协议、枚举、结构体采用驼峰命名;</li>
+<li></li>
+</ol>
+<ul>
+<li>变量名</li>
+</ul>
+<ol>
+<li>变量名采用驼峰试命名规则；</li>
+<li>变量名语义明确；</li>
+<li>变量名采用英文、数字等方式，禁止使用拼音，首字符应小写；</li>
+<li>同一类型的UI变量名请以类型开头后接实际功能英文语义，例如：btnLogin，imageViewLogo等 而不是loginBtn，好处在于便于编译器联想；</li>
+<li>变量名使用名词，普通变量名采用单数，集合类变量名采用复数；</li>
+<li>相对独立的程序块之间,变量声明之后必须加空行</li>
+<li></li>
+</ol>
+<ul>
+<li>常量</li>
+</ul>
+<ol>
+<li>全局常量名需大写，以下划线(_)分割各个单词的语义<br>方法&amp;函数</li>
+<li>方名采用驼峰试命名规则；</li>
+<li>方名语义明确；</li>
+<li>方名采用英文、数字等方式，禁止使用拼音，首字符应小写；</li>
+<li>单一职责，一个方法里只负责一件事</li>
+<li>方法里代码功能较多时(eg:一个view中含有多个控件，初始化控件时)请将方法按照说明4单一职责进行拆分；</li>
+<li>方法里的代码需要少于100行</li>
+</ol>
+<ul>
+<li>其他说明</li>
+</ul>
+<ol>
+<li>if、for、while、switch括号前后加空格；</li>
+<li>if、for、do、while、case、switch、default等语句自占一行，且if、for、do、while等语句的执行语句部分无论多少都要加括号{}；</li>
+<li>比较操作符,赋值操作符”=”、”+=”，算术操作符”+”、”%”，逻辑操作符”&amp;&amp;”、”&amp;”，位域操作符”&lt;&lt;”、”^”等双目操作符的前后加空格；</li>
+<li>“!”、”~”、”++”、”–”、”&amp;”（地址运算符）等单目操作符前后不加空格；</li>
+<li>一行只写一条语句</li>
+<li>较长的语句(&gt;80字符)要分多行书写，折行时操作符放在新行之首</li>
+<li>没有用或者没有使用的代码请移除掉</li>
+</ol>
+<ul>
+<li>注释</li>
+</ul>
+<ol>
+<li>注释语言必须准确、易懂、简洁；</li>
+<li>注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开；</li>
+<li>注释与所描述内容进行同样的缩排；</li>
+<li>将注释与其上面的代码用空行隔开；</li>
+<li>单行注释时 “//”后需要加一个空格</li>
+</ol>
+<ul>
+<li>OC语言相关规范</li>
+</ul>
+<ol>
+<li>除了局部变量，请尽量使用属性(@property)</li>
+<li>数组声明时需要添加上数组里存储的对象类型说明;<ul>
+<li>正确：Array <em>arrayMember&lt;Member </em>&gt;</li>
+<li>错误：Array *arrayMember&lt;&gt;</li>
+</ul>
+</li>
+<li>使用BOOL值时，确保使用YES和NO，禁止使用ture和false</li>
+<li>if、while判断时，请将字面值放在前面，避免手误产生bug，<ul>
+<li>正确：if (25 == age)</li>
+<li>错误：if (age == 25)</li>
+</ul>
+</li>
+<li>禁止使用关键字定义变量</li>
+<li>宏定义时，请保证每个小语句都用小括号()包起来</li>
+</ol>
+<ul>
+<li>swift语言相关规范</li>
+</ul>
+<ol>
+<li>swift语言里确定不会改变的请使用let关键字定义</li>
+<li>类型说明在冒号后添加一个空格;<ul>
+<li>正确：let mdn: String</li>
+<li>错误：let mdn:String</li>
+</ul>
+</li>
+<li>可选值解包时请确定保证有值，如无法确定，请做好if let或者guard let的判断处理</li>
+<li>实体尽量使用Struct，因为Struct为值类型，Class是引用类型<ul>
+<li>枚举，结构体是值类型，类是引用类型</li>
+<li>什么时候该用值类型：<ul>
+<li>要用==运算符来比较实例的数据时</li>
+<li>你希望那个实例的拷贝能保持独立的状态时</li>
+<li>数据会被多个线程使用时</li>
+</ul>
+</li>
+<li>什么时候该用引用类型（class）:<ul>
+<li>要用==运算符来比较实例身份的时候</li>
+<li>你希望有创建一个共享的、可变对象的时候</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现多个协议时，尽量使用扩展extension来进行处理<ul>
+<li>推荐的方式</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"> <span class="comment">// class stuff here</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - UITableViewDataSource</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MyViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</div><div class="line">  <span class="comment">// table view data source methods</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - UIScrollViewDelegate</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MyViewController</span>: <span class="title">UIScrollViewDelegate</span> </span>&#123;</div><div class="line">  <span class="comment">// scroll view delegate methods</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>* 不推荐的方式
+</code></pre><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewController</span>: <span class="type">UIViewController</span>, <span class="type">UITableViewDataSource</span>, <span class="type">UIScrollViewDelegate &#123;</span></span></div><div class="line">    <span class="comment">// all methods</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>第三方使用规范</li>
+</ul>
+<ol>
+<li>统一使用cocoapods来管理第三方代码</li>
+<li>导入第三方代码时，需明确版本号<ul>
+<li>正确： pod ‘RxSwift’, ‘4.4.0’，</li>
+<li>错误： pod ‘RxSwift’ / pod ‘RxSwift’, ‘~4.4.0’</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/规范/">规范</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">如何判断某经纬度是否在地图不规则区域内</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/03/17/Swift-网络单元测试完全手册.html">
+        <span class="next-text nav-default">Swift 网络单元测试完全手册</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2020
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="敏捷开发与代码规范的权衡"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2017/09/28/敏捷开发与代码规范的权衡.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 敏捷开发与代码规范的权衡 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          敏捷开发与代码规范的权衡
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-09-28
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>提纲：</p>
+<ol>
+<li>保险业务与资源界面全部相似，但又有字段的修改。</li>
+<li>保险需求变动不定。</li>
+<li>流程图 切图缺失，直接在疫苗的基础上做改动。</li>
+<li>是选择界面代码抽取 or 代码全部隔离<br>  最终目的是保证疫苗和保险业务绝对隔离。</li>
+</ol>
+<p>由于公司主业务发展不理想，公司考虑拓展其他业务。7月公司接了个保险公司的外包。便和保险公司需求合作，在自己 APP 做疫苗推广竞标业务之外引进保险竞标推广业务。<br>给了 20 天的开发周期，需求就是在原来疫苗的基础上加个 if else 的判断把保险加进去就行了（老板原话）。</p>
+<p>疫苗和保险毕竟不是同一性质的对象，技术领导在考虑到需求的不定变动之后，要求所有的代码全部拷贝独立出来,防止后期需求更改时,代码复杂度 耦合性太高.同时也将疫苗和保险代码全部隔离.不会污染到疫苗业务代码.</p>
+<p>刚做出决定时,安卓端还不停地吐槽代码冗余太高了,代码写的太非人类啊.没办法,自己作为一个搬砖工,实际上是没有太多的话语权的.与其做无谓的抗争,还不如踏踏实实把手里的代码尽量弄得条理些.事实证明,说什么开发完成后对代码进行抽取重构都是一句空话.小公司开发就几个人,你抽取代码没问题.谁来做测试,谁来保证抽取后不会出问题.出了问题谁来负责.这在小公司都是头疼的问题.</p>
+<p>一开始动手时,由于没有现成的切图 和流程图 接口文档也没有.好几个页面的跳转 字段的取值 布局 全都要靠自己摸索.甚至展示列表上显示那些字段,字段放什么位置都需要我们开发自己决定.   这就严重造成了安卓与iOS端的不统一.  整个开发过程就十分蛋疼.甚至在给老板展示汇报的时候,还出现了财富金额安卓和iOS显示不统一的插曲 (安卓保险总金额显示的是可提现的总金额).</p>
+<p>代码全部独立拷贝<br>优点:</p>
+<ol>
+<li>快速开发,</li>
+<li>可以应对不停变化的需求.</li>
+<li>代码隔离性好,拷贝出来份代码随便怎么搞,不会影响到原来的业务.<br>缺点:</li>
+<li>代码冗余度高</li>
+<li>需求文档 接口文档 切图全部缺失,项目可维护性变差,</li>
+<li>为之后的业务升级,人员接手,埋下了巨坑<br>到最后,敏捷开发是节约了时间呢,还是为以后维护耗费了大量时间呢,自待时间来看</li>
+</ol>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/10/08/掘金翻译-git-分支冲突问题解决记录.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">掘金翻译 git 分支冲突问题解决记录</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/08/27/Swift-Struct-References.html">
+        <span class="next-text nav-default">Swift Struct References</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2020
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

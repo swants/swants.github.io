@@ -175,13 +175,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/08/14/Swift-中的通用数据源.html">Swift 中的通用数据源</a>
+          <a class="post-link" href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html">如何判断某经纬度是否在地图不规则区域内</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-08-14
+          2018-05-14
         </span>
         
       </div>
@@ -198,9 +198,9 @@
         
 
         
-          <p>在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 <a href="https://github.com/apple/swift/blob/master/CHANGELOG.md" target="_blank" rel="external">Swift</a> 的最新进展出现了很多有趣的解决方案。</p>
+          <p>在 LBS 开发中，可能经常要碰到这样的问题，如何判断一个指定的经纬度点是否落在一个多边形区域内？比如在地图上画了一个多边形区域，然后给出一个经纬度点，怎样判断这个点是否在这个多边形范围之内？</p>
           <div class="read-more">
-            <a href="/2017/08/14/Swift-中的通用数据源.html" class="read-more-link">阅读更多</a>
+            <a href="/2018/05/14/如何判断某经纬度是否在地图不规则区域内.html" class="read-more-link">阅读更多</a>
           </div>
         
       
@@ -218,13 +218,169 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？.html">开发者眼中 iOS 11 都更新了什么？</a>
+          <a class="post-link" href="/2018/04/08/iOS-编程规范.html">iOS 编程规范</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-07-07
+          2018-04-08
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li>通用规范<br>类、协议、枚举、结构体</li>
+</ul>
+<ol>
+<li>类、协议、枚举、结构体的命名首字母大写;</li>
+<li>类、协议、枚举、结构体采用驼峰命名;</li>
+<li></li>
+</ol>
+<ul>
+<li>变量名</li>
+</ul>
+<ol>
+<li>变量名采用驼峰试命名规则；</li>
+<li>变量名语义明确；</li>
+<li>变量名采用英文、数字等方式，禁止使用拼音，首字符应小写；</li>
+<li>同一类型的UI变量名请以类型开头后接实际功能英文语义，例如：btnLogin，imageViewLogo等 而不是loginBtn，好处在于便于编译器联想；</li>
+<li>变量名使用名词，普通变量名采用单数，集合类变量名采用复数；</li>
+<li>相对独立的程序块之间,变量声明之后必须加空行</li>
+<li></li>
+</ol>
+<ul>
+<li>常量</li>
+</ul>
+<ol>
+<li>全局常量名需大写，以下划线(_)分割各个单词的语义<br>方法&amp;函数</li>
+<li>方名采用驼峰试命名规则；</li>
+<li>方名语义明确；</li>
+<li>方名采用英文、数字等方式，禁止使用拼音，首字符应小写；</li>
+<li>单一职责，一个方法里只负责一件事</li>
+<li>方法里代码功能较多时(eg:一个view中含有多个控件，初始化控件时)请将方法按照说明4单一职责进行拆分；</li>
+<li>方法里的代码需要少于100行</li>
+</ol>
+<ul>
+<li>其他说明</li>
+</ul>
+<ol>
+<li>if、for、while、switch括号前后加空格；</li>
+<li>if、for、do、while、case、switch、default等语句自占一行，且if、for、do、while等语句的执行语句部分无论多少都要加括号{}；</li>
+<li>比较操作符,赋值操作符”=”、”+=”，算术操作符”+”、”%”，逻辑操作符”&amp;&amp;”、”&amp;”，位域操作符”&lt;&lt;”、”^”等双目操作符的前后加空格；</li>
+<li>“!”、”~”、”++”、”–”、”&amp;”（地址运算符）等单目操作符前后不加空格；</li>
+<li>一行只写一条语句</li>
+<li>较长的语句(&gt;80字符)要分多行书写，折行时操作符放在新行之首</li>
+<li>没有用或者没有使用的代码请移除掉</li>
+</ol>
+<ul>
+<li>注释</li>
+</ul>
+<ol>
+<li>注释语言必须准确、易懂、简洁；</li>
+<li>注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开；</li>
+<li>注释与所描述内容进行同样的缩排；</li>
+<li>将注释与其上面的代码用空行隔开；</li>
+<li>单行注释时 “//”后需要加一个空格</li>
+</ol>
+<ul>
+<li>OC语言相关规范</li>
+</ul>
+<ol>
+<li>除了局部变量，请尽量使用属性(@property)</li>
+<li>数组声明时需要添加上数组里存储的对象类型说明;<ul>
+<li>正确：Array <em>arrayMember&lt;Member </em>&gt;</li>
+<li>错误：Array *arrayMember&lt;&gt;</li>
+</ul>
+</li>
+<li>使用BOOL值时，确保使用YES和NO，禁止使用ture和false</li>
+<li>if、while判断时，请将字面值放在前面，避免手误产生bug，<ul>
+<li>正确：if (25 == age)</li>
+<li>错误：if (age == 25)</li>
+</ul>
+</li>
+<li>禁止使用关键字定义变量</li>
+<li>宏定义时，请保证每个小语句都用小括号()包起来</li>
+</ol>
+<ul>
+<li>swift语言相关规范</li>
+</ul>
+<ol>
+<li>swift语言里确定不会改变的请使用let关键字定义</li>
+<li>类型说明在冒号后添加一个空格;<ul>
+<li>正确：let mdn: String</li>
+<li>错误：let mdn:String</li>
+</ul>
+</li>
+<li>可选值解包时请确定保证有值，如无法确定，请做好if let或者guard let的判断处理</li>
+<li>实体尽量使用Struct，因为Struct为值类型，Class是引用类型<ul>
+<li>枚举，结构体是值类型，类是引用类型</li>
+<li>什么时候该用值类型：<ul>
+<li>要用==运算符来比较实例的数据时</li>
+<li>你希望那个实例的拷贝能保持独立的状态时</li>
+<li>数据会被多个线程使用时</li>
+</ul>
+</li>
+<li>什么时候该用引用类型（class）:<ul>
+<li>要用==运算符来比较实例身份的时候</li>
+<li>你希望有创建一个共享的、可变对象的时候</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现多个协议时，尽量使用扩展extension来进行处理<ul>
+<li>推荐的方式</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"> <span class="comment">// class stuff here</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - UITableViewDataSource</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MyViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</div><div class="line">  <span class="comment">// table view data source methods</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - UIScrollViewDelegate</span></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MyViewController</span>: <span class="title">UIScrollViewDelegate</span> </span>&#123;</div><div class="line">  <span class="comment">// scroll view delegate methods</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>* 不推荐的方式
+</code></pre><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewController</span>: <span class="type">UIViewController</span>, <span class="type">UITableViewDataSource</span>, <span class="type">UIScrollViewDelegate &#123;</span></span></div><div class="line">    <span class="comment">// all methods</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>第三方使用规范</li>
+</ul>
+<ol>
+<li>统一使用cocoapods来管理第三方代码</li>
+<li>导入第三方代码时，需明确版本号<ul>
+<li>正确： pod ‘RxSwift’, ‘4.4.0’，</li>
+<li>错误： pod ‘RxSwift’ / pod ‘RxSwift’, ‘~4.4.0’</li>
+</ul>
+</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/03/17/Swift-网络单元测试完全手册.html">Swift 网络单元测试完全手册</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-03-17
         </span>
         
       </div>
@@ -241,9 +397,10 @@
         
 
         
-          <p>苹果在 2017 年全球开发者大会上公布了 iOS 11 , 其加入许多强大的功能，如 <code>Core ML</code>,<code>ARKit</code>,<code>Vision</code>,<code>PDFKit</code>,<code>MusicKit</code> 拖放等等。 我尝试着把主要变化在接下来的文章里总结了出来，并在可行的地方提供代码，这样你就可以直接上手。</p>
+          <p><img src="/images/blog04/01.png" alt="image">  </p>
+<p>不得不承认，对于 iOS 开发写测试并不是很普遍(至少和后端写测试程度相比)。我过去是个独立开发者而且最初也没经过原生“测试驱动”的开发培训，因此我花费了大量的时间来学习如何编写测试用例，如何写出可测试的代码。这也是我写这篇文章的初衷，我想把自己用 Swift 写测试时摸索到的心得分享给大家，希望我的见解能够帮助大家节省学习时间，少走些弯路。</p>
           <div class="read-more">
-            <a href="/2017/07/07/开发者眼中-iOS-11-都更新了什么？.html" class="read-more-link">阅读更多</a>
+            <a href="/2018/03/17/Swift-网络单元测试完全手册.html" class="read-more-link">阅读更多</a>
           </div>
         
       
@@ -261,13 +418,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/06/15/避免使用第三方UI库.html">避免使用第三方UI库</a>
+          <a class="post-link" href="/2018/01/12/Xcode-环境配置最佳实践.html">Xcode 环境配置最佳实践</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-06-15
+          2018-01-12
         </span>
         
       </div>
@@ -284,9 +441,10 @@
         
 
         
-          <p>最近 iOS 社区一些人在讨论关于应该 <a href="http://martiancraft.com/blog/2017/04/analyzing-third-party-libraries/" target="_blank" rel="external">赞成还是反对使用第三方依赖库</a> (当然, 大部分人持反对意见).  我看到的许多争论的观点都有失偏颇 -它们把所有的第三方库都归于一类混为一谈. 就像大多数事情一样,整体考虑不是那么简单的的事,所以现在让我们将目光放在一个小的观点上: <strong>我们应该避免使用 第三方UI依赖库吗?</strong></p>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工欲善其事，必先利其器。在 iOS 中,如何处理 <strong>配置环境</strong> 和根据需求自定义的 <strong>设置</strong> 关系也尤为重要。虽然 Xcode 提供了一系列的工具帮助我们进行妥善地配置。但遗憾的是，我见过的很多团队在绝大多数时候都没有充分利用这些辅助工具。这并不是他们的错：苹果只为我们提供了一些不怎么好用的默认配置，而没有更好的帮助我们学习如何达到最佳实践。</p>
+<p>在这篇文章里，我们将探索如何更好地利用 Xcode 配置，如何把 APP 的设置定义得更加有条理。</p>
           <div class="read-more">
-            <a href="/2017/06/15/避免使用第三方UI库.html" class="read-more-link">阅读更多</a>
+            <a href="/2018/01/12/Xcode-环境配置最佳实践.html" class="read-more-link">阅读更多</a>
           </div>
         
       
@@ -304,13 +462,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/05/11/iOS-APP-崩溃日志分析.html">iOS APP 崩溃日志分析</a>
+          <a class="post-link" href="/2017/11/16/git-命令汇总.html">git  命令汇总</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-05-11
+          2017-11-16
         </span>
         
       </div>
@@ -327,9 +485,12 @@
         
 
         
-          <p>在日常开发中,我们难免遇到崩溃.如果是在开发过程中，我们可以直接通过 Xcode 来找到问题所在。如果是在测试的时候崩溃，我们也可以轻易的通过测试机导出 crash 进行问题定位。  可是一旦当产品上线之后，这一切就变得不那么容易了。庆幸的是市场上已经出现了一些比较好的第三方 crash 统计服务比如 bugly。 可以让我轻松了解到crash时的堆栈信息。 但是bugly也有符号化不到位的情况， 比如:  </p>
+          <h3 id="git-仓库命令"><a href="#git-仓库命令" class="headerlink" title="git 仓库命令"></a>git 仓库命令</h3><p><code>git clone</code> : 下载仓库到本地。   <code>git clone 仓库URL 目的路径</code>  把仓库下载到目的路径。</p>
+<blockquote>
+<p>当 clone 仓库到本地时  本地只能看到 master 分支 如果想看到其他分支 使用 <code>git checkout -b &lt;name&gt; origin/&lt;name&gt;</code>  </p>
+</blockquote>
           <div class="read-more">
-            <a href="/2017/05/11/iOS-APP-崩溃日志分析.html" class="read-more-link">阅读更多</a>
+            <a href="/2017/11/16/git-命令汇总.html" class="read-more-link">阅读更多</a>
           </div>
         
       
@@ -347,13 +508,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2016/10/04/CALayer-入门指引.html">CALayer 入门指引</a>
+          <a class="post-link" href="/2017/10/18/为什么头文件最好在-m中导入.html">为什么头文件最好在.m中导入</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2016-10-04
+          2017-10-18
         </span>
         
       </div>
@@ -366,14 +527,125 @@
       
         
         
-          
+
+        
+          <p>在头文件中引用头文件会在编译时就完全得知所引入头文件的所有接口信息，例如在A.h中导入B.h，将来如果在SubA.h中导入了A.h，隐式地导入了B.h，增加不必要的编译，内聚度低；<br>在实现文件中导入头文件，编译器只会在需要的时候得知类的接口信息，会减少编译时间，并且类之间的耦合度会降低.h 里用到的类型尽量用 @class 声明，然后在 .m 里 import。只有两种情况是一定要在 .h 里 import 的：1. 继承的父类 2. 实现某个 protocol。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/10/08/掘金翻译-git-分支冲突问题解决记录.html">掘金翻译 git 分支冲突问题解决记录</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-08
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
         
 
         
-          <p>本篇文章将会介绍 iOS 中一个老生常谈的话题: <strong>layers</strong> .你可能已经熟悉iOS中各种各样的views,但可能还不知道每一个view背后都有一个叫做 layer 的东西存在.而layers是组成 <strong>Core Animation framework</strong> 的重要一部分.</p>
-          <div class="read-more">
-            <a href="/2016/10/04/CALayer-入门指引.html" class="read-more-link">阅读更多</a>
-          </div>
+          <p>情景：</p>
+<ol>
+<li>认领了一篇文章，<code>fork</code> 之后翻译完毕， 提到本地 <code>github</code> 上 发 <code>PR</code> </li>
+<li>进入文章校对环节，针对校对者的意见,在自己 <code>github</code> 上修改文章并发<code>PR</code>（仅是在 <code>github</code> 上修改 本地没有 <code>pull</code> ）。（问题发生）</li>
+<li>掘金将文章合并到主分支上。</li>
+<li>认领第二篇文章，翻译完成。才发现是在主分支上翻译的。保存译文 切换到 <code>translate</code> 上，发现 <code>translate</code> 没有该翻译文章。 （思维不清晰，没有认准分支，直接进行上手操作）</li>
+<li>主分支拉取上游库，然后将主分支合并到 <code>translate</code> 库上。（ <code>merge</code> 存在问题）</li>
+<li><code>translate</code> 包含了翻译文章，进行翻译。提交到 <code>github</code> 上提示错误。</li>
+<li>尝试几个方法后，未果。最后删除 <code>github</code> 上的 <code>translate</code> 分支，将本地的 <code>translate</code> 直接推上去。 </li>
+<li>在 <code>github</code> 上发 <code>PR</code>。提示不能自动合并。提交到了掘金，但是有冲突。</li>
+<li>联系掘金管理员。听从了他的建议。主分支拉取上游库。新建分支，在该分支上翻译文章。</li>
+<li>将该分支 <code>push</code> 到自己 <code>github</code> 上，发 <code>PR</code>，成功解决。</li>
+</ol>
+<p>问题分析：</p>
+<ol>
+<li>上一篇文章翻译完毕之后，没有更新本地文件，直接就进行操作。（操作本身就不规范）。</li>
+<li>逻辑不清晰，就直接上手，没有考虑好每一步操作会带来什么效果。</li>
+<li>分支管理，每个功能保持独立的分支是个好习惯。</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/09/28/敏捷开发与代码规范的权衡.html">敏捷开发与代码规范的权衡</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-09-28
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>提纲：</p>
+<ol>
+<li>保险业务与资源界面全部相似，但又有字段的修改。</li>
+<li>保险需求变动不定。</li>
+<li>流程图 切图缺失，直接在疫苗的基础上做改动。</li>
+<li>是选择界面代码抽取 or 代码全部隔离<br>  最终目的是保证疫苗和保险业务绝对隔离。</li>
+</ol>
+<p>由于公司主业务发展不理想，公司考虑拓展其他业务。7月公司接了个保险公司的外包。便和保险公司需求合作，在自己 APP 做疫苗推广竞标业务之外引进保险竞标推广业务。<br>给了 20 天的开发周期，需求就是在原来疫苗的基础上加个 if else 的判断把保险加进去就行了（老板原话）。</p>
+<p>疫苗和保险毕竟不是同一性质的对象，技术领导在考虑到需求的不定变动之后，要求所有的代码全部拷贝独立出来,防止后期需求更改时,代码复杂度 耦合性太高.同时也将疫苗和保险代码全部隔离.不会污染到疫苗业务代码.</p>
+<p>刚做出决定时,安卓端还不停地吐槽代码冗余太高了,代码写的太非人类啊.没办法,自己作为一个搬砖工,实际上是没有太多的话语权的.与其做无谓的抗争,还不如踏踏实实把手里的代码尽量弄得条理些.事实证明,说什么开发完成后对代码进行抽取重构都是一句空话.小公司开发就几个人,你抽取代码没问题.谁来做测试,谁来保证抽取后不会出问题.出了问题谁来负责.这在小公司都是头疼的问题.</p>
+<p>一开始动手时,由于没有现成的切图 和流程图 接口文档也没有.好几个页面的跳转 字段的取值 布局 全都要靠自己摸索.甚至展示列表上显示那些字段,字段放什么位置都需要我们开发自己决定.   这就严重造成了安卓与iOS端的不统一.  整个开发过程就十分蛋疼.甚至在给老板展示汇报的时候,还出现了财富金额安卓和iOS显示不统一的插曲 (安卓保险总金额显示的是可提现的总金额).</p>
+<p>代码全部独立拷贝<br>优点:</p>
+<ol>
+<li>快速开发,</li>
+<li>可以应对不停变化的需求.</li>
+<li>代码隔离性好,拷贝出来份代码随便怎么搞,不会影响到原来的业务.<br>缺点:</li>
+<li>代码冗余度高</li>
+<li>需求文档 接口文档 切图全部缺失,项目可维护性变差,</li>
+<li>为之后的业务升级,人员接手,埋下了巨坑<br>到最后,敏捷开发是节约了时间呢,还是为以后维护耗费了大量时间呢,自待时间来看</li>
+</ol>
+
         
       
     </div>
@@ -396,6 +668,11 @@
       </a>
     
     
+      <a class="next" href="/page/4/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
   </nav>
 
 
@@ -415,7 +692,7 @@
      
       2015 - 
     
-    2019
+    2020
 
   
 </div>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="官方题解的另一种思路"/>
+
+
+
+
+  <meta name="keywords" content="swants 塞万提斯  saiwantisi 博客 开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="塞万提斯">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://swants.cn/2020/05/27/官方题解的另一种思路.html"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 官方题解的另一种思路 - 塞万提斯 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">塞万提斯</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于我
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">塞万提斯</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于我
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          官方题解的另一种思路
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-05-27
+        </span>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解题思路"><span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定只含 “I”（增大）或 “D”（减小）的字符串 S ，令 N = S.length。</p>
+<p>返回 [0, 1, …, N] 的任意排列 A 使得对于所有 i = 0, …, N-1，都有：</p>
+<p>如果 S[i] == “I”，那么 A[i] &lt; A[i+1]<br>如果 S[i] == “D”，那么 A[i] &gt; A[i+1]</p>
+<p>来源：<a href="https://leetcode-cn.com/problems/di-string-match" target="_blank" rel="external">https://leetcode-cn.com/problems/di-string-match</a></p>
+<a id="more"></a>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>官方提供的题解，<strong>维护可用的最大和最小 high，low 两个变量</strong>，每次需要递增时放入high，并使 high–；需要递减时放入low，并使low–；当S遍历结束后，追加最后剩下数。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">diStringMatch</span><span class="params">(self, S)</span>:</span></div><div class="line">        lo, hi = <span class="number">0</span>, len(S)</div><div class="line">        ans = []</div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> S:</div><div class="line">            <span class="keyword">if</span> x == <span class="string">'I'</span>:</div><div class="line">                ans.append(lo)</div><div class="line">                lo += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                ans.append(hi)</div><div class="line">                hi -= <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> ans + [lo]</div></pre></td></tr></table></figure>
+<p>而下面要介绍的，和这个思路类似，<strong>但不同于维护相互靠近的两个变量，它维护的是向外远离的两个变量</strong>，即比当前数组内元素 <strong>刚好大/小一点</strong> 的 nextSmaller 和 nextBiger 变量。</p>
+<p>另外，因为数组首元素放入0，数组可能放入负数，因此最后需要额外将所有元素向（0，N）范围偏移。代码如下：</p>
+<blockquote>
+<p>tip: 因为放入数的取值范围依赖 S 的长度 N，因此无论官方题解的内缩还是第二种思路的外延，差值都是1，所以数组的所有元素差值正好为 N，不需要考虑重复数或超出(0，N)范围的情况</p>
+</blockquote>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">diStringMatch</span><span class="params">(self, S)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type S: str</div><div class="line">        :rtype: List[int]</div><div class="line">        """</div><div class="line">        a = [<span class="number">0</span>]</div><div class="line">        nextSmaller,nextBiger = <span class="number">-1</span>,<span class="number">1</span></div><div class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> S:</div><div class="line">            <span class="keyword">if</span>(s ==<span class="string">'I'</span>):</div><div class="line">                a.append(nextBiger)</div><div class="line">                nextBiger+=<span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                a.append(nextSmaller) </div><div class="line">                nextSmaller -= <span class="number">1</span></div><div class="line">        </div><div class="line">        <span class="comment"># minNum = 0 - min(a) 感谢 @瞌睡 指出 使用下边方式可以省一次遍历</span></div><div class="line">         minNum = nextSmaller + <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> minNum &gt; <span class="number">0</span>:</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(a)):</div><div class="line">                a[i] += minNum </div><div class="line">        </div><div class="line">        <span class="keyword">return</span> a</div></pre></td></tr></table></figure>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li><p><strong>时间复杂度：O(N)</strong>，其中 N 是字符串 S 的长度。</p>
+</li>
+<li><p><strong>空间复杂度：O(N)</strong>。</p>
+</li>
+</ul>
+<p>虽然算法复杂度和官方题解同样是<strong>O(n)</strong>， <del>但是第二种思路多了两个遍历（min函数 与for循环）算法复杂度为 3n</del>(感谢 @瞌睡 指出)，   <strong>但是第二种思路多了次遍历（for循环偏移）算法复杂度为 2n</strong>，而且代码也不够简洁优雅。 这种写法不值得提倡，但提供了另外一种思考角度，拓展下思维还是不错的。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/06/02/哈希实现O-n-的算法复杂度.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">哈希实现O(n)的算法复杂度</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/05/25/python-反转字符串中单词思路详解.html">
+        <span class="next-text nav-default">python 反转字符串中单词思路详解</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+<div class="copyright">
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2020
+
+  
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
